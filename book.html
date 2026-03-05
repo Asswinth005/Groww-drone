@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Now | AEROVIEW – schedule your aerial shoot</title>
+    <link rel="icon" type="asset/jpeg" href="assest/growwpark_logo.jpg">
+    <meta name="description" content="Book your drone photography session – real estate, events, construction or wedding. Fast & easy online scheduling.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'drone-slate': '#586C89',
+                        'drone-slate-light': '#7C8FA8',
+                        'drone-slate-dark': '#3A4A64',
+                        'bg-warm': '#FFFAF1',
+                        'neutral-dark': '#2D3A4A',
+                        'neutral-light': '#E8EDF2',
+                        'dark-bg': '#1a1a1a',
+                        'dark-card': '#2d2d2d',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Playfair Display', 'serif'],
+                        'premium': ['Cormorant Garamond', 'serif'],
+                        'alt': ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-8px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts + Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* base & navigation – exact copy from reference */
+        body {
+            background-color: #FFFAF1;
+            color: #2D3A4A;
+        }
+        .dark body {
+            background-color: #1a1a1a;
+            color: #e5e5e5;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        body::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* navigation – identical to reference */
+        .nav-item {
+            position: relative;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            color: #2D3A4A;
+            transition: color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .dark .nav-item { color: #e5e5e5; }
+        .nav-item:hover { color: #586C89; }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #586C89;
+            transition: width 0.3s ease;
+        }
+        [dir="rtl"] .nav-item::after { left: auto; right: 0; }
+        .nav-item:hover::after { width: 100%; }
+        
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 220px;
+            background: white;
+            border-radius: 12px;
+            padding: 0.75rem 0;
+            box-shadow: 0 20px 40px rgba(88,108,137,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(88,108,137,0.1);
+        }
+        .dark .dropdown-menu { background: #2d2d2d; border-color: #404040; }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        [dir="rtl"] .dropdown-menu { left: auto; right: 0; }
+        
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #2D3A4A;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .dark .dropdown-item { color: #e5e5e5; }
+        .dropdown-item:hover {
+            background: rgba(88,108,137,0.08);
+            color: #586C89;
+            padding-left: 1.75rem;
+        }
+        [dir="rtl"] .dropdown-item:hover { padding-left:1.5rem; padding-right:1.75rem; }
+        .dropdown-item i { margin-right:0.75rem; width:20px; color:#586C89; }
+        
+        .auth-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
+        .dark .auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
+        .auth-btn.login:hover { border-color:#586C89; color:#586C89; }
+        .dark .auth-btn.login:hover { border-color:#7C8FA8; color:white; }
+        .auth-btn.signup { background:#586C89; color:white; }
+        .auth-btn.signup:hover { background:#3A4A64; transform: translateY(-2px); box-shadow:0 8px 16px rgba(88,108,137,0.2); }
+        
+        .toggle-btn {
+            width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+            background:#E8EDF2; color:#4A5A70; transition:0.2s; border:none; cursor:pointer;
+        }
+        .dark .toggle-btn { background:#2A3647; color:#A0B3CC; }
+        .toggle-btn:hover { background:#586C89; color:white; }
+        .toggle-btn.active { background:#586C89; color:white; }
+        @media (max-width:1279px) { .desktop-toggle-group { display:none !important; } }
+        
+        /* mobile menu styles exactly as reference */
+        .mobile-menu { background:white; border-top:1px solid #E0E7EF; max-height:0; overflow:hidden; transition:max-height 0.5s ease; }
+        .dark .mobile-menu { background:#1A1A1A; border-color:#2A3647; }
+        .mobile-menu.open { max-height:85vh; overflow-y:auto; }
+        .mobile-menu-item { display:block; padding:1rem 1.5rem; font-weight:500; color:#2D3A4A; border-bottom:1px solid #E8EDF2; transition:0.2s; font-family:'Montserrat', sans-serif; }
+        .dark .mobile-menu-item { color:#D1D5DB; border-bottom-color:#2A3647; }
+        .mobile-menu-item:hover { background:#F5F8FC; color:#586C89; }
+        .dark .mobile-menu-item:hover { background:#374151; }
+        .mobile-dropdown-content { max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:#F9FCFE; }
+        .dark .mobile-dropdown-content { background:#1F2835; }
+        .mobile-dropdown-content.show { max-height:300px; }
+        .mobile-dropdown-item { display:block; padding:0.75rem 2.5rem; font-size:0.95rem; color:#4A5A70; transition:0.2s; border-bottom:1px solid #E8EDF2; font-family:'Montserrat', sans-serif; }
+        .dark .mobile-dropdown-item { color:#9CA3AF; border-bottom-color:#2A3647; }
+        .mobile-dropdown-item:hover { color:#586C89; background:#E8EDF2; }
+        .dark .mobile-dropdown-item:hover { background:#374151; color:white; }
+        .mobile-auth-btn { display:inline-block; padding:0.75rem 1.5rem; font-weight:500; border-radius:40px; transition:0.3s; text-align:center; margin:0.25rem; border:1px solid transparent; font-family:'Montserrat', sans-serif; }
+        .mobile-auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
+        .dark .mobile-auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
+        .mobile-auth-btn.login:hover { background:#586C89; color:white; border-color:#586C89; }
+        .mobile-auth-btn.signup { background:#586C89; color:white; }
+        .mobile-auth-btn.signup:hover { background:#3A4A64; }
+        
+        /* book now page specific */
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #586C89;
+            color: #586C89;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s;
+        }
+        .dark .step-number {
+            background: #2d2d2d;
+            color: #A0B3CC;
+            border-color: #586C89;
+        }
+        .step.active .step-number {
+            background: #586C89;
+            color: white;
+            border-color: #586C89;
+        }
+        .step.completed .step-number {
+            background: #3A4A64;
+            border-color: #3A4A64;
+            color: white;
+        }
+        .step-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #2D3A4A;
+        }
+        .dark .step-label {
+            color: #e5e5e5;
+        }
+        .step.active .step-label {
+            color: #586C89;
+            font-weight: 600;
+        }
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 60px;
+            width: 40px;
+            height: 2px;
+            background: #D0D9E2;
+        }
+        .dark .step:not(:last-child)::after {
+            background: #404040;
+        }
+        
+        .booking-card {
+            background: white;
+            border-radius: 30px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px -10px rgba(88,108,137,0.15);
+            border: 1px solid rgba(88,108,137,0.1);
+        }
+        .dark .booking-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        
+        .service-option {
+            border: 2px solid #E8EDF2;
+            border-radius: 20px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 1rem;
+        }
+        .dark .service-option {
+            border-color: #404040;
+        }
+        .service-option:hover {
+            border-color: #586C89;
+            background: rgba(88,108,137,0.02);
+        }
+        .service-option.selected {
+            border-color: #586C89;
+            background: rgba(88,108,137,0.05);
+            box-shadow: 0 10px 20px -5px rgba(88,108,137,0.2);
+        }
+        
+        .date-input {
+            border: 2px solid #E8EDF2;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .dark .date-input {
+            background: #2d2d2d;
+            border-color: #404040;
+            color: white;
+        }
+        .date-input:focus {
+            outline: none;
+            border-color: #586C89;
+        }
+        
+        .btn-primary {
+            background: #586C89;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background: #3A4A64;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(88,108,137,0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #586C89;
+            color: #586C89;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: #586C89;
+            color: white;
+        }
+        
+        .time-slot {
+            border: 1px solid #E8EDF2;
+            border-radius: 40px;
+            padding: 0.75rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .dark .time-slot {
+            border-color: #404040;
+        }
+        .time-slot:hover, .time-slot.selected {
+            background: #586C89;
+            color: white;
+            border-color: #586C89;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #E8EDF2;
+        }
+        .dark .summary-item {
+            border-bottom-color: #404040;
+        }
+        
+        /* service summary cards with images */
+        .service-img-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -8px rgba(88,108,137,0.1);
+            border: 1px solid rgba(88,108,137,0.1);
+            transition: all 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .dark .service-img-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        .service-img-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -12px rgba(88,108,137,0.25);
+            border-color: #586C89;
+        }
+        .service-img-card img {
+            height: 160px;
+            width: 100%;
+            object-fit: cover;
+        }
+        .service-img-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .social-icon {
+            width:40px; height:40px; border-radius:50%; background:#E8EDF2; color:#4A5A70; display:inline-flex; align-items:center; justify-content:center; transition:0.2s;
+        }
+        .dark .social-icon { background:#2A3647; color:#A0B3CC; }
+        .social-icon:hover { background:#586C89; color:white; transform:translateY(-3px); }
+        
+        /* hero section */
+        .book-hero {
+            background: linear-gradient(135deg, rgba(88,108,137,0.1) 0%, rgba(255,250,241,0.5) 100%);
+            border-radius: 40px;
+        }
+        .dark .book-hero {
+            background: linear-gradient(135deg, rgba(88,108,137,0.2) 0%, #1a1a1a 100%);
+        }
+        
+        /* FAQ section */
+        .faq-item {
+            border-bottom: 1px solid rgba(88,108,137,0.15);
+            padding: 1.5rem 0;
+        }
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: rgba(45,58,74,0.7);
+        }
+        .dark .faq-answer {
+            color: #9CA3AF;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+            margin-top: 1rem;
+        }
+        .faq-item.open .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="bg-[#FFFAF1] dark:bg-dark-bg">
+
+<!-- ========== HEADER (exact copy from reference) ========== -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-neutral-light dark:border-gray-800">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fas fa-camera-retro text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
+                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation (xl only) -->
+            <div class="hidden xl:flex items-center">
+                <div class="desktop-nav-container flex items-center gap-8">
+                    <div class="flex items-center gap-8">
+                        <div class="dropdown">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                Home <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="index.html" class="dropdown-item" style="background: rgba(88,108,137,0.08); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">
+                                    <i class="fas fa-home"></i> Home 1 
+                                </a>
+                                <a href="home2.html" class="dropdown-item"><i class="fas fa-home"></i> Home 2</a>
+                            </div>
+                        </div>
+                        <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">About</a>
+                        <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Services</a>
+                        <a href="book.html" class="nav-item font-medium text-drone-slate dark:text-drone-slate-light transition" style="font-weight: 600;">Book Now</a>
+                        <a href="portfolio.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Portfolio</a>
+                        <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Contact</a>
+                        <div class="dropdown">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                Dashboard <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="admin.html" class="dropdown-item"><i class="fas fa-user-shield"></i> Admin</a>
+                                <a href="client.html" class="dropdown-item"><i class="fas fa-user"></i> Client</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 ml-0">
+                        <a href="register.html" class="auth-btn signup">Register</a>
+                    </div>
+                </div>
+                <div class="flex gap-2 ml-4 desktop-toggle-group">
+                    <button id="theme-toggle" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                    <button id="rtl-toggle" class="toggle-btn">⇄</button>
+                </div>
+            </div>
+
+            <!-- Mobile button -->
+            <button id="mobile-toggle" class="xl:hidden text-neutral-dark dark:text-gray-300 p-2">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile menu (exact copy) -->
+        <div id="mobile-menu" class="mobile-menu xl:hidden">
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item"><span>Home</span><i class="fas fa-chevron-down text-xs"></i></button>
+                <div class="mobile-dropdown-content">
+                    <a href="index.html" class="mobile-dropdown-item" style="background:rgba(88,108,137,0.08);color:#586C89;border-left:3px solid #586C89;"><i class="fas fa-home mr-2"></i>Home 1</a>                     
+                    <a href="home2.html" class="mobile-dropdown-item">Home 2</a>
+                </div>
+            </div>
+            <a href="about.html" class="mobile-menu-item">About</a>
+            <a href="service.html" class="mobile-menu-item">Services</a>
+            <a href="book.html" class="mobile-menu-item" style="background: rgba(88,108,137,0.1); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">Book Now</a>
+            <a href="portfolio.html" class="mobile-menu-item">Portfolio</a>
+            <a href="contact.html" class="mobile-menu-item">Contact</a>
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item"><span>Dashboard</span><i class="fas fa-chevron-down text-xs"></i></button>
+                <div class="mobile-dropdown-content">
+                    <a href="admin.html" class="mobile-dropdown-item">Admin</a>
+                    <a href="client.html" class="mobile-dropdown-item">Client</a>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 p-6">
+                <a href="register.html" class="mobile-auth-btn signup flex-1 text-center">Register</a>
+            </div>
+            <div class="flex justify-center gap-3 p-6 border-t border-gray-200 dark:border-gray-800">
+                <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                <button id="rtl-toggle-mobile" class="toggle-btn">⇄</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ========== NEW HERO SECTION ========== -->
+<section class="pt-36 pb-12">
+    <div class="container mx-auto px-6">
+        <div class="book-hero p-8 md:p-12 lg:p-16 relative overflow-hidden animate-slide-up">
+            <!-- subtle pattern -->
+            <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #586C89 0px, #586C89 2px, transparent 2px, transparent 20px);"></div>
+            
+            <div class="relative z-10 max-w-4xl mx-auto text-center">
+                <span class="inline-flex items-center px-5 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm border border-drone-slate/10 mb-6">
+                    <i class="fas fa-calendar-check text-drone-slate mr-2"></i>
+                    <span class="text-sm font-medium">Secure your date in 4 easy steps</span>
+                </span>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 text-neutral-dark dark:text-white">
+                    Book Your <span class="text-drone-slate">Aerial Shoot</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-neutral-dark/70 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                    FAA-certified pilots, premium gear, and a creative touch. Reserve your slot now – we'll confirm within 2 hours.
+                </p>
+                <div class="flex flex-wrap gap-4 justify-center mt-10">
+                    <a href="#booking-form" class="btn-primary text-lg px-8 py-4">
+                        <i class="fas fa-arrow-down mr-2"></i>Start Booking
+                    </a>
+                    <a href="#service-cards" class="btn-outline text-lg px-8 py-4">
+                        <i class="fas fa-images mr-2"></i>View Services
+                    </a>
+                </div>
+            </div>
+            
+            <!-- floating elements -->
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-drone-slate/5 rounded-full blur-3xl"></div>
+            <div class="absolute -top-10 -right-10 w-60 h-60 bg-drone-slate/10 rounded-full blur-3xl"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BOOK NOW FORM SECTION (with id for anchor) ========== -->
+<section id="booking-form" class="pt-10 pb-10">
+    <div class="container mx-auto px-6">
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step active" id="step1-indicator">
+                <div class="step-number">1</div>
+                <span class="step-label">Service</span>
+            </div>
+            <div class="step" id="step2-indicator">
+                <div class="step-number">2</div>
+                <span class="step-label">Date & Time</span>
+            </div>
+            <div class="step" id="step3-indicator">
+                <div class="step-number">3</div>
+                <span class="step-label">Your Info</span>
+            </div>
+            <div class="step" id="step4-indicator">
+                <div class="step-number">4</div>
+                <span class="step-label">Confirm</span>
+            </div>
+        </div>
+
+       <!-- Booking Form Card -->
+<div class="booking-card max-w-4xl mx-auto">
+    <!-- Step 1: Service Selection -->
+    <div id="step1" class="step-content">
+        <h2 class="text-xl sm:text-2xl font-display font-bold mb-4 sm:mb-6 dark:text-white">Choose your service</h2>
+        
+        <!-- Service options - mobile optimized -->
+        <div class="space-y-3 sm:space-y-4">
+            <!-- Real Estate -->
+            <div class="service-option p-4 sm:p-6" onclick="selectService('realestate')" id="service-realestate">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                    <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-home text-xl sm:text-2xl text-drone-slate"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-base sm:text-lg dark:text-white">Real Estate Photography</h3>
+                            <p class="text-xs sm:text-sm opacity-90 truncate">4K HDR, 15-20 images, 2-3 min video</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
+                        <span class="font-bold text-drone-slate text-base sm:text-lg bg-drone-slate/5 px-4 py-2 rounded-full w-full sm:w-auto text-center">$499+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Events -->
+            <div class="service-option p-4 sm:p-6" onclick="selectService('events')" id="service-events">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                    <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-calendar-alt text-xl sm:text-2xl text-drone-slate"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-base sm:text-lg dark:text-white">Event Coverage</h3>
+                            <p class="text-xs sm:text-sm opacity-90 truncate">Conferences, festivals – 2 drones option</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
+                        <span class="font-bold text-drone-slate text-base sm:text-lg bg-drone-slate/5 px-4 py-2 rounded-full w-full sm:w-auto text-center">$899+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Construction -->
+            <div class="service-option p-4 sm:p-6" onclick="selectService('construction')" id="service-construction">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                    <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-hard-hat text-xl sm:text-2xl text-drone-slate"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-base sm:text-lg dark:text-white">Construction Progress</h3>
+                            <p class="text-xs sm:text-sm opacity-90 truncate">Orthomosaic, 3D models, weekly reports</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
+                        <span class="font-bold text-drone-slate text-base sm:text-lg bg-drone-slate/5 px-4 py-2 rounded-full w-full sm:w-auto text-center">$399+</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wedding -->
+            <div class="service-option p-4 sm:p-6" onclick="selectService('wedding')" id="service-wedding">
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+                    <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-gem text-xl sm:text-2xl text-drone-slate"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <h3 class="font-bold text-base sm:text-lg dark:text-white">Wedding Coverage</h3>
+                            <p class="text-xs sm:text-sm opacity-90 truncate">Sunset ceremony and highlight video</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
+                        <span class="font-bold text-drone-slate text-base sm:text-lg bg-drone-slate/5 px-4 py-2 rounded-full w-full sm:w-auto text-center">$899+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-6 sm:mt-8 flex justify-end">
+            <button class="btn-primary w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base" onclick="nextStep()" id="step1-next" disabled>Continue</button>
+        </div>
+    </div>
+</div>
+
+            <!-- Step 2: Date & Time (hidden initially) -->
+            <div id="step2" class="step-content hidden">
+                <h2 class="text-2xl font-display font-bold mb-6 dark:text-white">Select date & time</h2>
+                
+                <div class="mb-6">
+                    <label class="block font-medium mb-2 dark:text-gray-300">Preferred date</label>
+                    <input type="date" class="date-input" id="booking-date" min="2026-03-05" value="2026-03-10">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block font-medium mb-2 dark:text-gray-300">Preferred time (your local time)</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="time-slot" onclick="selectTime(this)">9:00 AM</div>
+                        <div class="time-slot" onclick="selectTime(this)">10:00 AM</div>
+                        <div class="time-slot" onclick="selectTime(this)">11:00 AM</div>
+                        <div class="time-slot" onclick="selectTime(this)">1:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this)">2:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this)">3:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this)">4:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this)">5:00 PM</div>
+                        <div class="time-slot" onclick="selectTime(this)">6:00 PM</div>
+                    </div>
+                    <p class="text-xs opacity-60 mt-2">*Golden hour (sunset) available upon request</p>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block font-medium mb-2 dark:text-gray-300">Shoot duration (approx)</label>
+                    <select class="date-input" id="duration">
+                        <option>1 hour</option>
+                        <option>2 hours</option>
+                        <option>3 hours</option>
+                        <option>Half day (4 hours)</option>
+                        <option>Full day (8 hours)</option>
+                    </select>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button class="btn-outline px-6 py-3" onclick="prevStep()">Back</button>
+                    <button class="btn-primary px-8 py-3" onclick="nextStep()" id="step2-next" disabled>Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Your Information -->
+            <div id="step3" class="step-content hidden">
+                <h2 class="text-2xl font-display font-bold mb-6 dark:text-white">Your details</h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block font-medium mb-2 dark:text-gray-300">First name</label>
+                        <input type="text" class="date-input" id="first-name" placeholder="John">
+                    </div>
+                    <div>
+                        <label class="block font-medium mb-2 dark:text-gray-300">Last name</label>
+                        <input type="text" class="date-input" id="last-name" placeholder="Doe">
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block font-medium mb-2 dark:text-gray-300">Email address</label>
+                    <input type="email" class="date-input" id="email" placeholder="john@example.com">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block font-medium mb-2 dark:text-gray-300">Phone number</label>
+                    <input type="tel" class="date-input" id="phone" placeholder="+1 555 123 4567">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block font-medium mb-2 dark:text-gray-300">Shoot location (address)</label>
+                    <input type="text" class="date-input" id="location" placeholder="Street, city, zip">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block font-medium mb-2 dark:text-gray-300">Additional notes (optional)</label>
+                    <textarea class="date-input" rows="3" id="notes" placeholder="Tell us more about your project..."></textarea>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button class="btn-outline px-6 py-3" onclick="prevStep()">Back</button>
+                    <button class="btn-primary px-8 py-3" onclick="nextStep()" id="step3-next">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Confirmation -->
+            <div id="step4" class="step-content hidden">
+                <h2 class="text-2xl font-display font-bold mb-6 dark:text-white">Confirm your booking</h2>
+                
+                <div class="bg-drone-slate/5 dark:bg-drone-slate/10 rounded-2xl p-6 mb-8">
+                    <h3 class="font-bold text-lg mb-4">Summary</h3>
+                    
+                    <div class="summary-item">
+                        <span>Service:</span>
+                        <span class="font-medium" id="summary-service">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Date:</span>
+                        <span class="font-medium" id="summary-date">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Time:</span>
+                        <span class="font-medium" id="summary-time">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Duration:</span>
+                        <span class="font-medium" id="summary-duration">Not selected</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Name:</span>
+                        <span class="font-medium" id="summary-name">Not provided</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Email:</span>
+                        <span class="font-medium" id="summary-email">Not provided</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Phone:</span>
+                        <span class="font-medium" id="summary-phone">Not provided</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Location:</span>
+                        <span class="font-medium" id="summary-location">Not provided</span>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label class="flex items-center gap-3">
+                        <input type="checkbox" class="w-5 h-5 accent-drone-slate" id="terms">
+                        <span class="dark:text-gray-300">I agree to the <a href="#" class="text-drone-slate underline">terms and conditions</a> and confirm that the information is correct.</span>
+                    </label>
+                </div>
+                
+                <div class="flex justify-between mt-8">
+                    <button class="btn-outline px-6 py-3" onclick="prevStep()">Back</button>
+                    <button class="btn-primary px-8 py-3" onclick="submitBooking()" id="submit-btn" disabled>Confirm & Pay Deposit</button>
+                </div>
+                <p class="text-xs opacity-60 text-center mt-4">A 20% deposit will be requested to secure your booking. You'll receive a confirmation email.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SERVICE CARDS WITH IMAGES (id for anchor) ========== -->
+<section id="service-cards" class="py-16 bg-white dark:bg-dark-card">
+    <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="text-drone-slate font-medium text-sm tracking-widest">/// QUICK OVERVIEW</span>
+            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Our <span class="text-drone-slate">services</span> at a glance</h2>
+            <p class="text-neutral-dark/70 dark:text-gray-300">Tap any card to select it in the booking form</p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Real Estate Card with Image -->
+            <div class="service-img-card cursor-pointer" onclick="selectServiceFromCard('realestate')">
+                <img src="assest/re.jpg" alt="Luxury villa aerial view" class="w-full h-40 object-cover">
+                <div class="service-img-content">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-home text-drone-slate"></i>
+                        <h3 class="font-display font-bold text-lg dark:text-white">Real Estate</h3>
+                    </div>
+                    <p class="text-sm opacity-90 mb-3">4K HDR, twilight option, 15-20 images, 2-3 min cinematic video</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="font-bold text-drone-slate">from $499</span>
+                        <span class="text-drone-slate text-sm font-semibold">select →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Events Card with Image -->
+            <div class="service-img-card cursor-pointer" onclick="selectServiceFromCard('events')">
+                <img src="assest/ev.jpg" alt="Music festival crowd" class="w-full h-40 object-cover">
+                <div class="service-img-content">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-calendar-alt text-drone-slate"></i>
+                        <h3 class="font-display font-bold text-lg dark:text-white">Events</h3>
+                    </div>
+                    <p class="text-sm opacity-90 mb-3">Conferences, festivals, sports – 2 drones, highlight reel, group shots</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="font-bold text-drone-slate">from $899</span>
+                        <span class="text-drone-slate text-sm font-semibold">select →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Construction Card with Image -->
+            <div class="service-img-card cursor-pointer" onclick="selectServiceFromCard('construction')">
+                <img src="assest/con.jpg" alt="Construction site aerial" class="w-full h-40 object-cover">
+                <div class="service-img-content">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-hard-hat text-drone-slate"></i>
+                        <h3 class="font-display font-bold text-lg dark:text-white">Construction</h3>
+                    </div>
+                    <p class="text-sm opacity-90 mb-3">Weekly orthomosaic, 3D models, volume reports, progress tracking</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="font-bold text-drone-slate">from $399</span>
+                        <span class="text-drone-slate text-sm font-semibold">select →</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wedding Card with Image -->
+            <div class="service-img-card cursor-pointer" onclick="selectServiceFromCard('wedding')">
+                <img src="assest/wed1.jpg" alt="Beach wedding ceremony" class="w-full h-40 object-cover">
+                <div class="service-img-content">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fas fa-gem text-drone-slate"></i>
+                        <h3 class="font-display font-bold text-lg dark:text-white">Wedding</h3>
+                    </div>
+                    <p class="text-sm opacity-90 mb-3">Sunset ceremony, 2‑min highlight, 50+ edited photos, quiet drone</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="font-bold text-drone-slate">from $899</span>
+                        <span class="text-drone-slate text-sm font-semibold">select →</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-10">
+            <p class="text-sm opacity-60">*All services include FAA certified pilot, full insurance, and 48h edit turnaround.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== NEW FAQ SECTION ========== -->
+<section class="py-16">
+    <div class="container mx-auto px-6 max-w-4xl">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="text-drone-slate font-medium text-sm tracking-widest">/// GOT QUESTIONS?</span>
+            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Frequently <span class="text-drone-slate">Asked</span></h2>
+            <p class="text-neutral-dark/70 dark:text-gray-300">Everything you need to know about booking an aerial shoot</p>
+        </div>
+        
+        <div class="bg-white dark:bg-dark-card rounded-3xl p-8 shadow-lg border border-drone-slate/10">
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>How far in advance should I book?</span>
+                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer">
+                    We recommend booking at least 2 weeks in advance for real estate and events, and 4-6 weeks for weddings to ensure availability. However, we do accommodate last-minute requests when possible – just give us a call.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>What happens if weather is bad on the day?</span>
+                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer">
+                    Safety is our priority. If conditions are unsafe (high winds, rain, low clouds), we'll reschedule at no cost. For time-sensitive shoots, we monitor forecasts closely and communicate early.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>Do I need to obtain permits for drone flights?</span>
+                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer">
+                    We handle all FAA authorizations and local permits. Just provide the location, and we'll ensure everything is legal and safe. Our team is experienced in navigating restricted airspace.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>What is your cancellation policy?</span>
+                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer">
+                    Cancellations made 48+ hours before the shoot receive a full refund. Within 48 hours, the 20% deposit is non-refundable. We understand emergencies – just contact us as soon as possible.
+                </div>
+            </div>
+            <div class="faq-item" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>Do you travel outside Los Angeles?</span>
+                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                </div>
+                <div class="faq-answer">
+                    Absolutely! We serve clients worldwide. Travel fees may apply depending on distance and duration – we'll provide a custom quote during booking.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+ <footer class="py-16">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <!-- Company -->
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
+                    <!-- Logo container with proper spacing and no cut-off -->
+                <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group flex-nowrap">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white text-sm sm:text-lg"></i>
+                    </div>
+                    <div class="flex items-center whitespace-nowrap">
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate ml-1">VUW</span>
+                    </div>
+                </a>
+                </div>
+                <p class="text-base opacity-700 mb-6 leading-relaxed">
+                    Professional aerial photography. Capturing stunning perspectives since 2019.
+                </p>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="#" class="social-icon text-base"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <!-- Quick links -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Quick Links</h3>
+                <ul class="space-y-4 text-base">
+                    <li><a href="index.html" class="hover:text-drone-slate transition text-base">Home</a></li>
+                    <li><a href="about.html" class="hover:text-drone-slate transition text-base">About</a></li>
+                    <li><a href="service.html" class="hover:text-drone-slate transition text-base">Services</a></li>
+                    <li><a href="gallery.html" class="hover:text-drone-slate transition text-base">Portfolio</a></li>
+                    <li><a href="pricing.html" class="hover:text-drone-slate transition text-base">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Photography</h3>
+                <ul class="space-y-4 text-base">
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Real Estate</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Event Coverage</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Construction</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Commercial</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Wedding</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact + 2 extra columns combined -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Contact</h3>
+                <ul class="space-y-4 text-base mb-8">
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-map-marker-alt text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">123 Aerial Way, Los Angeles, CA 90210</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-phone-alt text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">+1 (555) 123-4567</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-envelope text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">hello@growwvuw.com</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-clock text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">Mon-Fri: 9AM - 6PM</span>
+                    </li>
+                </ul>
+                
+                
+            </div>
+        </div>
+        
+        <!-- Bottom Bar -->
+        <div class="border-t border-drone-slate/10 mt-12 pt-8 text-center">
+            <p class="text-base opacity-90">© 2026 GROWW VUW. All rights reserved. FAA certified operations.</p>
+            <p class="text-sm opacity-80 mt-2">Capturing stunning perspectives from above since 2019</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Theme toggle (condensed)
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle?.querySelector('.fa-moon');
+        const themeIconSun = themeToggle?.querySelector('.fa-sun');
+        const mobileThemeToggle = document.getElementById('theme-toggle-mobile');
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            let dark = document.documentElement.classList.contains('dark');
+            if(themeIcon) themeIcon.classList.toggle('hidden', dark);
+            if(themeIconSun) themeIconSun.classList.toggle('hidden', !dark);
+            if(themeToggle) themeToggle.classList.toggle('active', dark);
+            if(mobileThemeToggle) mobileThemeToggle.classList.toggle('active', dark);
+            localStorage.setItem('theme', dark ? 'dark' : 'light');
+        }
+        if(themeToggle) themeToggle.addEventListener('click', toggleTheme);
+        if(mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+        if(localStorage.getItem('theme')==='dark') document.documentElement.classList.add('dark');
+
+        // RTL toggle
+        const rtlToggle = document.getElementById('rtl-toggle');
+        const mobileRtlToggle = document.getElementById('rtl-toggle-mobile');
+        function toggleRTL() {
+            let rtl = document.documentElement.dir === 'rtl';
+            document.documentElement.dir = rtl ? 'ltr' : 'rtl';
+            document.documentElement.lang = rtl ? 'en' : 'ar';
+            if(rtlToggle) rtlToggle.classList.toggle('active', !rtl);
+            if(mobileRtlToggle) mobileRtlToggle.classList.toggle('active', !rtl);
+            localStorage.setItem('dir', rtl ? 'ltr' : 'rtl');
+        }
+        if(rtlToggle) rtlToggle.addEventListener('click', toggleRTL);
+        if(mobileRtlToggle) mobileRtlToggle.addEventListener('click', toggleRTL);
+        if(localStorage.getItem('dir')==='rtl') { document.documentElement.dir='rtl'; document.documentElement.lang='ar'; if(rtlToggle) rtlToggle.classList.add('active'); }
+
+        // Mobile menu
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileToggleIcon = document.querySelector('#mobile-toggle i');
+        if(mobileToggle) {
+            mobileToggle.addEventListener('click', ()=>{
+                mobileMenu.classList.toggle('open');
+                document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+                mobileToggleIcon.classList.toggle('fa-bars');
+                mobileToggleIcon.classList.toggle('fa-times');
+            });
+        }
+
+        // Step navigation
+        window.selectedService = null;
+        window.selectedTimeSlot = null;
+        
+        // Enable/disable next buttons based on selection
+        window.selectService = function(service) {
+            document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
+            document.getElementById(`service-${service}`).classList.add('selected');
+            selectedService = service;
+            document.getElementById('step1-next').disabled = false;
+            // Also scroll to step1 if needed
+        };
+        
+        // New function to select service from image cards and jump to form
+        window.selectServiceFromCard = function(service) {
+            selectService(service);
+            // Smooth scroll to booking form
+            document.querySelector('.booking-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        };
+        
+        window.selectTime = function(element) {
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedTimeSlot = element.textContent.trim();
+            document.getElementById('step2-next').disabled = false;
+        };
+        
+        let currentStep = 1;
+        const stepContents = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3'), document.getElementById('step4')];
+        const indicators = [document.getElementById('step1-indicator'), document.getElementById('step2-indicator'), document.getElementById('step3-indicator'), document.getElementById('step4-indicator')];
+        
+        window.nextStep = function() {
+            if (currentStep < 4) {
+                // Validate step 2
+                if (currentStep === 2 && !selectedTimeSlot) {
+                    alert('Please select a time slot');
+                    return;
+                }
+                // Move to next step
+                stepContents[currentStep-1].classList.add('hidden');
+                indicators[currentStep-1].classList.remove('active');
+                indicators[currentStep-1].classList.add('completed');
+                currentStep++;
+                stepContents[currentStep-1].classList.remove('hidden');
+                indicators[currentStep-1].classList.add('active');
+                
+                // If moving to step 4, populate summary
+                if (currentStep === 4) {
+                    updateSummary();
+                }
+                
+                // Enable/disable step2 next based on time selection
+                if (currentStep === 2 && !selectedTimeSlot) {
+                    document.getElementById('step2-next').disabled = true;
+                }
+            }
+        };
+        
+        window.prevStep = function() {
+            if (currentStep > 1) {
+                stepContents[currentStep-1].classList.add('hidden');
+                indicators[currentStep-1].classList.remove('active');
+                currentStep--;
+                stepContents[currentStep-1].classList.remove('hidden');
+                indicators[currentStep].classList.remove('completed');
+                indicators[currentStep-1].classList.add('active');
+                if (currentStep === 2) {
+                    document.getElementById('step2-next').disabled = !selectedTimeSlot;
+                }
+            }
+        };
+        
+        function updateSummary() {
+            const serviceMap = {
+                realestate: 'Real Estate Photography',
+                events: 'Event Coverage',
+                construction: 'Construction Progress',
+                wedding: 'Wedding Coverage'
+            };
+            document.getElementById('summary-service').textContent = selectedService ? serviceMap[selectedService] : 'Not selected';
+            document.getElementById('summary-date').textContent = document.getElementById('booking-date').value || 'Not selected';
+            document.getElementById('summary-time').textContent = selectedTimeSlot || 'Not selected';
+            document.getElementById('summary-duration').textContent = document.getElementById('duration').value;
+            document.getElementById('summary-name').textContent = (document.getElementById('first-name').value + ' ' + document.getElementById('last-name').value).trim() || 'Not provided';
+            document.getElementById('summary-email').textContent = document.getElementById('email').value || 'Not provided';
+            document.getElementById('summary-phone').textContent = document.getElementById('phone').value || 'Not provided';
+            document.getElementById('summary-location').textContent = document.getElementById('location').value || 'Not provided';
+        }
+        
+        // Enable submit when terms checked
+        document.getElementById('terms').addEventListener('change', function() {
+            document.getElementById('submit-btn').disabled = !this.checked;
+        });
+        
+        window.submitBooking = function() {
+            alert('Booking confirmed! You will receive a confirmation email with deposit payment link shortly.');
+            // Here you would normally send data to server
+            // Reset form or redirect
+        };
+        
+        // Enable step2 next only when time selected
+        document.getElementById('step2-next').disabled = true;
+        // Enable step1 next only when service selected (initially disabled)
+        document.getElementById('step1-next').disabled = true;
+
+        // FAQ toggle function
+        window.toggleFaq = function(element) {
+            element.classList.toggle('open');
+        };
+    });
+</script>
+</body>
+</html>

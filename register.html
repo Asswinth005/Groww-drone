@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up | AEROVIEW – aerial account access</title>
+    <link rel="icon" type="asset/jpeg" href="assest/growwpark_logo.jpg">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'drone-slate': '#586C89',
+                        'drone-slate-light': '#7C8FA8',
+                        'drone-slate-dark': '#3A4A64',
+                        'bg-warm': '#FFFAF1',
+                        'neutral-dark': '#2D3A4A',
+                        'neutral-light': '#E8EDF2',
+                        'dark-bg': '#1a1a1a',
+                        'dark-card': '#2d2d2d',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts + Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* base styles */
+        body {
+            background-color: #FFFAF1;
+            color: #2D3A4A;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            margin: 0;
+        }
+        .dark body {
+            background-color: #1a1a1a;
+            color: #e5e5e5;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        
+        /* toggle buttons */
+        .toggle-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: #586C89;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(88,108,137,0.2);
+            cursor: pointer;
+        }
+        .dark .toggle-btn {
+            background: #2d2d2d;
+            color: #A0B3CC;
+            border-color: #404040;
+        }
+        .toggle-btn:hover {
+            background: #586C89;
+            color: white;
+            border-color: #586C89;
+        }
+        .toggle-btn.active {
+            background: #586C89;
+            color: white;
+        }
+        
+        /* auth card - perfectly sized */
+        .auth-card {
+            background: white;
+            border-radius: 30px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px -10px rgba(88,108,137,0.15);
+            border: 1px solid rgba(88,108,137,0.1);
+            max-width: 440px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .dark .auth-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        
+        /* logo container - perfectly sized inside card */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+        }
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: #586C89;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .logo-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+        .logo-text {
+            font-size: 1.8rem;
+            line-height: 1.2;
+        }
+        .logo-text .dark {
+            color: white;
+        }
+        
+        /* input with icon */
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .input-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #586C89;
+            font-size: 1rem;
+            z-index: 10;
+        }
+        .form-input {
+            border: 2px solid #E8EDF2;
+            border-radius: 16px;
+            padding: 0.875rem 1.25rem 0.875rem 3rem;
+            width: 100%;
+            transition: 0.2s;
+            background: transparent;
+            font-size: 0.95rem;
+        }
+        .dark .form-input {
+            border-color: #404040;
+            color: white;
+            background: #2d2d2d;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #586C89;
+        }
+        
+        .btn-primary {
+            background: #586C89;
+            color: white;
+            padding: 0.875rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.95rem;
+        }
+        .btn-primary:hover {
+            background: #3A4A64;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(88,108,137,0.4);
+        }
+        
+        .toggle-tab {
+            display: flex;
+            background: #E8EDF2;
+            border-radius: 40px;
+            padding: 0.375rem;
+            margin-bottom: 1.75rem;
+        }
+        .dark .toggle-tab {
+            background: #404040;
+        }
+        .toggle-tab button {
+            flex: 1;
+            padding: 0.625rem 0.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+        }
+        .toggle-tab button.active {
+            background: white;
+            color: #586C89;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .dark .toggle-tab button.active {
+            background: #2d2d2d;
+            color: white;
+        }
+        
+        .form-container {
+            transition: opacity 0.3s ease;
+        }
+        .form-container.hidden {
+            display: none;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+        }
+        .social-icon-large {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #E8EDF2;
+            color: #586C89;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+            font-size: 1.2rem;
+        }
+        .dark .social-icon-large {
+            background: #404040;
+            color: #A0B3CC;
+        }
+        .social-icon-large:hover {
+            background: #586C89;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.25rem 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(88,108,137,0.2);
+        }
+        .divider span {
+            padding: 0 0.75rem;
+            color: rgba(45,58,74,0.5);
+            font-size: 0.8rem;
+        }
+        .dark .divider span {
+            color: #9CA3AF;
+        }
+        
+        /* top bar */
+        .top-bar {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 50;
+        }
+        
+        /* rtl support */
+        [dir="rtl"] .top-bar {
+            right: auto;
+            left: 1rem;
+        }
+        [dir="rtl"] .ml-2 {
+            margin-left: 0;
+            margin-right: 0.5rem;
+        }
+        [dir="rtl"] .mr-2 {
+            margin-right: 0;
+            margin-left: 0.5rem;
+        }
+        [dir="rtl"] .input-icon {
+            left: auto;
+            right: 1.25rem;
+        }
+        [dir="rtl"] .form-input {
+            padding: 0.875rem 3rem 0.875rem 1.25rem;
+        }
+        
+        /* fit page perfectly */
+        .main-wrapper {
+            width: 100%;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bg-[#FFFAF1] dark:bg-dark-bg">
+
+<!-- Top bar with RTL and theme toggles -->
+<div class="top-bar">
+    <button id="theme-toggle" class="toggle-btn" title="Toggle theme">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun hidden"></i>
+    </button>
+    <button id="rtl-toggle" class="toggle-btn" title="Toggle RTL/LTR">
+        ⇄
+    </button>
+</div>
+
+<!-- Main Auth Card - perfectly sized -->
+<div class="main-wrapper">
+    <div class="auth-card">
+        <!-- Logo inside card, clickable to go to index.html -->
+        <div class="logo-container" onclick="window.location.href='index.html'">
+            <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center">
+                <i class="fas fa-camera-retro text-white text-xl"></i>
+            </div>
+            <div class="logo-text">
+                <span class="text-2xl font-display font-bold text-neutral-dark dark:text-white">GROWW</span>
+                <span class="text-2xl font-display font-bold text-drone-slate">VUW</span>
+            </div>
+        </div>
+        
+        <!-- Toggle Tabs -->
+        <div class="toggle-tab">
+            <button id="login-tab" class="active" onclick="switchTab('login')">Login</button>
+            <button id="signup-tab" onclick="switchTab('signup')">Sign Up</button>
+        </div>
+        
+        <!-- Login Form -->
+        <div id="login-form" class="form-container">
+            <form onsubmit="return handleLogin(event)">
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" class="form-input" placeholder="Email address" required>
+                </div>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-input" placeholder="Password" required>
+                </div>
+                <div class="flex items-center justify-between mb-5">
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" class="accent-drone-slate w-4 h-4">
+                        <span class="text-xs dark:text-gray-300">Remember me</span>
+                    </label>
+                    <a href="#" class="text-xs text-drone-slate hover:underline">Forgot password?</a>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Login
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+            
+            <div class="social-login">
+                <a href="#" class="social-icon-large"><i class="fab fa-google"></i></a>
+                <a href="#" class="social-icon-large"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon-large"><i class="fab fa-apple"></i></a>
+            </div>
+        </div>
+        
+        <!-- Sign Up Form -->
+        <div id="signup-form" class="form-container hidden">
+            <form onsubmit="return handleSignup(event)">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-input" placeholder="First name" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" class="form-input" placeholder="Last name" required>
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" class="form-input" placeholder="Email address" required>
+                </div>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-input" placeholder="Create a password" required>
+                </div>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-input" placeholder="Confirm password" required>
+                </div>
+                <p class="text-xs opacity-60 mt-1 mb-3">At least 8 characters</p>
+                <div class="mb-4">
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" class="accent-drone-slate w-4 h-4" required>
+                        <span class="text-xs dark:text-gray-300">I agree to the <a href="#" class="text-drone-slate hover:underline">Terms</a> and <a href="#" class="text-drone-slate hover:underline">Privacy</a></span>
+                    </label>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-user-plus mr-2"></i> Create Account
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or sign up with</span>
+            </div>
+            
+            <div class="social-login">
+                <a href="#" class="social-icon-large"><i class="fab fa-google"></i></a>
+                <a href="#" class="social-icon-large"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon-large"><i class="fab fa-apple"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle?.querySelector('.fa-moon');
+        const themeIconSun = themeToggle?.querySelector('.fa-sun');
+        
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            let dark = document.documentElement.classList.contains('dark');
+            if(themeIcon) themeIcon.classList.toggle('hidden', dark);
+            if(themeIconSun) themeIconSun.classList.toggle('hidden', !dark);
+            if(themeToggle) themeToggle.classList.toggle('active', dark);
+            localStorage.setItem('theme', dark ? 'dark' : 'light');
+        }
+        
+        if(themeToggle) themeToggle.addEventListener('click', toggleTheme);
+        
+        // Load saved theme
+        if(localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+            if(themeIcon) themeIcon.classList.add('hidden');
+            if(themeIconSun) themeIconSun.classList.remove('hidden');
+            if(themeToggle) themeToggle.classList.add('active');
+        }
+
+        // RTL toggle
+        const rtlToggle = document.getElementById('rtl-toggle');
+        
+        function toggleRTL() {
+            let rtl = document.documentElement.dir === 'rtl';
+            document.documentElement.dir = rtl ? 'ltr' : 'rtl';
+            document.documentElement.lang = rtl ? 'en' : 'ar';
+            if(rtlToggle) rtlToggle.classList.toggle('active', !rtl);
+            localStorage.setItem('dir', rtl ? 'ltr' : 'rtl');
+        }
+        
+        if(rtlToggle) rtlToggle.addEventListener('click', toggleRTL);
+        
+        // Load saved RTL
+        if(localStorage.getItem('dir') === 'rtl') {
+            document.documentElement.dir = 'rtl';
+            document.documentElement.lang = 'ar';
+            if(rtlToggle) rtlToggle.classList.add('active');
+        }
+    });
+
+    // Tab switching
+    function switchTab(tab) {
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        
+        if (tab === 'login') {
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+        } else {
+            signupTab.classList.add('active');
+            loginTab.classList.remove('active');
+            signupForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+        }
+    }
+    
+    // Form handlers
+    function handleLogin(e) {
+        e.preventDefault();
+        // After login, go to index.html
+        window.location.href = 'index.html';
+        return false;
+    }
+    
+    function handleSignup(e) {
+        e.preventDefault();
+        // After create account, switch to login tab
+        switchTab('login');
+        // Optional: clear form fields
+        document.querySelector('#signup-form input[type="text"]').value = '';
+        document.querySelectorAll('#signup-form input[type="email"], #signup-form input[type="password"]').forEach(input => input.value = '');
+        return false;
+    }
+</script>
+</body>
+</html>

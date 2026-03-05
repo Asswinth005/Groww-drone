@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | AEROVIEW – aerial photography showcase</title>
+    <link rel="icon" type="asset/jpeg" href="assest/growwpark_logo.jpg">
+    <meta name="description" content="Explore our aerial photography portfolio – real estate, events, construction & wedding projects from around the world.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'drone-slate': '#586C89',
+                        'drone-slate-light': '#7C8FA8',
+                        'drone-slate-dark': '#3A4A64',
+                        'bg-warm': '#FFFAF1',
+                        'neutral-dark': '#2D3A4A',
+                        'neutral-light': '#E8EDF2',
+                        'dark-bg': '#1a1a1a',
+                        'dark-card': '#2d2d2d',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Playfair Display', 'serif'],
+                        'premium': ['Cormorant Garamond', 'serif'],
+                        'alt': ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'blur-in': 'blurIn 0.6s ease',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        blurIn: {
+                            '0%': { opacity: '0', filter: 'blur(4px)' },
+                            '100%': { opacity: '1', filter: 'blur(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts + Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* base & navigation – exact copy from reference */
+        body {
+            background-color: #FFFAF1;
+            color: #2D3A4A;
+        }
+        .dark body {
+            background-color: #1a1a1a;
+            color: #e5e5e5;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        body::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* navigation – identical to reference */
+        .nav-item {
+            position: relative;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            color: #2D3A4A;
+            transition: color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .dark .nav-item { color: #e5e5e5; }
+        .nav-item:hover { color: #586C89; }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #586C89;
+            transition: width 0.3s ease;
+        }
+        [dir="rtl"] .nav-item::after { left: auto; right: 0; }
+        .nav-item:hover::after { width: 100%; }
+        
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 220px;
+            background: white;
+            border-radius: 12px;
+            padding: 0.75rem 0;
+            box-shadow: 0 20px 40px rgba(88,108,137,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(88,108,137,0.1);
+        }
+        .dark .dropdown-menu { background: #2d2d2d; border-color: #404040; }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        [dir="rtl"] .dropdown-menu { left: auto; right: 0; }
+        
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #2D3A4A;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .dark .dropdown-item { color: #e5e5e5; }
+        .dropdown-item:hover {
+            background: rgba(88,108,137,0.08);
+            color: #586C89;
+            padding-left: 1.75rem;
+        }
+        [dir="rtl"] .dropdown-item:hover { padding-left:1.5rem; padding-right:1.75rem; }
+        .dropdown-item i { margin-right:0.75rem; width:20px; color:#586C89; }
+        
+        .auth-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
+        .dark .auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
+        .auth-btn.login:hover { border-color:#586C89; color:#586C89; }
+        .dark .auth-btn.login:hover { border-color:#7C8FA8; color:white; }
+        .auth-btn.signup { background:#586C89; color:white; }
+        .auth-btn.signup:hover { background:#3A4A64; transform: translateY(-2px); box-shadow:0 8px 16px rgba(88,108,137,0.2); }
+        
+        .toggle-btn {
+            width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+            background:#E8EDF2; color:#4A5A70; transition:0.2s; border:none; cursor:pointer;
+        }
+        .dark .toggle-btn { background:#2A3647; color:#A0B3CC; }
+        .toggle-btn:hover { background:#586C89; color:white; }
+        .toggle-btn.active { background:#586C89; color:white; }
+        @media (max-width:1279px) { .desktop-toggle-group { display:none !important; } }
+        
+        /* mobile menu styles exactly as reference */
+        .mobile-menu { background:white; border-top:1px solid #E0E7EF; max-height:0; overflow:hidden; transition:max-height 0.5s ease; }
+        .dark .mobile-menu { background:#1A1A1A; border-color:#2A3647; }
+        .mobile-menu.open { max-height:85vh; overflow-y:auto; }
+        .mobile-menu-item { display:block; padding:1rem 1.5rem; font-weight:500; color:#2D3A4A; border-bottom:1px solid #E8EDF2; transition:0.2s; font-family:'Montserrat', sans-serif; }
+        .dark .mobile-menu-item { color:#D1D5DB; border-bottom-color:#2A3647; }
+        .mobile-menu-item:hover { background:#F5F8FC; color:#586C89; }
+        .dark .mobile-menu-item:hover { background:#374151; }
+        .mobile-dropdown-content { max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:#F9FCFE; }
+        .dark .mobile-dropdown-content { background:#1F2835; }
+        .mobile-dropdown-content.show { max-height:300px; }
+        .mobile-dropdown-item { display:block; padding:0.75rem 2.5rem; font-size:0.95rem; color:#4A5A70; transition:0.2s; border-bottom:1px solid #E8EDF2; font-family:'Montserrat', sans-serif; }
+        .dark .mobile-dropdown-item { color:#9CA3AF; border-bottom-color:#2A3647; }
+        .mobile-dropdown-item:hover { color:#586C89; background:#E8EDF2; }
+        .dark .mobile-dropdown-item:hover { background:#374151; color:white; }
+        .mobile-auth-btn { display:inline-block; padding:0.75rem 1.5rem; font-weight:500; border-radius:40px; transition:0.3s; text-align:center; margin:0.25rem; border:1px solid transparent; font-family:'Montserrat', sans-serif; }
+        .mobile-auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
+        .dark .mobile-auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
+        .mobile-auth-btn.login:hover { background:#586C89; color:white; border-color:#586C89; }
+        .mobile-auth-btn.signup { background:#586C89; color:white; }
+        .mobile-auth-btn.signup:hover { background:#3A4A64; }
+        
+        /* portfolio page specific */
+        .category-filter-btn {
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background: white;
+            color: #2D3A4A;
+            border: 1px solid rgba(88,108,137,0.2);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .dark .category-filter-btn {
+            background: #2d2d2d;
+            color: #e5e5e5;
+            border-color: #404040;
+        }
+        .category-filter-btn:hover,
+        .category-filter-btn.active {
+            background: #586C89;
+            color: white;
+            border-color: #586C89;
+        }
+        
+        .portfolio-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(88,108,137,0.08);
+            border: 1px solid rgba(88,108,137,0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .dark .portfolio-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px -12px rgba(88,108,137,0.25);
+            border-color: #586C89;
+        }
+        .portfolio-image {
+            height: 240px;
+            overflow: hidden;
+            position: relative;
+        }
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .portfolio-card:hover .portfolio-image img {
+            transform: scale(1.05);
+        }
+        .portfolio-overlay {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(88,108,137,0.9);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+        .portfolio-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .btn-outline {
+            border: 2px solid #586C89;
+            color: #586C89;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-outline:hover {
+            background: #586C89;
+            color: white;
+        }
+        
+        .social-icon {
+            width:40px; height:40px; border-radius:50%; background:#E8EDF2; color:#4A5A70; display:inline-flex; align-items:center; justify-content:center; transition:0.2s;
+        }
+        .dark .social-icon { background:#2A3647; color:#A0B3CC; }
+        .social-icon:hover { background:#586C89; color:white; transform:translateY(-3px); }
+
+        /* hero background */
+        .portfolio-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assest/hero1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .dark .portfolio-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('assest/hero1.jpg');
+        }
+        
+        /* video section */
+        .video-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -10px rgba(88,108,137,0.2);
+            border: 1px solid rgba(88,108,137,0.1);
+        }
+        .dark .video-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body class="bg-[#FFFAF1] dark:bg-dark-bg">
+
+<!-- ========== HEADER (exact copy from reference) ========== -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-neutral-light dark:border-gray-800">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fas fa-camera-retro text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
+                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation (xl only) -->
+            <div class="hidden xl:flex items-center">
+                <div class="desktop-nav-container flex items-center gap-8">
+                    <div class="flex items-center gap-8">
+                        <div class="dropdown">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                Home <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="index.html" class="dropdown-item" style="background: rgba(88,108,137,0.08); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">
+                                    <i class="fas fa-home"></i> Home 1 
+                                </a>
+                                <a href="home2.html" class="dropdown-item"><i class="fas fa-home"></i> Home 2</a>
+                            </div>
+                        </div>
+                        <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">About</a>
+                        <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Services</a>
+                        <a href="book.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Book Now</a>
+                        <a href="portfolio.html" class="nav-item font-medium text-drone-slate dark:text-drone-slate-light transition" style="font-weight: 600;">Portfolio</a>
+                        <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Contact</a>
+                        <div class="dropdown">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                Dashboard <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="admin.html" class="dropdown-item"><i class="fas fa-user-shield"></i> Admin</a>
+                                <a href="client.html" class="dropdown-item"><i class="fas fa-user"></i> Client</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 ml-0">
+                        <a href="register.html" class="auth-btn signup">Register</a>
+                    </div>
+                </div>
+                <div class="flex gap-2 ml-4 desktop-toggle-group">
+                    <button id="theme-toggle" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                    <button id="rtl-toggle" class="toggle-btn">⇄</button>
+                </div>
+            </div>
+
+            <!-- Mobile button -->
+            <button id="mobile-toggle" class="xl:hidden text-neutral-dark dark:text-gray-300 p-2">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile menu (exact copy) -->
+        <div id="mobile-menu" class="mobile-menu xl:hidden">
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item"><span>Home</span><i class="fas fa-chevron-down text-xs"></i></button>
+                <div class="mobile-dropdown-content">
+                    <a href="index.html" class="mobile-dropdown-item" style="background:rgba(88,108,137,0.08);color:#586C89;border-left:3px solid #586C89;"><i class="fas fa-home mr-2"></i>Home 1</a>                     
+                    <a href="home2.html" class="mobile-dropdown-item">Home 2</a>
+                </div>
+            </div>
+            <a href="about.html" class="mobile-menu-item">About</a>
+            <a href="service.html" class="mobile-menu-item">Services</a>
+            <a href="book.html" class="mobile-menu-item">Book Now</a>
+            <a href="portfolio.html" class="mobile-menu-item" style="background: rgba(88,108,137,0.1); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">Portfolio</a>
+            <a href="contact.html" class="mobile-menu-item">Contact</a>
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item"><span>Dashboard</span><i class="fas fa-chevron-down text-xs"></i></button>
+                <div class="mobile-dropdown-content">
+                    <a href="admin.html" class="mobile-dropdown-item">Admin</a>
+                    <a href="client.html" class="mobile-dropdown-item">Client</a>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 p-6">
+                <a href="register.html" class="mobile-auth-btn signup flex-1 text-center">Register</a>
+            </div>
+            <div class="flex justify-center gap-3 p-6 border-t border-gray-200 dark:border-gray-800">
+                <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                <button id="rtl-toggle-mobile" class="toggle-btn">⇄</button>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- ========== PORTFOLIO HERO ========== -->
+<section class="portfolio-hero relative pt-44 pb-40 text-white">
+    <div class="absolute inset-0 bg-black/20 dark:bg-black/40"></div>
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-3xl mx-auto text-center animate-slide-up">
+            <span class="inline-flex items-center px-5 py-2 bg-white/20 backdrop-blur-sm rounded-full border border-white/30 mb-6">
+                <i class="fas fa-images text-white mr-2"></i>
+                <span class="text-sm font-medium text-white">Our work in action</span>
+            </span>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 text-white">
+                Aerial <span class="text-white/90">Portfolio</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto">
+                A selection of our favorite projects – from coastal villas to music festivals, skyscrapers to mountain weddings.
+            </p>
+            <div class="mt-10 flex flex-wrap gap-4 justify-center">
+                <a href="#portfolio-grid" class="bg-white text-drone-slate px-8 py-4 rounded-full font-bold hover:shadow-2xl transition inline-flex items-center gap-2">
+                    <i class="fas fa-arrow-down"></i> View Projects
+                </a>
+                <a href="#video-showcase" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition inline-flex items-center gap-2">
+                    <i class="fas fa-play"></i> Watch Showreel
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== VIDEO SHOWCASE SECTION ========== -->
+<section id="video-showcase" class="py-16 bg-white dark:bg-dark-card">
+    <div class="container mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span class="text-drone-slate font-medium text-sm tracking-widest">/// CINEMATIC REEL</span>
+            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Featured <span class="text-drone-slate">Showreel</span></h2>
+            <p class="text-neutral-dark/70 dark:text-gray-300">A glimpse into our aerial storytelling – shot entirely with drones</p>
+        </div>
+        
+        <div class="max-w-3xl mx-auto">
+            <div class="video-card p-3 md:p-4">
+                <div class="video-wrapper" style="padding-bottom: 45%;"> <!-- Reduced height -->
+                    <!-- Local video file with autoplay, loop, muted, playsinline -->
+                    <video class="absolute top-0 left-0 w-full h-full object-cover rounded-2xl" 
+                           autoplay 
+                           loop 
+                           muted 
+                           playsinline
+                           poster="assest/ph.jpg">
+                        <source src="assest/Drone2.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <!-- Removed text and metadata below video -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ========== CATEGORY FILTER ========== -->
+<section class="pb-8 pt-8">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-wrap justify-center gap-3">
+            <button class="category-filter-btn active" data-filter="all">All Projects</button>
+            <button class="category-filter-btn" data-filter="realestate">Real Estate</button>
+            <button class="category-filter-btn" data-filter="events">Events</button>
+            <button class="category-filter-btn" data-filter="construction">Construction</button>
+            <button class="category-filter-btn" data-filter="wedding">Wedding</button>
+        </div>
+    </div>
+</section>
+
+<!-- ========== PORTFOLIO GRID (3 CARDS PER CATEGORY) ========== -->
+<section id="portfolio-grid" class="py-12 pb-24">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Real Estate Projects (3 cards) -->
+            <div class="portfolio-card" data-category="realestate">
+                <div class="portfolio-image">
+                    <img src="assest/re.jpg" alt="Malibu beachfront villa">
+                    <span class="portfolio-overlay">Real Estate</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Malibu Beachfront Villa</h3>
+                    <p class="text-sm opacity-90 mb-3">Malibu, California • 4K HDR • 20 images • 2 min video</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card" data-category="realestate">
+                <div class="portfolio-image">
+                    <img src="assest/re1.jpg" alt="Downtown LA penthouse">
+                    <span class="portfolio-overlay">Real Estate</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Downtown Penthouse</h3>
+                    <p class="text-sm opacity-90 mb-3">Los Angeles • Twilight shoot • 25 images • 3 min video</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card" data-category="realestate">
+                <div class="portfolio-image">
+                    <img src="assest/re2.jpg" alt="Texas hill country ranch">
+                    <span class="portfolio-overlay">Real Estate</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Hill Country Ranch</h3>
+                    <p class="text-sm opacity-90 mb-3">Texas • 50 acres • Orthomosaic • Property map</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Events Projects (3 cards) -->
+            <div class="portfolio-card" data-category="events">
+                <div class="portfolio-image">
+                    <img src="assest/ev.jpg" alt="Desert music festival">
+                    <span class="portfolio-overlay">Events</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Desert Music Fest</h3>
+                    <p class="text-sm opacity-90 mb-3">Indio, CA • Night pyro • 3 min aftermovie • 2 drones</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card" data-category="events">
+                <div class="portfolio-image">
+                    <img src="assest/ev1.jpg" alt="Boston Marathon">
+                    <span class="portfolio-overlay">Events</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Boston Marathon</h3>
+                    <p class="text-sm opacity-90 mb-3">Boston • Follow-cam • 5 mile coverage • Finish line</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card" data-category="events">
+                <div class="portfolio-image">
+                    <img src="assest/ev2.jpg" alt="Tech conference">
+                    <span class="portfolio-overlay">Events</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Tech Conference 2025</h3>
+                    <p class="text-sm opacity-90 mb-3">San Jose • Keynote • Group shots • Aftermovie</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Construction Projects (3 cards) -->
+            <div class="portfolio-card" data-category="construction">
+                <div class="portfolio-image">
+                    <img src="assest/con.jpg" alt="High-rise construction">
+                    <span class="portfolio-overlay">Construction</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Austin High‑rise</h3>
+                    <p class="text-sm opacity-90 mb-3">Weekly progress • Orthomosaic • 3D model</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card" data-category="construction">
+                <div class="portfolio-image">
+                    <img src="assest/con1.jpg" alt="Bridge inspection">
+                    <span class="portfolio-overlay">Construction</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Golden Gate Inspection</h3>
+                    <p class="text-sm opacity-90 mb-3">San Francisco • Thermal • Crack detection</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card" data-category="construction">
+                <div class="portfolio-image">
+                    <img src="assest/grid.jpg" alt="Land survey">
+                    <span class="portfolio-overlay">Construction</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Colorado Land Survey</h3>
+                    <p class="text-sm opacity-90 mb-3">Contour lines • 3D terrain • Cut/fill analysis</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wedding Projects (3 cards) -->
+            <div class="portfolio-card" data-category="wedding">
+                <div class="portfolio-image">
+                    <img src="assest/wed.jpg" alt="Maui beach wedding">
+                    <span class="portfolio-overlay">Wedding</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Maui Beach Wedding</h3>
+                    <p class="text-sm opacity-90 mb-3">Sunset ceremony • 2 min highlight • 50+ photos</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card" data-category="wedding">
+                <div class="portfolio-image">
+                    <img src="assest/wed1.jpg" alt="Napa vineyard wedding">
+                    <span class="portfolio-overlay">Wedding</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Napa Valley Wedding</h3>
+                    <p class="text-sm opacity-90 mb-3">Golden hour • Vineyard flyover • Full edit</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-card" data-category="wedding">
+                <div class="portfolio-image">
+                    <img src="assest/wed2.jpg" alt="Colorado mountain elopement">
+                    <span class="portfolio-overlay">Wedding</span>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Traditional Wedding</h3>
+                    <p class="text-sm opacity-90 mb-3">Alpine • Intimate ceremony • 4K + stills</p>
+                    <div class="flex items-center justify-between mt-auto">
+                        <span class="text-drone-slate font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Load More Button -->
+        <div class="text-center mt-16">
+            <button class="btn-outline px-8 py-4">
+                <i class="fas fa-sync-alt mr-2"></i> Load More Projects
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ========== STATS / ACHIEVEMENTS SECTION ========== -->
+<section class="py-16 bg-white dark:bg-dark-card border-y border-drone-slate/10">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate mb-2">850+</div>
+                <p class="text-sm uppercase tracking-wide opacity-70">Flights</p>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate mb-2">210</div>
+                <p class="text-sm uppercase tracking-wide opacity-70">Happy Clients</p>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate mb-2">6</div>
+                <p class="text-sm uppercase tracking-wide opacity-70">Years Airborne</p>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate mb-2">14k</div>
+                <p class="text-sm uppercase tracking-wide opacity-70">Raw Files</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== CTA SECTION ========== -->
+<section class="py-20 bg-drone-slate text-white">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Ready to create your own story?</h2>
+        <p class="text-xl opacity-90 max-w-2xl mx-auto mb-8">Let's discuss your project and capture stunning aerial imagery together.</p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <a href="book.html" class="bg-white text-drone-slate px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition inline-flex items-center gap-2">
+                <i class="fas fa-calendar-check"></i> Book a Shoot
+            </a>
+            <a href="contact.html" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition inline-flex items-center gap-2">
+                <i class="fas fa-phone-alt"></i> Contact Us
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+ <footer class="py-16">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <!-- Company -->
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
+                    <!-- Logo container with proper spacing and no cut-off -->
+                <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group flex-nowrap">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white text-sm sm:text-lg"></i>
+                    </div>
+                    <div class="flex items-center whitespace-nowrap">
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate ml-1">VUW</span>
+                    </div>
+                </a>
+                </div>
+                <p class="text-base opacity-700 mb-6 leading-relaxed">
+                    Professional aerial photography. Capturing stunning perspectives since 2019.
+                </p>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="#" class="social-icon text-base"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <!-- Quick links -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Quick Links</h3>
+                <ul class="space-y-4 text-base">
+                    <li><a href="index.html" class="hover:text-drone-slate transition text-base">Home</a></li>
+                    <li><a href="about.html" class="hover:text-drone-slate transition text-base">About</a></li>
+                    <li><a href="service.html" class="hover:text-drone-slate transition text-base">Services</a></li>
+                    <li><a href="gallery.html" class="hover:text-drone-slate transition text-base">Portfolio</a></li>
+                    <li><a href="pricing.html" class="hover:text-drone-slate transition text-base">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Photography</h3>
+                <ul class="space-y-4 text-base">
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Real Estate</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Event Coverage</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Construction</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Commercial</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Wedding</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact + 2 extra columns combined -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Contact</h3>
+                <ul class="space-y-4 text-base mb-8">
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-map-marker-alt text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">123 Aerial Way, Los Angeles, CA 90210</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-phone-alt text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">+1 (555) 123-4567</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-envelope text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">hello@growwvuw.com</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-clock text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">Mon-Fri: 9AM - 6PM</span>
+                    </li>
+                </ul>
+                
+                
+            </div>
+        </div>
+        
+        <!-- Bottom Bar -->
+        <div class="border-t border-drone-slate/10 mt-12 pt-8 text-center">
+            <p class="text-base opacity-90">© 2026 GROWW VUW. All rights reserved. FAA certified operations.</p>
+            <p class="text-sm opacity-80 mt-2">Capturing stunning perspectives from above since 2019</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Theme toggle (condensed)
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle?.querySelector('.fa-moon');
+        const themeIconSun = themeToggle?.querySelector('.fa-sun');
+        const mobileThemeToggle = document.getElementById('theme-toggle-mobile');
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            let dark = document.documentElement.classList.contains('dark');
+            if(themeIcon) themeIcon.classList.toggle('hidden', dark);
+            if(themeIconSun) themeIconSun.classList.toggle('hidden', !dark);
+            if(themeToggle) themeToggle.classList.toggle('active', dark);
+            if(mobileThemeToggle) mobileThemeToggle.classList.toggle('active', dark);
+            localStorage.setItem('theme', dark ? 'dark' : 'light');
+        }
+        if(themeToggle) themeToggle.addEventListener('click', toggleTheme);
+        if(mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+        if(localStorage.getItem('theme')==='dark') document.documentElement.classList.add('dark');
+
+        // RTL toggle
+        const rtlToggle = document.getElementById('rtl-toggle');
+        const mobileRtlToggle = document.getElementById('rtl-toggle-mobile');
+        function toggleRTL() {
+            let rtl = document.documentElement.dir === 'rtl';
+            document.documentElement.dir = rtl ? 'ltr' : 'rtl';
+            document.documentElement.lang = rtl ? 'en' : 'ar';
+            if(rtlToggle) rtlToggle.classList.toggle('active', !rtl);
+            if(mobileRtlToggle) mobileRtlToggle.classList.toggle('active', !rtl);
+            localStorage.setItem('dir', rtl ? 'ltr' : 'rtl');
+        }
+        if(rtlToggle) rtlToggle.addEventListener('click', toggleRTL);
+        if(mobileRtlToggle) mobileRtlToggle.addEventListener('click', toggleRTL);
+        if(localStorage.getItem('dir')==='rtl') { document.documentElement.dir='rtl'; document.documentElement.lang='ar'; if(rtlToggle) rtlToggle.classList.add('active'); }
+
+        // Mobile menu
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileToggleIcon = document.querySelector('#mobile-toggle i');
+        if(mobileToggle) {
+            mobileToggle.addEventListener('click', ()=>{
+                mobileMenu.classList.toggle('open');
+                document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+                mobileToggleIcon.classList.toggle('fa-bars');
+                mobileToggleIcon.classList.toggle('fa-times');
+            });
+        }
+
+        // Category filter
+        const filterButtons = document.querySelectorAll('.category-filter-btn');
+        const portfolioCards = document.querySelectorAll('.portfolio-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                
+                portfolioCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | AEROVIEW – aerial photography & video</title>
+    <link rel="icon" type="asset/jpeg" href="assest/growwpark_logo.jpg">
+    <meta name="description" content="Professional drone services: real estate, events, construction & wedding cinematography. FAA certified pilots, premium gear.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'drone-slate': '#586C89',
+                        'drone-slate-light': '#7C8FA8',
+                        'drone-slate-dark': '#3A4A64',
+                        'bg-warm': '#FFFAF1',
+                        'neutral-dark': '#2D3A4A',
+                        'neutral-light': '#E8EDF2',
+                        'dark-bg': '#1a1a1a',
+                        'dark-card': '#2d2d2d',
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Playfair Display', 'serif'],
+                        'premium': ['Cormorant Garamond', 'serif'],
+                        'alt': ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.3s ease-out',
+                        'blur-in': 'blurIn 0.6s ease',
+                    },
+                    keyframes: {
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        blurIn: {
+                            '0%': { opacity: '0', filter: 'blur(4px)' },
+                            '100%': { opacity: '1', filter: 'blur(0)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Fonts + Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* base & navigation – exact copy from reference */
+        body {
+            background-color: #FFFAF1;
+            color: #2D3A4A;
+        }
+        .dark body {
+            background-color: #1a1a1a;
+            color: #e5e5e5;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        body::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* navigation – identical to reference */
+        .nav-item {
+            position: relative;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            color: #2D3A4A;
+            transition: color 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .dark .nav-item { color: #e5e5e5; }
+        .nav-item:hover { color: #586C89; }
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #586C89;
+            transition: width 0.3s ease;
+        }
+        [dir="rtl"] .nav-item::after { left: auto; right: 0; }
+        .nav-item:hover::after { width: 100%; }
+        
+        .dropdown { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 220px;
+            background: white;
+            border-radius: 12px;
+            padding: 0.75rem 0;
+            box-shadow: 0 20px 40px rgba(88,108,137,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(88,108,137,0.1);
+        }
+        .dark .dropdown-menu { background: #2d2d2d; border-color: #404040; }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        [dir="rtl"] .dropdown-menu { left: auto; right: 0; }
+        
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #2D3A4A;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .dark .dropdown-item { color: #e5e5e5; }
+        .dropdown-item:hover {
+            background: rgba(88,108,137,0.08);
+            color: #586C89;
+            padding-left: 1.75rem;
+        }
+        [dir="rtl"] .dropdown-item:hover { padding-left:1.5rem; padding-right:1.75rem; }
+        .dropdown-item i { margin-right:0.75rem; width:20px; color:#586C89; }
+        
+        .auth-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
+        .dark .auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
+        .auth-btn.login:hover { border-color:#586C89; color:#586C89; }
+        .dark .auth-btn.login:hover { border-color:#7C8FA8; color:white; }
+        .auth-btn.signup { background:#586C89; color:white; }
+        .auth-btn.signup:hover { background:#3A4A64; transform: translateY(-2px); box-shadow:0 8px 16px rgba(88,108,137,0.2); }
+        
+        .toggle-btn {
+            width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+            background:#E8EDF2; color:#4A5A70; transition:0.2s; border:none; cursor:pointer;
+        }
+        .dark .toggle-btn { background:#2A3647; color:#A0B3CC; }
+        .toggle-btn:hover { background:#586C89; color:white; }
+        .toggle-btn.active { background:#586C89; color:white; }
+        @media (max-width:1279px) { .desktop-toggle-group { display:none !important; } }
+        
+        /* mobile menu styles exactly as reference */
+        .mobile-menu { background:white; border-top:1px solid #E0E7EF; max-height:0; overflow:hidden; transition:max-height 0.5s ease; }
+        .dark .mobile-menu { background:#1A1A1A; border-color:#2A3647; }
+        .mobile-menu.open { max-height:85vh; overflow-y:auto; }
+        .mobile-menu-item { display:block; padding:1rem 1.5rem; font-weight:500; color:#2D3A4A; border-bottom:1px solid #E8EDF2; transition:0.2s; font-family:'Montserrat', sans-serif; }
+        .dark .mobile-menu-item { color:#D1D5DB; border-bottom-color:#2A3647; }
+        .mobile-menu-item:hover { background:#F5F8FC; color:#586C89; }
+        .dark .mobile-menu-item:hover { background:#374151; }
+        .mobile-dropdown-content { max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:#F9FCFE; }
+        .dark .mobile-dropdown-content { background:#1F2835; }
+        .mobile-dropdown-content.show { max-height:300px; }
+        .mobile-dropdown-item { display:block; padding:0.75rem 2.5rem; font-size:0.95rem; color:#4A5A70; transition:0.2s; border-bottom:1px solid #E8EDF2; font-family:'Montserrat', sans-serif; }
+        .dark .mobile-dropdown-item { color:#9CA3AF; border-bottom-color:#2A3647; }
+        .mobile-dropdown-item:hover { color:#586C89; background:#E8EDF2; }
+        .dark .mobile-dropdown-item:hover { background:#374151; color:white; }
+        .mobile-auth-btn { display:inline-block; padding:0.75rem 1.5rem; font-weight:500; border-radius:40px; transition:0.3s; text-align:center; margin:0.25rem; border:1px solid transparent; font-family:'Montserrat', sans-serif; }
+        .mobile-auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
+        .dark .mobile-auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
+        .mobile-auth-btn.login:hover { background:#586C89; color:white; border-color:#586C89; }
+        .mobile-auth-btn.signup { background:#586C89; color:white; }
+        .mobile-auth-btn.signup:hover { background:#3A4A64; }
+        
+        /* service card (unchanged) */
+        .service-card {
+            background: white;
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 24px rgba(88,108,137,0.08);
+            border: 1px solid rgba(88,108,137,0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .dark .service-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px -12px rgba(88,108,137,0.25);
+            border-color: #586C89;
+        }
+        .service-card-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        .service-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .service-card:hover .service-card-image img {
+            transform: scale(1.05);
+        }
+        .service-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #586C89;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            z-index: 10;
+        }
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: rgba(88,108,137,0.1);
+            color: #586C89;
+        }
+        .dark .difficulty-badge {
+            background: rgba(88,108,137,0.2);
+            color: #B0C9E0;
+        }
+        /* category filter */
+        .category-filter-btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            background: white;
+            color: #2D3A4A;
+            border: 1px solid rgba(88,108,137,0.2);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        .dark .category-filter-btn {
+            background: #2d2d2d;
+            color: #e5e5e5;
+            border-color: #404040;
+        }
+        .category-filter-btn:hover,
+        .category-filter-btn.active {
+            background: #586C89;
+            color: white;
+            border-color: #586C89;
+        }
+        /* primary button - smaller size */
+        .btn-drone-primary {
+            background: #586C89;
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-size: 0.95rem;
+        }
+        .btn-drone-primary:hover {
+            background: #3A4A64;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -8px rgba(88,108,137,0.4);
+        }
+        /* detail page – MOBILE OPTIMIZED */
+        .service-detail-page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+        .service-detail-page.active {
+            display: block;
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            color: #586C89;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            background: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid rgba(88,108,137,0.1);
+            font-size: 0.9rem;
+        }
+        .dark .back-button {
+            background: #2d2d2d;
+            color: #e5e5e5;
+            border-color: #404040;
+        }
+        .back-button:hover {
+            transform: translateX(-5px);
+            background: #586C89;
+            color: white;
+        }
+        .services-main-page.hidden {
+            display: none;
+        }
+        .social-icon {
+            width:40px; height:40px; border-radius:50%; background:#E8EDF2; color:#4A5A70; display:inline-flex; align-items:center; justify-content:center; transition:0.2s;
+        }
+        .dark .social-icon { background:#2A3647; color:#A0B3CC; }
+        .social-icon:hover { background:#586C89; color:white; transform:translateY(-3px); }
+        
+        /* new detail page components - MOBILE FRIENDLY */
+        .detail-hero {
+            background: linear-gradient(135deg, rgba(88,108,137,0.1) 0%, rgba(255,250,241,0.5) 100%);
+            border-radius: 40px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(88,108,137,0.15);
+        }
+        .dark .detail-hero {
+            background: linear-gradient(135deg, rgba(88,108,137,0.2) 0%, #2d2d2d 100%);
+            border-color: #404040;
+        }
+        
+        /* Mobile-optimized info grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        @media (min-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+        
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.25rem 1rem;
+            border: 1px solid rgba(88,108,137,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            text-align: center;
+        }
+        .dark .info-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        .info-card i {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .info-card .text-2xl {
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+        .info-card .text-sm {
+            font-size: 0.75rem;
+        }
+        
+        /* Mobile-optimized tab buttons */
+        .tab-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border-bottom: 1px solid rgba(88,108,137,0.2);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            background: transparent;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        @media (min-width: 640px) {
+            .tab-btn {
+                padding: 0.5rem 1.5rem;
+                font-size: 0.95rem;
+            }
+        }
+        .tab-btn:hover {
+            background: rgba(88,108,137,0.1);
+        }
+        .tab-btn.active {
+            background: #586C89;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Mobile-optimized detail header image */
+        .detail-header-image {
+            height: 200px;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .detail-header-image {
+                height: 320px;
+            }
+        }
+        
+        /* Mobile-optimized content padding */
+        .detail-content-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 40px -10px rgba(88,108,137,0.15);
+        }
+        @media (min-width: 768px) {
+            .detail-content-card {
+                padding: 2rem;
+            }
+        }
+        
+        /* Fix for long text on mobile */
+        .text-xs {
+            font-size: 0.7rem;
+        }
+        @media (min-width: 640px) {
+            .text-xs {
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Ensure buttons stack nicely on mobile */
+        .flex.gap-3 {
+            flex-direction: column;
+        }
+        @media (min-width: 640px) {
+            .flex.gap-3 {
+                flex-direction: row;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#FFFAF1] dark:bg-dark-bg">
+
+<!-- ========== HEADER (exact copy from reference) ========== -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-neutral-light dark:border-gray-800">
+    <div class="container mx-auto px-6">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
+            <a href="index.html" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fas fa-camera-retro text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
+                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation (xl only) -->
+            <div class="hidden xl:flex items-center">
+                <div class="desktop-nav-container flex items-center gap-8">
+                    <div class="flex items-center gap-8">
+                        <div class="dropdown">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                Home <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="index.html" class="dropdown-item" style="background: rgba(88,108,137,0.08); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">
+                                    <i class="fas fa-home"></i> Home 1 
+                                </a>
+                                <a href="home2.html" class="dropdown-item"><i class="fas fa-home"></i> Home 2</a>
+                            </div>
+                        </div>
+                        <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">About</a>
+                        <a href="service.html" class="nav-item font-medium text-drone-slate dark:text-drone-slate-light transition" style="font-weight: 600;">Services</a>
+                        <a href="book.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Book Now</a>
+                        <a href="portfolio.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Portfolio</a>
+                        <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Contact</a>
+                        <div class="dropdown">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                Dashboard <i class="fas fa-chevron-down ml-2 text-xs"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="admin.html" class="dropdown-item"><i class="fas fa-user-shield"></i> Admin</a>
+                                <a href="client.html" class="dropdown-item"><i class="fas fa-user"></i> Client</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 ml-0">
+                        <a href="register.html" class="auth-btn signup">Register</a>
+                    </div>
+                </div>
+                <div class="flex gap-2 ml-4 desktop-toggle-group">
+                    <button id="theme-toggle" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                    <button id="rtl-toggle" class="toggle-btn">⇄</button>
+                </div>
+            </div>
+
+            <!-- Mobile button -->
+            <button id="mobile-toggle" class="xl:hidden text-neutral-dark dark:text-gray-300 p-2">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+
+        <!-- Mobile menu (exact copy) -->
+        <div id="mobile-menu" class="mobile-menu xl:hidden">
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item"><span>Home</span><i class="fas fa-chevron-down text-xs"></i></button>
+                <div class="mobile-dropdown-content">
+                    <a href="index.html" class="mobile-dropdown-item" style="background:rgba(88,108,137,0.08);color:#586C89;border-left:3px solid #586C89;"><i class="fas fa-home mr-2"></i>Home 1</a>                     
+                    <a href="home2.html" class="mobile-dropdown-item">Home 2</a>
+                </div>
+            </div>
+            <a href="about.html" class="mobile-menu-item">About</a>
+            <a href="service.html" class="mobile-menu-item" style="background: rgba(88,108,137,0.1); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">Services</a>
+            <a href="book.html" class="mobile-menu-item">Book Now</a>
+            <a href="portfolio.html" class="mobile-menu-item">Portfolio</a>
+            <a href="contact.html" class="mobile-menu-item">Contact</a>
+            <div class="mobile-dropdown">
+                <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item"><span>Dashboard</span><i class="fas fa-chevron-down text-xs"></i></button>
+                <div class="mobile-dropdown-content">
+                    <a href="admin.html" class="mobile-dropdown-item">Admin</a>
+                    <a href="client.html" class="mobile-dropdown-item">Client</a>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 p-6">
+                <a href="register.html" class="mobile-auth-btn signup flex-1 text-center">Register</a>
+            </div>
+            <div class="flex justify-center gap-3 p-6 border-t border-gray-200 dark:border-gray-800">
+                <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+                <button id="rtl-toggle-mobile" class="toggle-btn">⇄</button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- ========== MAIN SERVICES PAGE (unchanged) ========== -->
+<div id="services-main-page" class="services-main-page">
+
+    <!-- HERO SECTION with smaller button -->
+    <section class="relative pt-36 pb-20 md:pt-44 md:pb-28 overflow-hidden bg-[#FFFAF1] dark:bg-dark-bg">
+        <div class="absolute inset-0 opacity-5" style="background-image: repeating-linear-gradient(45deg, #586C89 0px, #586C89 2px, transparent 2px, transparent 20px);"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <span class="inline-flex items-center px-5 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm border border-drone-slate/10 mb-6">
+                    <i class="fas fa-drone text-drone-slate mr-2"></i>
+                    <span class="text-sm font-medium">Professional aerial services</span>
+                </span>
+                <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 text-neutral-dark dark:text-white">
+                    Our <span class="text-drone-slate">Services</span>
+                </h1>
+                <p class="text-xl text-neutral-dark/70 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed mb-8">
+                    Four specialized areas – each backed by FAA-certified pilots, premium gear, and a creative touch.
+                </p>
+                <!-- SMALLER BUTTON (reduced size) -->
+                <div class="flex justify-center">
+                    <a href="#services-grid" class="btn-drone-primary text-sm px-5 py-2.5">
+                        <i class="fas fa-arrow-down mr-2"></i>View All Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORY FILTER (4 categories) -->
+    <section class="py-8">
+    <div class="container mx-auto px-4 sm:px-6">
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+            <button class="category-filter-btn active px-3 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap" data-filter="all">All Services</button>
+            <button class="category-filter-btn px-3 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap" data-filter="realestate">Real Estate</button>
+            <button class="category-filter-btn px-3 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap" data-filter="events">Events</button>
+            <button class="category-filter-btn px-3 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap" data-filter="construction">Construction</button>
+            <button class="category-filter-btn px-3 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm whitespace-nowrap" data-filter="wedding">Wedding</button>
+        </div>
+    </div>
+</section>
+
+    <!-- SERVICES GRID – 12 CARDS (3 per category) -->
+    <section id="services-grid" class="py-12 pb-24">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                
+                <!-- REAL ESTATE – 3 cards -->
+                <a href="#detail-realestate-malibu" class="service-card group" data-category="realestate">
+                    <div class="service-card-image">
+                        <img src="assest/re.jpg" alt="Malibu villa" loading="lazy">
+                        <div class="service-badge"><i class="fas fa-star"></i> featured</div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-home mr-1"></i> Real Estate</span>
+                            <span class="text-lg font-bold text-drone-slate">$499</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Beachfront Villa • Malibu</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">4K HDR • 15 images • 2 min video</p>
+                        <div class="flex items-center justify-between mt-auto">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (24)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#detail-realestate-penthouse" class="service-card group" data-category="realestate">
+                    <div class="service-card-image">
+                        <img src="assest/re1.jpg" alt="penthouse LA">
+                        <div class="service-badge"><i class="fas fa-crown"></i> luxury</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-home mr-1"></i> Real Estate</span>
+                            <span class="text-lg font-bold text-drone-slate">$599</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Downtown Penthouse • LA</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">twilight shoot • 20 images • 3 min video</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (18)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#detail-realestate-ranch" class="service-card group" data-category="realestate">
+                    <div class="service-card-image">
+                        <img src="assest/re2.jpg" alt="ranch texas">
+                        <div class="service-badge"><i class="fas fa-tree"></i> acreage</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-home mr-1"></i> Real Estate</span>
+                            <span class="text-lg font-bold text-drone-slate">$749</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Hill Country Ranch • Texas</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">50 acres • 4K • property map overlay</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (31)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- EVENTS – 3 cards -->
+                <a href="#detail-events-corporate" class="service-card group" data-category="events">
+                    <div class="service-card-image">
+                        <img src="assest/grid.jpg" alt="corporate event">
+                        <div class="service-badge"><i class="fas fa-users"></i> corporate</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-calendar mr-1 "></i> Events</span>
+                            <span class="text-lg font-bold text-drone-slate">$899</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Tech Conference • San Jose</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">keynote + group shots • 2 drones</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (42)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#detail-events-music" class="service-card group" data-category="events">
+                    <div class="service-card-image">
+                        <img src="assest/ev.jpg" alt="music festival">
+                        <div class="service-badge"><i class="fas fa-music"></i> festival</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-calendar mr-1"></i> Events</span>
+                            <span class="text-lg font-bold text-drone-slate">$1299</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Desert Music Fest • Indio</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">night shots • 3 min recap • 4K</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (27)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#detail-events-sports" class="service-card group" data-category="events">
+                    <div class="service-card-image">
+                        <img src="assest/ev1.jpg" alt="sports event">
+                        <div class="service-badge"><i class="fas fa-football"></i> sports</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-calendar mr-1"></i> Events</span>
+                            <span class="text-lg font-bold text-drone-slate">$1099</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Marathon • Boston</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">follow cam • 5 mile coverage</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (36)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- CONSTRUCTION – 3 cards -->
+                <a href="#detail-construction-progress" class="service-card group" data-category="construction">
+                    <div class="service-card-image">
+                        <img src="assest/con.jpg" alt="construction site">
+                        <div class="service-badge"><i class="fas fa-hard-hat"></i> progress</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-hard-hat mr-1"></i> Construction</span>
+                            <span class="text-lg font-bold text-drone-slate">$399</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">High‑rise • Austin</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">weekly progress • orthomosaic</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (17)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#detail-construction-inspection" class="service-card group" data-category="construction">
+                    <div class="service-card-image">
+                        <img src="assest/con1.jpg" alt="bridge inspection">
+                        <div class="service-badge"><i class="fas fa-search"></i> inspection</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-hard-hat mr-1"></i> Construction</span>
+                            <span class="text-lg font-bold text-drone-slate">$599</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Bridge Inspection • SF</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">thermal • high‑res crack detection</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (12)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#detail-construction-topography" class="service-card group" data-category="construction">
+                    <div class="service-card-image">
+                        <img src="assest/ph1.jpg" alt="land survey">
+                        <div class="service-badge"><i class="fas fa-mountain"></i> survey</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-hard-hat mr-1"></i> Construction</span>
+                            <span class="text-lg font-bold text-drone-slate">$799</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Land Survey • Colorado</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">3D model • contour lines</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (9)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- WEDDING – 3 cards -->
+                <a href="#detail-wedding-beach" class="service-card group" data-category="wedding">
+                    <div class="service-card-image">
+                        <img src="assest/wed.jpg" alt="beach wedding">
+                        <div class="service-badge"><i class="fas fa-heart"></i> popular</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-gem mr-1"></i> Wedding</span>
+                            <span class="text-lg font-bold text-drone-slate">$899</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Maui Beach Wedding</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">sunset ceremony • 2 min highlight</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (44)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#detail-wedding-vineyard" class="service-card group" data-category="wedding">
+                    <div class="service-card-image">
+                        <img src="assest/grid.jpg" alt="vineyard wedding">
+                        <div class="service-badge"><i class="fas fa-wine-glass-alt"></i> vineyard</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-gem mr-1"></i> Wedding</span>
+                            <span class="text-lg font-bold text-drone-slate">$1099</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Napa Valley Estate</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">golden hour • full edit + photo</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> (38)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#detail-wedding-mountain" class="service-card group" data-category="wedding">
+                    <div class="service-card-image">
+                        <img src="assest/grid1.jpg" alt="mountain wedding">
+                        <div class="service-badge"><i class="fas fa-mountain"></i> elopement</div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="difficulty-badge"><i class="fas fa-gem mr-1"></i> Wedding</span>
+                            <span class="text-lg font-bold text-drone-slate">$1299</span>
+                        </div>
+                        <h3 class="text-lg font-display font-bold mb-1 dark:text-white">Colorado Mountain Elopement</h3>
+                        <p class="text-xs text-neutral-dark/90 dark:text-gray-400 mb-3">alpine • intimate ceremony</p>
+                        <div class="flex items-center justify-between mt-2">
+                            <span class="text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> (22)</span>
+                            <span class="text-drone-slate text-xs font-semibold">details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="text-center mt-16">
+                <button class="btn-drone-primary text-base px-6 py-3"><i class="fas fa-calendar-alt mr-2"></i>Book a free consultation</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US SECTION -->
+    <section class="py-16 bg-white dark:bg-dark-card border-y border-drone-slate/10">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl md:text-4xl font-display font-bold mb-4 dark:text-white">Why <span class="text-drone-slate">GROWW VUW</span></h2>
+                <p class="text-neutral-dark/70 dark:text-gray-300">FAA certified · insured · creative approach</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div><div class="w-16 h-16 bg-drone-slate/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-certificate text-2xl text-drone-slate"></i></div><h4 class="font-bold">Part 107</h4><p class="text-sm">licensed pilots</p></div>
+                <div><div class="w-16 h-16 bg-drone-slate/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-shield-alt text-2xl text-drone-slate"></i></div><h4 class="font-bold">$2M insurance</h4><p class="text-sm">full coverage</p></div>
+                <div><div class="w-16 h-16 bg-drone-slate/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-sync-alt text-2xl text-drone-slate"></i></div><h4 class="font-bold">48h turnaround</h4><p class="text-sm">edits delivered</p></div>
+                <div><div class="w-16 h-16 bg-drone-slate/10 rounded-full flex items-center justify-center mx-auto mb-3"><i class="fas fa-map-marked-alt text-2xl text-drone-slate"></i></div><h4 class="font-bold">worldwide</h4><p class="text-sm">travel available</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="py-20 bg-drone-slate text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Ready to elevate your project?</h2>
+            <p class="text-xl opacity-90 max-w-2xl mx-auto mb-8">Contact us for a custom quote – we'll respond within 2 hours.</p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button class="bg-white text-drone-slate px-8 py-3 rounded-full font-bold text-base hover:shadow-2xl transition"><i class="fas fa-paper-plane mr-2"></i>Get a quote</button>
+                <button class="border-2 border-white text-white px-8 py-3 rounded-full font-bold text-base hover:bg-white/10 transition"><i class="fas fa-phone-alt mr-2"></i>Schedule call</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ========== SERVICE DETAIL PAGES – MOBILE OPTIMIZED ========== -->
+
+<!-- 1. Real Estate: Malibu Villa -->
+<div id="detail-realestate-malibu" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        
+        <!-- Hero image - mobile optimized -->
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/re.jpg" alt="Malibu villa" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Real Estate · featured</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Beachfront Villa</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">Malibu, California</p>
+            </div>
+        </div>
+        
+        <!-- Info grid - mobile optimized (2 columns) -->
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$499</div><div class="text-xs sm:text-sm opacity-70">starting price</div></div>
+            <div class="info-card"><i class="fas fa-clock text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">48h</div><div class="text-xs sm:text-sm opacity-70">turnaround</div></div>
+            <div class="info-card"><i class="fas fa-camera text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">4K HDR</div><div class="text-xs sm:text-sm opacity-70">video & photo</div></div>
+            <div class="info-card"><i class="fas fa-user-check text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">FAA</div><div class="text-xs sm:text-sm opacity-70">certified pilot</div></div>
+        </div>
+        
+        <!-- Content card - mobile optimized padding -->
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="desc1">Description</button>
+                <button class="tab-btn" data-tab="inc1">Includes</button>
+                <button class="tab-btn" data-tab="pilot1">Pilot</button>
+                <button class="tab-btn" data-tab="rev1">Reviews</button>
+            </div>
+            
+            <div id="desc1" class="tab-content active">
+                <p class="text-sm sm:text-base leading-relaxed">Capture the essence of luxury coastal living with our signature real estate package. This comprehensive shoot includes exterior establishing shots (sunset/dusk available), interior through-window aerials, pool & grounds overview, neighborhood context, and ocean proximity. You'll receive a 2‑minute cinematic video with music, 15 high-res HDR images (retouched), and social media clips (3x 15s).</p>
+            </div>
+            
+            <div id="inc1" class="tab-content">
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 text-sm sm:text-base">
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>FAA certified pilot</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>4K HDR images (15)</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>2‑minute cinematic video</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>48h edit turnaround</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>DJI Inspire 3 drone</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>Full commercial license</span></li>
+                </ul>
+            </div>
+            
+            <div id="pilot1" class="tab-content">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                    <img src="assest/Guide2.jpg" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-drone-slate">
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl sm:text-2xl font-bold">James Carter</h3>
+                        <p class="text-drone-slate text-sm sm:text-base">FAA Part 107 · 1500+ hours</p>
+                        <p class="mt-2 text-sm sm:text-base">Lead pilot and founder. Specializes in luxury real estate and coastal aerials.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="rev1" class="tab-content">
+                <div class="flex items-center mb-4">
+                    <span class="text-yellow-400 text-xl sm:text-2xl mr-2">★★★★★</span>
+                    <span class="font-bold text-base sm:text-lg">4.9</span>
+                    <span class="opacity-70 ml-2 text-sm sm:text-base">(24 verified reviews)</span>
+                </div>
+                <p class="text-sm sm:text-base">"James captured our villa perfectly – the sunset shots were magical. Highly recommend!" – Sarah T.</p>
+            </div>
+            
+            <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
+                <button class="btn-drone-primary flex-1 py-3 text-sm sm:text-base"><i class="fas fa-calendar-check mr-2"></i>Book now</button>
+                <button class="border border-drone-slate text-drone-slate px-6 py-3 rounded-full font-semibold hover:bg-drone-slate hover:text-white transition text-sm sm:text-base"><i class="fas fa-question-circle mr-2"></i>Ask</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. Real Estate: Penthouse LA - mobile optimized -->
+<div id="detail-realestate-penthouse" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/re1.jpg" alt="Penthouse" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Real Estate · luxury</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Downtown Penthouse</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">Los Angeles, CA</p>
+            </div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$599</div><div class="text-xs sm:text-sm opacity-70">starting price</div></div>
+            <div class="info-card"><i class="fas fa-clock text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">48h</div><div class="text-xs sm:text-sm opacity-70">turnaround</div></div>
+            <div class="info-card"><i class="fas fa-camera text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">20 images</div><div class="text-xs sm:text-sm opacity-70">+ 3 min video</div></div>
+            <div class="info-card"><i class="fas fa-moon text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">Twilight</div><div class="text-xs sm:text-sm opacity-70">night rating</div></div>
+        </div>
+        
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-xl">
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="desc2">Description</button>
+                <button class="tab-btn" data-tab="inc2">Includes</button>
+                <button class="tab-btn" data-tab="pilot2">Pilot</button>
+            </div>
+            
+            <div id="desc2" class="tab-content active">
+                <p class="text-sm sm:text-base">Specialized package for high‑rise properties capturing the transition from day to night, highlighting city lights and interior ambiance. Includes twilight exterior, interior wide shots, rooftop detail, 3‑minute video, and 20 HDR stills.</p>
+            </div>
+            
+            <div id="inc2" class="tab-content">
+                <ul class="space-y-2 text-sm sm:text-base">
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>FAA pilot + visual observer</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>20 HDR images</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>3‑minute video</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-drone-slate mr-2 mt-1 flex-shrink-0"></i><span>Night shooting license</span></li>
+                </ul>
+            </div>
+            
+            <div id="pilot2" class="tab-content">
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                    <img src="assest/Guide2.jpg" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-drone-slate">
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl sm:text-2xl font-bold">Lena Park</h3>
+                        <p class="text-drone-slate text-sm sm:text-base">FAA Part 107 · night rating</p>
+                        <p class="mt-2 text-sm sm:text-base">Specialist in twilight and night aerial cinematography.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 sm:mt-8">
+                <button class="btn-drone-primary w-full sm:w-auto"><i class="fas fa-calendar-check mr-2"></i>Book now</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. Real Estate: Ranch - mobile optimized -->
+<div id="detail-realestate-ranch" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/re2.jpg" alt="Ranch" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Real Estate · acreage</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Hill Country Ranch</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">Texas</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$749</div></div>
+            <div class="info-card"><i class="fas fa-map text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">50 acres</div></div>
+            <div class="info-card"><i class="fas fa-camera text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">Orthomosaic</div></div>
+            <div class="info-card"><i class="fas fa-user-check text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">FAA</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Complete ranch survey with property map overlay, livestock inventory option, and 3D terrain model.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 4. Events: Corporate - mobile optimized -->
+<div id="detail-events-corporate" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/grid.jpg" alt="Corporate" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Events · corporate</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Tech Conference</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">San Jose</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$899</div></div>
+            <div class="info-card"><i class="fas fa-video text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">2 drones</div></div>
+            <div class="info-card"><i class="fas fa-users text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">100+ stills</div></div>
+            <div class="info-card"><i class="fas fa-clock text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">48h</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Full-day coverage with two drones, keynote establishing shots, group photo, and aftermovie.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 5. Events: Music Festival - mobile optimized -->
+<div id="detail-events-music" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/ev.jpg" alt="Festival" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Events · festival</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Desert Music Fest</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">Indio</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$1299</div></div>
+            <div class="info-card"><i class="fas fa-fire text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">night pyro</div></div>
+            <div class="info-card"><i class="fas fa-video text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">3 min recap</div></div>
+            <div class="info-card"><i class="fas fa-camera text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">4K</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Multi-camera drone coverage, night pyro shots, and 3‑minute aftermovie.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 6. Events: Sports - mobile optimized -->
+<div id="detail-events-sports" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/ev1.jpg" alt="Sports" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Events · sports</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Boston Marathon</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">Boston</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$1099</div></div>
+            <div class="info-card"><i class="fas fa-running text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">follow cam</div></div>
+            <div class="info-card"><i class="fas fa-map-marker text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">5 mile</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Follow-cam drone, 5 mile course coverage, finish line aerial.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 7. Construction: Progress - mobile optimized -->
+<div id="detail-construction-progress" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/con.jpg" alt="Construction" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Construction · progress</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">High‑rise • Austin</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">weekly orthomosaic</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$399</div></div>
+            <div class="info-card"><i class="fas fa-calendar-week text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">weekly</div></div>
+            <div class="info-card"><i class="fas fa-draw-polygon text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">orthomosaic</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Weekly progress monitoring with orthomosaic maps, 3D models, and volume reports.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 8. Construction: Inspection - mobile optimized -->
+<div id="detail-construction-inspection" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/con1.jpg" alt="Inspection" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Construction · inspection</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Bridge Inspection</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">San Francisco</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$599</div></div>
+            <div class="info-card"><i class="fas fa-thermometer-half text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">thermal</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Thermal and high-res crack detection, NDT reports.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 9. Construction: Topography - mobile optimized -->
+<div id="detail-construction-topography" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/ph1.jpg" alt="Survey" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Construction · survey</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Land Survey</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">Colorado</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$799</div></div>
+            <div class="info-card"><i class="fas fa-cubes text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">3D model</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Contour lines, 3D model, cut/fill analysis.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 10. Wedding: Beach - mobile optimized -->
+<div id="detail-wedding-beach" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/wed.jpg" alt="Beach wedding" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Wedding · popular</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Maui Beach Wedding</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">Hawaii</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$899</div></div>
+            <div class="info-card"><i class="fas fa-sun text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">sunset</div></div>
+            <div class="info-card"><i class="fas fa-heart text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">2 min highlight</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Sunset ceremony, 2‑min highlight video, 50+ photos.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 11. Wedding: Vineyard - mobile optimized -->
+<div id="detail-wedding-vineyard" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/grid.jpg" alt="Vineyard" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Wedding · vineyard</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Napa Valley Estate</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">California</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$1099</div></div>
+            <div class="info-card"><i class="fas fa-wine-glass-alt text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">golden hour</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Golden hour, full edit + photo, vineyard flyover.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 12. Wedding: Mountain Elopement - mobile optimized -->
+<div id="detail-wedding-mountain" class="service-detail-page">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="back-button" onclick="goBackToServices()"><i class="fas fa-arrow-left mr-2"></i> All services</div>
+        <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden h-48 sm:h-80 mb-6 sm:mb-10">
+            <img src="assest/grid1.jpg" alt="Mountain" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-4 sm:p-8 text-white">
+                <span class="bg-drone-slate px-3 py-0.5 sm:px-4 sm:py-1 rounded-full text-xs sm:text-sm font-semibold inline-block mb-2 sm:mb-3">Wedding · elopement</span>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-display font-bold">Colorado Elopement</h1>
+                <p class="text-base sm:text-xl opacity-90 mt-1 sm:mt-2">Rocky Mountains</p>
+            </div>
+        </div>
+        <div class="info-grid">
+            <div class="info-card"><i class="fas fa-tag text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">$1299</div></div>
+            <div class="info-card"><i class="fas fa-mountain text-drone-slate text-xl sm:text-2xl mb-2"></i><div class="text-xl sm:text-2xl font-bold">alpine</div></div>
+        </div>
+        <div class="bg-white dark:bg-dark-card rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <p class="text-sm sm:text-base">Alpine ceremony, intimate, 4K + stills.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="py-16">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <!-- Company -->
+            <div class="text-center md:text-left">
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
+                    <!-- Logo container with proper spacing and no cut-off -->
+                <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group flex-nowrap">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white text-sm sm:text-lg"></i>
+                    </div>
+                    <div class="flex items-center whitespace-nowrap">
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate ml-1">VUW</span>
+                    </div>
+                </a>
+                </div>
+                <p class="text-base opacity-700 mb-6 leading-relaxed">
+                    Professional aerial photography. Capturing stunning perspectives since 2019.
+                </p>
+                <div class="flex justify-center md:justify-start gap-4">
+                    <a href="#" class="social-icon text-base"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon text-base"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <!-- Quick links -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Quick Links</h3>
+                <ul class="space-y-4 text-base">
+                    <li><a href="index.html" class="hover:text-drone-slate transition text-base">Home</a></li>
+                    <li><a href="about.html" class="hover:text-drone-slate transition text-base">About</a></li>
+                    <li><a href="service.html" class="hover:text-drone-slate transition text-base">Services</a></li>
+                    <li><a href="gallery.html" class="hover:text-drone-slate transition text-base">Portfolio</a></li>
+                    <li><a href="pricing.html" class="hover:text-drone-slate transition text-base">Contact</a></li>
+                </ul>
+            </div>
+            
+            <!-- Services -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Photography</h3>
+                <ul class="space-y-4 text-base">
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Real Estate</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Event Coverage</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Construction</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Commercial</a></li>
+                    <li><a href="#" class="hover:text-drone-slate transition text-base">Wedding</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact + 2 extra columns combined -->
+            <div class="text-center md:text-left">
+                <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Contact</h3>
+                <ul class="space-y-4 text-base mb-8">
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-map-marker-alt text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">123 Aerial Way, Los Angeles, CA 90210</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-phone-alt text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">+1 (555) 123-4567</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-envelope text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">hello@growwvuw.com</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start gap-3">
+                        <i class="fas fa-clock text-drone-slate w-5 text-lg"></i>
+                        <span class="text-base">Mon-Fri: 9AM - 6PM</span>
+                    </li>
+                </ul>
+                
+                
+            </div>
+        </div>
+        
+        <!-- Bottom Bar -->
+        <div class="border-t border-drone-slate/10 mt-12 pt-8 text-center">
+            <p class="text-base opacity-90">© 2026 GROWW VUW. All rights reserved. FAA certified operations.</p>
+            <p class="text-sm opacity-80 mt-2">Capturing stunning perspectives from above since 2019</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript (filter + tab functionality + hash nav) -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Theme toggle (condensed)
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle?.querySelector('.fa-moon');
+        const themeIconSun = themeToggle?.querySelector('.fa-sun');
+        const mobileThemeToggle = document.getElementById('theme-toggle-mobile');
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            let dark = document.documentElement.classList.contains('dark');
+            if(themeIcon) themeIcon.classList.toggle('hidden', dark);
+            if(themeIconSun) themeIconSun.classList.toggle('hidden', !dark);
+            if(themeToggle) themeToggle.classList.toggle('active', dark);
+            if(mobileThemeToggle) mobileThemeToggle.classList.toggle('active', dark);
+            localStorage.setItem('theme', dark ? 'dark' : 'light');
+        }
+        if(themeToggle) themeToggle.addEventListener('click', toggleTheme);
+        if(mobileThemeToggle) mobileThemeToggle.addEventListener('click', toggleTheme);
+        if(localStorage.getItem('theme')==='dark') document.documentElement.classList.add('dark');
+
+        // RTL toggle (simplified)
+        const rtlToggle = document.getElementById('rtl-toggle');
+        const mobileRtlToggle = document.getElementById('rtl-toggle-mobile');
+        function toggleRTL() {
+            let rtl = document.documentElement.dir === 'rtl';
+            document.documentElement.dir = rtl ? 'ltr' : 'rtl';
+            document.documentElement.lang = rtl ? 'en' : 'ar';
+            if(rtlToggle) rtlToggle.classList.toggle('active', !rtl);
+            if(mobileRtlToggle) mobileRtlToggle.classList.toggle('active', !rtl);
+            localStorage.setItem('dir', rtl ? 'ltr' : 'rtl');
+        }
+        if(rtlToggle) rtlToggle.addEventListener('click', toggleRTL);
+        if(mobileRtlToggle) mobileRtlToggle.addEventListener('click', toggleRTL);
+        if(localStorage.getItem('dir')==='rtl') { document.documentElement.dir='rtl'; document.documentElement.lang='ar'; if(rtlToggle) rtlToggle.classList.add('active'); }
+
+        // Mobile menu
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileToggleIcon = document.querySelector('#mobile-toggle i');
+        if(mobileToggle) {
+            mobileToggle.addEventListener('click', ()=>{
+                mobileMenu.classList.toggle('open');
+                document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+                mobileToggleIcon.classList.toggle('fa-bars');
+                mobileToggleIcon.classList.toggle('fa-times');
+            });
+        }
+
+        // Filter
+        const filterBtns = document.querySelectorAll('.category-filter-btn');
+        const cards = document.querySelectorAll('.service-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function(){
+                filterBtns.forEach(b=>b.classList.remove('active'));
+                this.classList.add('active');
+                let filter = this.dataset.filter;
+                cards.forEach(c=>{
+                    c.style.display = (filter==='all' || c.dataset.category===filter) ? 'flex' : 'none';
+                });
+            });
+        });
+
+        // Hash navigation
+        const mainPage = document.getElementById('services-main-page');
+        const detailPages = document.querySelectorAll('.service-detail-page');
+        function showFromHash() {
+            let hash = window.location.hash;
+            if(hash && hash.startsWith('#detail-')) {
+                mainPage.classList.add('hidden');
+                detailPages.forEach(p=>p.classList.remove('active'));
+                let target = document.querySelector(hash);
+                if(target) target.classList.add('active');
+                else mainPage.classList.remove('hidden');
+                window.scrollTo(0,0);
+            } else {
+                mainPage.classList.remove('hidden');
+                detailPages.forEach(p=>p.classList.remove('active'));
+            }
+        }
+        window.addEventListener('hashchange', showFromHash);
+        showFromHash();
+        window.goBackToServices = ()=>{ window.location.hash = ''; };
+
+        // Tab switching inside detail pages
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                let container = this.closest('.bg-white, .dark\\:bg-dark-card');
+                let tabId = this.dataset.tab;
+                container.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+                this.classList.add('active');
+                container.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+                container.querySelector('#'+tabId).classList.add('active');
+            });
+        });
+    });
+</script>
+</body>
+</html>
