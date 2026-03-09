@@ -747,6 +747,7 @@
         const mobileToggle = document.getElementById('mobile-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileToggleIcon = document.querySelector('#mobile-toggle i');
+        
         mobileToggle.addEventListener('click', () => {
             const isOpening = !mobileMenu.classList.contains('open');
             if (isOpening) {
@@ -763,42 +764,67 @@
             }
         });
 
+        // Mobile dropdown buttons - FIXED
         document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
             button.addEventListener('click', (e) => {
-                e.stopPropagation();
+                e.preventDefault();
+                e.stopPropagation(); // Prevent event from bubbling up
+                
                 const dropdown = e.target.closest('.mobile-dropdown');
                 const content = dropdown.querySelector('.mobile-dropdown-content');
-                const icon = dropdown.querySelector('.fa-chevron-down');
-                const isOpening = !content.classList.contains('show');
-                content.classList.toggle('show');
-                if (content.classList.contains('show')) icon.style.transform = 'rotate(180deg)'; else icon.style.transform = 'rotate(0deg)';
-                if (isOpening) {
-                    document.querySelectorAll('.mobile-dropdown-content').forEach(otherContent => {
-                        if (otherContent !== content) {
-                            otherContent.classList.remove('show');
-                            const otherIcon = otherContent.parentElement.querySelector('.fa-chevron-down');
-                            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
-                        }
-                    });
+                const icon = button.querySelector('.fa-chevron-down');
+                
+                // Check if this dropdown is open
+                const isOpen = content.classList.contains('show');
+                
+                // Close all dropdowns first
+                document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                    c.classList.remove('show');
+                });
+                document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                    i.style.transform = 'rotate(0deg)';
+                });
+                
+                // If it wasn't open, open this one
+                if (!isOpen) {
+                    content.classList.add('show');
+                    if (icon) icon.style.transform = 'rotate(180deg)';
                 }
             });
         });
         
+        // Close mobile menu when clicking on links - FIXED to exclude dropdown buttons
         document.querySelectorAll('.mobile-menu-item, .mobile-dropdown-item').forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                // Don't close if clicking on a dropdown button or its children
+                if (e.target.closest('.mobile-dropdown-btn')) {
+                    return;
+                }
+                
                 mobileMenu.classList.remove('open');
-                if (mobileToggleIcon) { mobileToggleIcon.classList.remove('fa-times'); mobileToggleIcon.classList.add('fa-bars'); }
+                if (mobileToggleIcon) { 
+                    mobileToggleIcon.classList.remove('fa-times'); 
+                    mobileToggleIcon.classList.add('fa-bars'); 
+                }
                 document.body.style.overflow = '';
             });
         });
         
+        // Close when clicking outside
         document.addEventListener('click', (e) => {
             if (!e.target.closest('#mobile-menu') && !e.target.closest('#mobile-toggle')) {
                 if (mobileMenu && mobileMenu.classList.contains('open')) {
                     mobileMenu.classList.remove('open');
-                    if (mobileToggleIcon) { mobileToggleIcon.classList.remove('fa-times'); mobileToggleIcon.classList.add('fa-bars'); }
+                    if (mobileToggleIcon) { 
+                        mobileToggleIcon.classList.remove('fa-times'); 
+                        mobileToggleIcon.classList.add('fa-bars'); 
+                    }
                     document.body.style.overflow = '';
-                    document.querySelectorAll('.mobile-dropdown-content').forEach(c => { c.classList.remove('show'); const icon = c.previousElementSibling?.querySelector('.fa-chevron-down'); if(icon) icon.style.transform = 'rotate(0)'; });
+                    document.querySelectorAll('.mobile-dropdown-content').forEach(c => { 
+                        c.classList.remove('show'); 
+                        const icon = c.closest('.mobile-dropdown')?.querySelector('.fa-chevron-down'); 
+                        if(icon) icon.style.transform = 'rotate(0)'; 
+                    });
                 }
             }
         });

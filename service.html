@@ -186,6 +186,26 @@
         .mobile-auth-btn.login:hover { background:#586C89; color:white; border-color:#586C89; }
         .mobile-auth-btn.signup { background:#586C89; color:white; }
         .mobile-auth-btn.signup:hover { background:#3A4A64; }
+      /* Force mobile toggle buttons to be centered in same row */
+@media (max-width: 1279px) {
+    #mobile-menu .flex.justify-center.gap-3.p-6.border-t {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 15px !important;
+        padding: 15px !important;
+        width: 100% !important;
+    }
+    
+    #mobile-menu .toggle-btn {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 16px !important;
+        margin: 0 !important;
+        border-radius: 8px !important;
+    }
+}
         
         /* service card (unchanged) */
         .service-card {
@@ -527,10 +547,11 @@
                         <a href="register.html" class="auth-btn signup">Register</a>
                     </div>
                 </div>
-                <div class="flex gap-2 ml-4 desktop-toggle-group">
-                    <button id="theme-toggle" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
-                    <button id="rtl-toggle" class="toggle-btn">⇄</button>
-                </div>
+                <!-- Mobile toggle buttons - centered row -->
+<div class="flex justify-center gap-3 p-6 border-t border-gray-200 dark:border-gray-800">
+    <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
+    <button id="rtl-toggle-mobile" class="toggle-btn">⇄</button>
+</div>
             </div>
 
             <!-- Mobile button -->
@@ -1349,7 +1370,7 @@
     </div>
 </footer>
 
-<!-- JavaScript (filter + tab functionality + hash nav) -->
+<!-- JavaScript (filter + tab functionality + hash nav) - FIXED MOBILE DROPDOWNS -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Theme toggle (condensed)
@@ -1389,16 +1410,111 @@
         const mobileToggle = document.getElementById('mobile-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileToggleIcon = document.querySelector('#mobile-toggle i');
+        
         if(mobileToggle) {
-            mobileToggle.addEventListener('click', ()=>{
+            mobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
                 mobileMenu.classList.toggle('open');
                 document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
                 mobileToggleIcon.classList.toggle('fa-bars');
                 mobileToggleIcon.classList.toggle('fa-times');
+                
+                // Close all dropdowns when closing menu
+                if (!mobileMenu.classList.contains('open')) {
+                    document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                        c.classList.remove('show');
+                    });
+                    document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                        i.style.transform = 'rotate(0deg)';
+                    });
+                }
             });
         }
 
-        // Filter
+        // FIXED: Mobile dropdown functionality
+        document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation(); // Critical: stops event from bubbling up
+                
+                const dropdown = e.currentTarget.closest('.mobile-dropdown');
+                if (!dropdown) return;
+                
+                const content = dropdown.querySelector('.mobile-dropdown-content');
+                const icon = e.currentTarget.querySelector('.fa-chevron-down');
+                
+                if (!content) return;
+                
+                // Check if this dropdown is already open
+                const isOpen = content.classList.contains('show');
+                
+                // Close all dropdowns first
+                document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                    c.classList.remove('show');
+                });
+                document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                    i.style.transform = 'rotate(0deg)';
+                });
+                
+                // If it wasn't open, open this one
+                if (!isOpen) {
+                    content.classList.add('show');
+                    if (icon) {
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                }
+            });
+        });
+
+        // FIXED: Close mobile menu when clicking on links (but NOT dropdown buttons)
+        document.querySelectorAll('.mobile-menu-item, .mobile-dropdown-item').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close if clicking on a dropdown button or its children
+                if (e.target.closest('.mobile-dropdown-btn')) {
+                    return;
+                }
+                
+                // Close the mobile menu
+                mobileMenu.classList.remove('open');
+                if (mobileToggleIcon) {
+                    mobileToggleIcon.classList.remove('fa-times');
+                    mobileToggleIcon.classList.add('fa-bars');
+                }
+                document.body.style.overflow = '';
+                
+                // Close all dropdowns
+                document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                    c.classList.remove('show');
+                });
+                document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                    i.style.transform = 'rotate(0deg)';
+                });
+            });
+        });
+
+        // Close when clicking outside (but not on dropdown buttons)
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#mobile-menu') && !e.target.closest('#mobile-toggle') && !e.target.closest('.mobile-dropdown-btn')) {
+                if (mobileMenu && mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                    if (mobileToggleIcon) {
+                        mobileToggleIcon.classList.remove('fa-times');
+                        mobileToggleIcon.classList.add('fa-bars');
+                    }
+                    document.body.style.overflow = '';
+                    
+                    // Close all dropdowns
+                    document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                        c.classList.remove('show');
+                    });
+                    document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                        i.style.transform = 'rotate(0deg)';
+                    });
+                }
+            }
+        });
+
+        // Filter functionality (your existing code)
         const filterBtns = document.querySelectorAll('.category-filter-btn');
         const cards = document.querySelectorAll('.service-card');
         filterBtns.forEach(btn => {
@@ -1412,7 +1528,7 @@
             });
         });
 
-        // Hash navigation
+        // Hash navigation (your existing code)
         const mainPage = document.getElementById('services-main-page');
         const detailPages = document.querySelectorAll('.service-detail-page');
         function showFromHash() {
@@ -1433,7 +1549,7 @@
         showFromHash();
         window.goBackToServices = ()=>{ window.location.hash = ''; };
 
-        // Tab switching inside detail pages
+        // Tab switching inside detail pages (your existing code)
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function(e) {
                 let container = this.closest('.bg-white, .dark\\:bg-dark-card');

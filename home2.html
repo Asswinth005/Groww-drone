@@ -1204,15 +1204,7 @@
                 });
             });
             
-            // Close mobile menu when clicking on links
-            document.querySelectorAll('.mobile-menu-item, .mobile-dropdown-item').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('open');
-                    mobileToggleIcon.classList.remove('fa-times');
-                    mobileToggleIcon.classList.add('fa-bars');
-                    document.body.style.overflow = '';
-                });
-            });
+           
             
             // Close mobile menu when clicking outside
             document.addEventListener('click', (e) => {

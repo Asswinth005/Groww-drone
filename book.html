@@ -1067,6 +1067,7 @@
         const themeIcon = themeToggle?.querySelector('.fa-moon');
         const themeIconSun = themeToggle?.querySelector('.fa-sun');
         const mobileThemeToggle = document.getElementById('theme-toggle-mobile');
+        
         function toggleTheme() {
             document.documentElement.classList.toggle('dark');
             let dark = document.documentElement.classList.contains('dark');
@@ -1083,6 +1084,7 @@
         // RTL toggle
         const rtlToggle = document.getElementById('rtl-toggle');
         const mobileRtlToggle = document.getElementById('rtl-toggle-mobile');
+        
         function toggleRTL() {
             let rtl = document.documentElement.dir === 'rtl';
             document.documentElement.dir = rtl ? 'ltr' : 'rtl';
@@ -1093,20 +1095,119 @@
         }
         if(rtlToggle) rtlToggle.addEventListener('click', toggleRTL);
         if(mobileRtlToggle) mobileRtlToggle.addEventListener('click', toggleRTL);
-        if(localStorage.getItem('dir')==='rtl') { document.documentElement.dir='rtl'; document.documentElement.lang='ar'; if(rtlToggle) rtlToggle.classList.add('active'); }
+        if(localStorage.getItem('dir')==='rtl') { 
+            document.documentElement.dir='rtl'; 
+            document.documentElement.lang='ar'; 
+            if(rtlToggle) rtlToggle.classList.add('active'); 
+        }
 
         // Mobile menu
         const mobileToggle = document.getElementById('mobile-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileToggleIcon = document.querySelector('#mobile-toggle i');
+        
         if(mobileToggle) {
-            mobileToggle.addEventListener('click', ()=>{
+            mobileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
                 mobileMenu.classList.toggle('open');
                 document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
                 mobileToggleIcon.classList.toggle('fa-bars');
                 mobileToggleIcon.classList.toggle('fa-times');
+                
+                // Close all dropdowns when closing menu
+                if (!mobileMenu.classList.contains('open')) {
+                    document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                        c.classList.remove('show');
+                    });
+                    document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                        i.style.transform = 'rotate(0deg)';
+                    });
+                }
             });
         }
+
+        // Mobile dropdown functionality
+        document.querySelectorAll('.mobile-dropdown-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const dropdown = e.currentTarget.closest('.mobile-dropdown');
+                if (!dropdown) return;
+                
+                const content = dropdown.querySelector('.mobile-dropdown-content');
+                const icon = e.currentTarget.querySelector('.fa-chevron-down');
+                
+                if (!content) return;
+                
+                // Check if this dropdown is already open
+                const isOpen = content.classList.contains('show');
+                
+                // Close all dropdowns first
+                document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                    c.classList.remove('show');
+                });
+                document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                    i.style.transform = 'rotate(0deg)';
+                });
+                
+                // If it wasn't open, open this one
+                if (!isOpen) {
+                    content.classList.add('show');
+                    if (icon) {
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking on links (but NOT dropdown buttons)
+        document.querySelectorAll('.mobile-menu-item, .mobile-dropdown-item').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Don't close if clicking on a dropdown button or its children
+                if (e.target.closest('.mobile-dropdown-btn')) {
+                    return;
+                }
+                
+                // Close the mobile menu
+                mobileMenu.classList.remove('open');
+                if (mobileToggleIcon) {
+                    mobileToggleIcon.classList.remove('fa-times');
+                    mobileToggleIcon.classList.add('fa-bars');
+                }
+                document.body.style.overflow = '';
+                
+                // Close all dropdowns
+                document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                    c.classList.remove('show');
+                });
+                document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                    i.style.transform = 'rotate(0deg)';
+                });
+            });
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#mobile-menu') && !e.target.closest('#mobile-toggle') && !e.target.closest('.mobile-dropdown-btn')) {
+                if (mobileMenu && mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                    if (mobileToggleIcon) {
+                        mobileToggleIcon.classList.remove('fa-times');
+                        mobileToggleIcon.classList.add('fa-bars');
+                    }
+                    document.body.style.overflow = '';
+                    
+                    // Close all dropdowns
+                    document.querySelectorAll('.mobile-dropdown-content').forEach(c => {
+                        c.classList.remove('show');
+                    });
+                    document.querySelectorAll('.mobile-dropdown-btn .fa-chevron-down').forEach(i => {
+                        i.style.transform = 'rotate(0deg)';
+                    });
+                }
+            }
+        });
 
         // Step navigation
         window.selectedService = null;
@@ -1115,29 +1216,44 @@
         // Enable/disable next buttons based on selection
         window.selectService = function(service) {
             document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
-            document.getElementById(`service-${service}`).classList.add('selected');
+            const serviceEl = document.getElementById(`service-${service}`);
+            if(serviceEl) serviceEl.classList.add('selected');
             selectedService = service;
-            document.getElementById('step1-next').disabled = false;
-            // Also scroll to step1 if needed
+            const step1Next = document.getElementById('step1-next');
+            if(step1Next) step1Next.disabled = false;
         };
         
         // New function to select service from image cards and jump to form
         window.selectServiceFromCard = function(service) {
             selectService(service);
             // Smooth scroll to booking form
-            document.querySelector('.booking-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const bookingCard = document.querySelector('.booking-card');
+            if(bookingCard) {
+                bookingCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         };
         
         window.selectTime = function(element) {
             document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
             element.classList.add('selected');
             selectedTimeSlot = element.textContent.trim();
-            document.getElementById('step2-next').disabled = false;
+            const step2Next = document.getElementById('step2-next');
+            if(step2Next) step2Next.disabled = false;
         };
         
         let currentStep = 1;
-        const stepContents = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3'), document.getElementById('step4')];
-        const indicators = [document.getElementById('step1-indicator'), document.getElementById('step2-indicator'), document.getElementById('step3-indicator'), document.getElementById('step4-indicator')];
+        const stepContents = [
+            document.getElementById('step1'), 
+            document.getElementById('step2'), 
+            document.getElementById('step3'), 
+            document.getElementById('step4')
+        ];
+        const indicators = [
+            document.getElementById('step1-indicator'), 
+            document.getElementById('step2-indicator'), 
+            document.getElementById('step3-indicator'), 
+            document.getElementById('step4-indicator')
+        ];
         
         window.nextStep = function() {
             if (currentStep < 4) {
@@ -1147,12 +1263,14 @@
                     return;
                 }
                 // Move to next step
-                stepContents[currentStep-1].classList.add('hidden');
-                indicators[currentStep-1].classList.remove('active');
-                indicators[currentStep-1].classList.add('completed');
+                if(stepContents[currentStep-1]) stepContents[currentStep-1].classList.add('hidden');
+                if(indicators[currentStep-1]) {
+                    indicators[currentStep-1].classList.remove('active');
+                    indicators[currentStep-1].classList.add('completed');
+                }
                 currentStep++;
-                stepContents[currentStep-1].classList.remove('hidden');
-                indicators[currentStep-1].classList.add('active');
+                if(stepContents[currentStep-1]) stepContents[currentStep-1].classList.remove('hidden');
+                if(indicators[currentStep-1]) indicators[currentStep-1].classList.add('active');
                 
                 // If moving to step 4, populate summary
                 if (currentStep === 4) {
@@ -1161,21 +1279,23 @@
                 
                 // Enable/disable step2 next based on time selection
                 if (currentStep === 2 && !selectedTimeSlot) {
-                    document.getElementById('step2-next').disabled = true;
+                    const step2Next = document.getElementById('step2-next');
+                    if(step2Next) step2Next.disabled = true;
                 }
             }
         };
         
         window.prevStep = function() {
             if (currentStep > 1) {
-                stepContents[currentStep-1].classList.add('hidden');
-                indicators[currentStep-1].classList.remove('active');
+                if(stepContents[currentStep-1]) stepContents[currentStep-1].classList.add('hidden');
+                if(indicators[currentStep-1]) indicators[currentStep-1].classList.remove('active');
                 currentStep--;
-                stepContents[currentStep-1].classList.remove('hidden');
-                indicators[currentStep].classList.remove('completed');
-                indicators[currentStep-1].classList.add('active');
+                if(stepContents[currentStep-1]) stepContents[currentStep-1].classList.remove('hidden');
+                if(indicators[currentStep]) indicators[currentStep].classList.remove('completed');
+                if(indicators[currentStep-1]) indicators[currentStep-1].classList.add('active');
                 if (currentStep === 2) {
-                    document.getElementById('step2-next').disabled = !selectedTimeSlot;
+                    const step2Next = document.getElementById('step2-next');
+                    if(step2Next) step2Next.disabled = !selectedTimeSlot;
                 }
             }
         };
@@ -1187,20 +1307,64 @@
                 construction: 'Construction Progress',
                 wedding: 'Wedding Coverage'
             };
-            document.getElementById('summary-service').textContent = selectedService ? serviceMap[selectedService] : 'Not selected';
-            document.getElementById('summary-date').textContent = document.getElementById('booking-date').value || 'Not selected';
-            document.getElementById('summary-time').textContent = selectedTimeSlot || 'Not selected';
-            document.getElementById('summary-duration').textContent = document.getElementById('duration').value;
-            document.getElementById('summary-name').textContent = (document.getElementById('first-name').value + ' ' + document.getElementById('last-name').value).trim() || 'Not provided';
-            document.getElementById('summary-email').textContent = document.getElementById('email').value || 'Not provided';
-            document.getElementById('summary-phone').textContent = document.getElementById('phone').value || 'Not provided';
-            document.getElementById('summary-location').textContent = document.getElementById('location').value || 'Not provided';
+            
+            const summaryService = document.getElementById('summary-service');
+            const summaryDate = document.getElementById('summary-date');
+            const summaryTime = document.getElementById('summary-time');
+            const summaryDuration = document.getElementById('summary-duration');
+            const summaryName = document.getElementById('summary-name');
+            const summaryEmail = document.getElementById('summary-email');
+            const summaryPhone = document.getElementById('summary-phone');
+            const summaryLocation = document.getElementById('summary-location');
+            
+            if(summaryService) {
+                summaryService.textContent = selectedService ? serviceMap[selectedService] : 'Not selected';
+            }
+            
+            const dateInput = document.getElementById('booking-date');
+            if(summaryDate) {
+                summaryDate.textContent = dateInput ? (dateInput.value || 'Not selected') : 'Not selected';
+            }
+            
+            if(summaryTime) {
+                summaryTime.textContent = selectedTimeSlot || 'Not selected';
+            }
+            
+            const durationSelect = document.getElementById('duration');
+            if(summaryDuration && durationSelect) {
+                summaryDuration.textContent = durationSelect.value || 'Not selected';
+            }
+            
+            const firstName = document.getElementById('first-name');
+            const lastName = document.getElementById('last-name');
+            if(summaryName) {
+                summaryName.textContent = ((firstName ? firstName.value : '') + ' ' + (lastName ? lastName.value : '')).trim() || 'Not provided';
+            }
+            
+            const emailInput = document.getElementById('email');
+            if(summaryEmail) {
+                summaryEmail.textContent = emailInput ? (emailInput.value || 'Not provided') : 'Not provided';
+            }
+            
+            const phoneInput = document.getElementById('phone');
+            if(summaryPhone) {
+                summaryPhone.textContent = phoneInput ? (phoneInput.value || 'Not provided') : 'Not provided';
+            }
+            
+            const locationInput = document.getElementById('location');
+            if(summaryLocation) {
+                summaryLocation.textContent = locationInput ? (locationInput.value || 'Not provided') : 'Not provided';
+            }
         }
         
         // Enable submit when terms checked
-        document.getElementById('terms').addEventListener('change', function() {
-            document.getElementById('submit-btn').disabled = !this.checked;
-        });
+        const termsCheckbox = document.getElementById('terms');
+        if(termsCheckbox) {
+            termsCheckbox.addEventListener('change', function() {
+                const submitBtn = document.getElementById('submit-btn');
+                if(submitBtn) submitBtn.disabled = !this.checked;
+            });
+        }
         
         window.submitBooking = function() {
             alert('Booking confirmed! You will receive a confirmation email with deposit payment link shortly.');
@@ -1209,9 +1373,12 @@
         };
         
         // Enable step2 next only when time selected
-        document.getElementById('step2-next').disabled = true;
+        const step2Next = document.getElementById('step2-next');
+        if(step2Next) step2Next.disabled = true;
+        
         // Enable step1 next only when service selected (initially disabled)
-        document.getElementById('step1-next').disabled = true;
+        const step1Next = document.getElementById('step1-next');
+        if(step1Next) step1Next.disabled = true;
 
         // FAQ toggle function
         window.toggleFaq = function(element) {
