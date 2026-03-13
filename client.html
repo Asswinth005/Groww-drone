@@ -17,6 +17,7 @@
                         'drone-slate': '#586C89',
                         'drone-slate-light': '#7C8FA8',
                         'drone-slate-dark': '#3A4A64',
+                        'drone-slate-bright': '#8AA4C9',
                         'bg-warm': '#FFFAF1',
                         'neutral-dark': '#2D3A4A',
                         'neutral-light': '#E8EDF2',
@@ -43,19 +44,89 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Full screen layout */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
         body {
             background-color: #FFFAF1;
             color: #2D3A4A;
             font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
         }
         .dark body {
             background-color: #1a1a1a;
             color: #e5e5e5;
         }
         
+        /* Main container - full height with scrolling content */
+        .dashboard-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            width: 100%;
+        }
+        
+        /* Improved contrast for dark mode */
+        .dark .text-drone-slate {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .bg-drone-slate {
+            background-color: #8AA4C9 !important;
+        }
+        
+        .dark .border-drone-slate {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .hover\:text-drone-slate:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .sidebar-item:hover {
+            background: rgba(138,164,201,0.15) !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .sidebar-item.active {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
+        .dark .stat-card:hover {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .save-btn {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
+        .dark .save-btn:hover {
+            background: #6B87B0 !important;
+        }
+        
+        .dark .logout-btn {
+            background: rgba(138,164,201,0.15) !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .logout-btn:hover {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
         /* Hide scrollbar */
         body::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
+        .dashboard-container::-webkit-scrollbar { display: none; }
+        .dashboard-container { -ms-overflow-style: none; scrollbar-width: none; }
         
         /* Toggle button */
         .toggle-btn {
@@ -79,20 +150,29 @@
             background: #586C89;
             color: white;
         }
+        .dark .toggle-btn:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
         .toggle-btn.active {
             background: #586C89;
             color: white;
         }
+        .dark .toggle-btn.active {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
         
-        /* Dashboard card */
+        /* Dashboard card - full width */
         .dashboard-card {
             background: white;
             border-radius: 24px;
             padding: 2rem;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(88,108,137,0.1);
+            border: 1px solid rgba(88,108,137,0.15);
             transition: all 0.3s ease;
             height: 100%;
+            width: 100%;
         }
         .dark .dashboard-card {
             background: #2d2d2d;
@@ -102,13 +182,16 @@
             box-shadow: 0 15px 30px rgba(88,108,137,0.08);
             border-color: #586C89;
         }
+        .dark .dashboard-card:hover {
+            border-color: #8AA4C9;
+        }
         
         /* Stat card */
         .stat-card {
             background: white;
             border-radius: 20px;
             padding: 1.5rem 1.25rem;
-            border: 1px solid rgba(88,108,137,0.1);
+            border: 1px solid rgba(88,108,137,0.15);
             transition: all 0.3s ease;
         }
         .dark .stat-card {
@@ -119,6 +202,9 @@
             border-color: #586C89;
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(88,108,137,0.1);
+        }
+        .dark .stat-card:hover {
+            border-color: #8AA4C9;
         }
         
         /* Sidebar item */
@@ -147,20 +233,38 @@
             color: white;
             box-shadow: 0 8px 15px rgba(88,108,137,0.2);
         }
-        .dark .sidebar-item.active {
+        
+        /* Logout button - admin style */
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            background: rgba(88,108,137,0.1);
+            color: #586C89;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+        .logout-btn:hover {
             background: #586C89;
             color: white;
-        }
-        
-        /* Left sidebar wrapper */
-        .sidebar-wrapper {
-            padding-right: 0.5rem;
+            transform: translateX(5px);
+            box-shadow: 0 8px 20px rgba(88,108,137,0.2);
         }
         
         /* Order item */
         .order-item {
-            border-bottom: 1px solid rgba(88,108,137,0.1);
+            border-bottom: 1px solid rgba(88,108,137,0.15);
             padding: 1.25rem 0;
+        }
+        .dark .order-item {
+            border-bottom-color: rgba(138,164,201,0.15);
         }
         .order-item:last-child {
             border-bottom: none;
@@ -176,15 +280,15 @@
             font-weight: 600;
         }
         .status-confirmed {
-            background: rgba(76, 175, 80, 0.1);
-            color: #2E7D32;
+            background: rgba(76, 175, 80, 0.15);
+            color: #1B5E20;
         }
         .status-pending {
-            background: rgba(88,108,137,0.1);
+            background: rgba(88,108,137,0.15);
             color: #2D3A4A;
         }
         .status-cancelled {
-            background: rgba(211, 47, 47, 0.1);
+            background: rgba(211, 47, 47, 0.15);
             color: #B71C1C;
         }
         .dark .status-confirmed {
@@ -192,8 +296,8 @@
             color: #A5D6A7;
         }
         .dark .status-pending {
-            background: rgba(88,108,137,0.2);
-            color: #B0C9E0;
+            background: rgba(138,164,201,0.2);
+            color: #8AA4C9;
         }
         .dark .status-cancelled {
             background: rgba(211, 47, 47, 0.2);
@@ -209,9 +313,16 @@
         .message-item:hover {
             background: rgba(88,108,137,0.05);
         }
+        .dark .message-item:hover {
+            background: rgba(138,164,201,0.1);
+        }
         .message-item.unread {
             background: rgba(88,108,137,0.08);
             border-left: 4px solid #586C89;
+        }
+        .dark .message-item.unread {
+            background: rgba(138,164,201,0.15);
+            border-left-color: #8AA4C9;
         }
         
         /* Form input */
@@ -238,7 +349,13 @@
         }
         .dark .dashboard-input:focus {
             background: #2d2d2d;
-            border-color: #586C89;
+            border-color: #8AA4C9;
+        }
+        .dashboard-input::placeholder {
+            color: rgba(45, 58, 74, 0.5);
+        }
+        .dark .dashboard-input::placeholder {
+            color: rgba(156, 163, 175, 0.7);
         }
         
         /* Save button */
@@ -259,32 +376,6 @@
             box-shadow: 0 10px 25px rgba(88,108,137,0.3);
         }
         
-        /* Logout button */
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 0.9rem;
-            border-radius: 14px;
-            background: rgba(211, 47, 47, 0.1);
-            color: #B71C1C;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .dark .logout-btn {
-            background: rgba(211, 47, 47, 0.2);
-            color: #EF9A9A;
-        }
-        .logout-btn:hover {
-            background: #B71C1C;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(183, 28, 28, 0.2);
-        }
-        
         /* Saved item card */
         .saved-item-card {
             display: flex;
@@ -292,7 +383,7 @@
             gap: 1rem;
             padding: 1.25rem;
             border-radius: 18px;
-            border: 1px solid rgba(88,108,137,0.1);
+            border: 1px solid rgba(88,108,137,0.15);
             transition: all 0.3s ease;
             background: white;
         }
@@ -304,6 +395,9 @@
             border-color: #586C89;
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(88,108,137,0.12);
+        }
+        .dark .saved-item-card:hover {
+            border-color: #8AA4C9;
         }
         
         /* Toggle switch */
@@ -343,6 +437,9 @@
         input:checked + .toggle-slider {
             background-color: #586C89;
         }
+        .dark input:checked + .toggle-slider {
+            background-color: #8AA4C9;
+        }
         input:checked + .toggle-slider:before {
             transform: translateX(24px);
         }
@@ -358,628 +455,665 @@
         [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
         [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
         [dir="rtl"] .sidebar-item:hover { transform: translateX(-5px); }
+        [dir="rtl"] .logout-btn:hover { transform: translateX(-5px); }
+        
+        /* Mobile fixes */
+        @media (max-width: 640px) {
+            .dashboard-card {
+                padding: 1.25rem;
+            }
+            .stat-card {
+                padding: 1rem;
+            }
+            .stat-card .text-3xl {
+                font-size: 1.5rem;
+            }
+            .dashboard-input {
+                padding: 0.75rem 1rem;
+            }
+        }
+        
+        /* Full width container */
+        .max-w-full {
+            max-width: 100%;
+        }
+        
+        /* Avatar border */
+        .border-3 {
+            border-width: 3px;
+        }
     </style>
 </head>
-<body class="bg-bg-warm dark:bg-dark-bg p-6 md:p-8">
+<body class="bg-bg-warm dark:bg-dark-bg">
 
     <!-- Theme & RTL Controls with Logo -->
-    <div class="flex justify-between items-center mb-8">
-        <!-- Logo with AEROVIEW branding -->
-        <a class='flex items-center space-x-3 group' href='index.html'>
-            <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                <i class="fas fa-camera-retro text-white text-lg"></i>
+    <div class="header px-4 sm:px-6 lg:px-8 py-4 w-full">
+        <div class="flex justify-between items-center max-w-full mx-auto">
+            <!-- Logo with AEROVIEW branding -->
+            <a class='flex items-center space-x-3 group' href='index.html'>
+                <div class="w-10 h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fas fa-camera-retro text-white dark:text-dark-bg text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
+                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright ml-1">VUW</span>
+                </div>
+            </a>
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" class="toggle-btn" title="Toggle theme">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun hidden"></i>
+                </button>
+                <button id="rtl-toggle" class="toggle-btn" title="Toggle RTL/LTR">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
             </div>
-            <div>
-                <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
-            </div>
-        </a>
-        <div class="flex items-center gap-3">
-            <button id="theme-toggle" class="toggle-btn" title="Toggle theme">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun hidden"></i>
-            </button>
-            <button id="rtl-toggle" class="toggle-btn" title="Toggle RTL/LTR">
-                <i class="fas fa-exchange-alt"></i>
-            </button>
         </div>
     </div>
 
-    <!-- Dashboard Main Container -->
-    <div class="max-w-7xl mx-auto">
-        
-        <!-- Welcome Header -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-            <div>
-                <h1 class="text-3xl md:text-4xl font-display font-bold dark:text-white">
-                    Welcome back, <span class="text-drone-slate">John!</span>
-                </h1>
-                <p class="text-neutral-dark/70 dark:text-gray-400 mt-1 text-lg">
-                    Manage your bookings, messages, and account settings
-                </p>
-            </div>
-            <div class="mt-4 md:mt-0 flex items-center gap-4 bg-white dark:bg-dark-card px-5 py-3 rounded-2xl shadow-sm border border-neutral-light/50 dark:border-gray-700">
-                <div class="flex -space-x-2">
-                    <img src="assest/Guide2.jpg" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white dark:border-dark-card">
-                </div>
-                <div>
-                    <p class="font-semibold dark:text-white text-lg">John Doe</p>
-                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">Member since 2024</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
-            <div class="stat-card flex items-center p-5">
-                <div class="w-12 h-12 bg-drone-slate/10 rounded-xl flex items-center justify-center mr-4">
-                    <i class="fas fa-suitcase text-drone-slate text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold dark:text-white">6</p>
-                    <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Total Trips</p>
-                </div>
-            </div>
-            <div class="stat-card flex items-center p-5">
-                <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mr-4">
-                    <i class="fas fa-clock text-green-600 text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold dark:text-white">2</p>
-                    <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Upcoming</p>
-                </div>
-            </div>
-            <div class="stat-card flex items-center p-5">
-                <div class="w-12 h-12 bg-drone-slate/10 rounded-xl flex items-center justify-center mr-4">
-                    <i class="fas fa-heart text-drone-slate text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold dark:text-white">12</p>
-                    <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Saved</p>
-                </div>
-            </div>
-            <div class="stat-card flex items-center p-5">
-                <div class="w-12 h-12 bg-drone-slate/10 rounded-xl flex items-center justify-center mr-4">
-                    <i class="fas fa-envelope text-drone-slate text-xl"></i>
-                </div>
-                <div>
-                    <p class="text-3xl font-bold dark:text-white">3</p>
-                    <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Unread</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Dashboard Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Dashboard Main Container - Full Width -->
+    <div class="dashboard-container">
+        <div class="w-full px-4 sm:px-6 lg:px-8">
             
-            <!-- ============ LEFT SIDEBAR ============ -->
-            <div class="lg:col-span-4 xl:col-span-4">
-                <div class="sidebar-wrapper">
-                    <div class="dashboard-card">
-                        <div class="flex flex-col space-y-1">
-                            
-                            <!-- Profile Management -->
-                            <div class="sidebar-item active" data-section="profile">
-                                <i class="fas fa-user-circle w-7 text-2xl"></i>
-                                <span class="ml-4 font-semibold text-lg">Profile Management</span>
-                            </div>
-                            
-                            <!-- Order History -->
-                            <div class="sidebar-item" data-section="orders">
-                                <i class="fas fa-suitcase w-7 text-2xl"></i>
-                                <span class="ml-4 font-semibold text-lg">Order History</span>
-                            </div>
-                            
-                            <!-- Saved Items -->
-                            <div class="sidebar-item" data-section="saved">
-                                <i class="fas fa-heart w-7 text-2xl"></i>
-                                <span class="ml-4 font-semibold text-lg">Saved Items</span>
-                            </div>
-                            
-                            <!-- Messages -->
-                            <div class="sidebar-item" data-section="messages">
-                                <i class="fas fa-envelope w-7 text-2xl"></i>
-                                <span class="ml-4 font-semibold text-lg">Messages</span>
-                                <span class="ml-auto bg-drone-slate text-white text-xs px-2.5 py-1.5 rounded-full font-bold">3</span>
-                            </div>
-                            
-                            <!-- Settings -->
-                            <div class="sidebar-item" data-section="settings">
-                                <i class="fas fa-cog w-7 text-2xl"></i>
-                                <span class="ml-4 font-semibold text-lg">Settings</span>
-                            </div>
-                            
-                            <!-- Logout -->
-                            <div class="sidebar-item" data-section="logout">
-                                <i class="fas fa-sign-out-alt w-7 text-2xl"></i>
-                                <span class="ml-4 font-semibold text-lg">Logout</span>
-                            </div>
-                        </div>
-                        
-                        <!-- User Info Card -->
-                        <div class="mt-8 pt-6 border-t border-neutral-light/50 dark:border-gray-700">
-                            <div class="flex items-center">
-                                <img src="assest/Guide2.jpg" alt="User" class="w-16 h-16 rounded-full object-cover border-3 border-drone-slate">
-                                <div class="ml-4">
-                                    <p class="font-bold dark:text-white text-xl">John Doe</p>
-                                    <p class="text-sm text-neutral-dark/60 dark:text-gray-400">john.doe@example.com</p>
-                                    <p class="text-xs text-drone-slate mt-1.5 font-semibold">Traveler since 2024 ✨</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Quick Action Buttons -->
-                        <div class="mt-6 flex gap-3">
-                            <button class="flex-1 bg-drone-slate/10 text-drone-slate py-3 px-4 rounded-xl font-semibold text-sm hover:bg-drone-slate hover:text-white transition">
-                                <i class="fas fa-headset mr-2"></i> Support
-                            </button>
-                            <button class="flex-1 bg-drone-slate/10 text-drone-slate py-3 px-4 rounded-xl font-semibold text-sm hover:bg-drone-slate hover:text-white transition">
-                                <i class="fas fa-gift mr-2"></i> Refer
-                            </button>
-                        </div>
+            <!-- Welcome Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-display font-bold dark:text-white">
+                        Welcome back, <span class="text-drone-slate dark:text-drone-slate-bright">John!</span>
+                    </h1>
+                    <p class="text-neutral-dark/80 dark:text-gray-400 mt-1 text-lg">
+                        Manage your bookings, messages, and account settings
+                    </p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center gap-4 bg-white dark:bg-dark-card px-5 py-3 rounded-2xl shadow-sm border border-neutral-light/50 dark:border-gray-700">
+                    <div class="flex -space-x-2">
+                        <img src="assest/Guide2.jpg" alt="Avatar" class="w-12 h-12 rounded-full border-2 border-white dark:border-dark-card">
+                    </div>
+                    <div>
+                        <p class="font-semibold dark:text-white text-lg">John Doe</p>
+                        <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Member since 2024</p>
                     </div>
                 </div>
             </div>
 
-            <!-- ============ RIGHT CONTENT AREA ============ -->
-            <div class="lg:col-span-8 xl:col-span-8">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
+                <div class="stat-card flex items-center p-5">
+                    <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-suitcase text-drone-slate dark:text-drone-slate-bright text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-neutral-dark dark:text-white">6</p>
+                        <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Total Trips</p>
+                    </div>
+                </div>
+                <div class="stat-card flex items-center p-5">
+                    <div class="w-12 h-12 bg-green-500/10 dark:bg-green-500/20 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-clock text-green-700 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-neutral-dark dark:text-white">2</p>
+                        <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Upcoming</p>
+                    </div>
+                </div>
+                <div class="stat-card flex items-center p-5">
+                    <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-heart text-drone-slate dark:text-drone-slate-bright text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-neutral-dark dark:text-white">12</p>
+                        <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Saved</p>
+                    </div>
+                </div>
+                <div class="stat-card flex items-center p-5">
+                    <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center mr-4">
+                        <i class="fas fa-envelope text-drone-slate dark:text-drone-slate-bright text-xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-bold text-neutral-dark dark:text-white">3</p>
+                        <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Unread</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Grid - Full Width -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-8">
                 
-                <!-- ===== 1. PROFILE MANAGEMENT SECTION ===== -->
-                <div id="profile-section" class="dashboard-section active">
-                    <div class="dashboard-card">
-                        <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-user-circle text-drone-slate mr-3 text-2xl"></i>
-                            Profile Management
-                        </h2>
-                        
-                        <div class="grid md:grid-cols-12 gap-8">
-                            <!-- Avatar -->
-                            <div class="md:col-span-3 flex flex-col items-center">
-                                <div class="relative">
-                                    <img src="assest/Guide2.jpg" alt="Profile" class="w-32 h-32 rounded-full object-cover border-4 border-drone-slate/30">
-                                    <button class="absolute bottom-0 right-0 w-10 h-10 bg-drone-slate rounded-full flex items-center justify-center text-white hover:bg-opacity-90 transition shadow-lg">
-                                        <i class="fas fa-camera"></i>
-                                    </button>
+                <!-- ============ LEFT SIDEBAR ============ -->
+                <div class="lg:col-span-4 xl:col-span-4">
+                    <div class="sidebar-wrapper">
+                        <div class="dashboard-card">
+                            <div class="flex flex-col space-y-1">
+                                
+                                <!-- Profile Management -->
+                                <div class="sidebar-item active" data-section="profile">
+                                    <i class="fas fa-user-circle w-7 text-2xl"></i>
+                                    <span class="ml-4 font-semibold text-lg">Profile Management</span>
                                 </div>
-                                <p class="mt-4 font-bold text-xl dark:text-white">John Doe</p>
-                                <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Member since 2024</p>
-                                <span class="mt-2 px-4 py-1.5 bg-drone-slate/10 text-drone-slate rounded-full text-xs font-semibold">Verified Account</span>
+                                
+                                <!-- Order History -->
+                                <div class="sidebar-item" data-section="orders">
+                                    <i class="fas fa-suitcase w-7 text-2xl"></i>
+                                    <span class="ml-4 font-semibold text-lg">Order History</span>
+                                </div>
+                                
+                                <!-- Saved Items -->
+                                <div class="sidebar-item" data-section="saved">
+                                    <i class="fas fa-heart w-7 text-2xl"></i>
+                                    <span class="ml-4 font-semibold text-lg">Saved Items</span>
+                                </div>
+                                
+                                <!-- Messages -->
+                                <div class="sidebar-item" data-section="messages">
+                                    <i class="fas fa-envelope w-7 text-2xl"></i>
+                                    <span class="ml-4 font-semibold text-lg">Messages</span>
+                                    <span class="ml-auto bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg text-xs px-2.5 py-1.5 rounded-full font-bold">3</span>
+                                </div>
+                                
+                                <!-- Settings -->
+                                <div class="sidebar-item" data-section="settings">
+                                    <i class="fas fa-cog w-7 text-2xl"></i>
+                                    <span class="ml-4 font-semibold text-lg">Settings</span>
+                                </div>
+                                
+                                <!-- Logout in Sidebar -->
+                                <div class="sidebar-item" data-section="logout">
+                                    <i class="fas fa-sign-out-alt w-7 text-2xl"></i>
+                                    <span class="ml-4 font-semibold text-lg">Logout</span>
+                                </div>
                             </div>
                             
-                            <!-- Form -->
-                            <div class="md:col-span-9 space-y-5">
-                                <div class="grid md:grid-cols-2 gap-5">
+                            <!-- User Info Card -->
+                            <div class="mt-8 pt-6 border-t border-neutral-light/50 dark:border-gray-700">
+                                <div class="flex items-center">
+                                    <img src="assest/Guide2.jpg" alt="User" class="w-16 h-16 rounded-full object-cover border-3 border-drone-slate dark:border-drone-slate-bright">
+                                    <div class="ml-4">
+                                        <p class="font-bold dark:text-white text-xl">John Doe</p>
+                                        <p class="text-sm text-neutral-dark/80 dark:text-gray-400">john.doe@example.com</p>
+                                        <p class="text-xs text-drone-slate dark:text-drone-slate-bright mt-1.5 font-semibold">Traveler since 2024 ✨</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Quick Action Buttons -->
+                            <div class="mt-6 flex gap-3">
+                                <button class="flex-1 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright py-3 px-4 rounded-xl font-semibold text-sm hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                    <i class="fas fa-headset mr-2"></i> Support
+                                </button>
+                                <button class="flex-1 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright py-3 px-4 rounded-xl font-semibold text-sm hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                    <i class="fas fa-gift mr-2"></i> Refer
+                                </button>
+                            </div>
+                            
+                            <!-- Admin-style Logout Button (alternative) -->
+                            <div class="logout-btn mt-4" id="logout-btn-sidebar">
+                                <i class="fas fa-sign-out-alt mr-2"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============ RIGHT CONTENT AREA ============ -->
+                <div class="lg:col-span-8 xl:col-span-8">
+                    
+                    <!-- ===== 1. PROFILE MANAGEMENT SECTION ===== -->
+                    <div id="profile-section" class="dashboard-section active">
+                        <div class="dashboard-card">
+                            <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
+                                <i class="fas fa-user-circle text-drone-slate dark:text-drone-slate-bright mr-3 text-2xl"></i>
+                                Profile Management
+                            </h2>
+                            
+                            <div class="grid md:grid-cols-12 gap-8">
+                                <!-- Avatar -->
+                                <div class="md:col-span-3 flex flex-col items-center">
+                                    <div class="relative">
+                                        <img src="assest/Guide2.jpg" alt="Profile" class="w-32 h-32 rounded-full object-cover border-4 border-drone-slate/30 dark:border-drone-slate-bright/30">
+                                        <button class="absolute bottom-0 right-0 w-10 h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-full flex items-center justify-center text-white dark:text-dark-bg hover:bg-opacity-90 transition shadow-lg">
+                                            <i class="fas fa-camera"></i>
+                                        </button>
+                                    </div>
+                                    <p class="mt-4 font-bold text-xl dark:text-white">John Doe</p>
+                                    <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Member since 2024</p>
+                                    <span class="mt-2 px-4 py-1.5 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-full text-xs font-semibold">Verified Account</span>
+                                </div>
+                                
+                                <!-- Form -->
+                                <div class="md:col-span-9 space-y-5">
+                                    <div class="grid md:grid-cols-2 gap-5">
+                                        <div>
+                                            <label class="block text-sm font-medium mb-2 text-neutral-dark/80 dark:text-gray-300">Full Name</label>
+                                            <input type="text" class="dashboard-input" value="John Doe">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-2 text-neutral-dark/80 dark:text-gray-300">Email Address</label>
+                                            <input type="email" class="dashboard-input" value="john.doe@example.com">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-2 text-neutral-dark/80 dark:text-gray-300">Phone Number</label>
+                                            <input type="tel" class="dashboard-input" value="+1 (555) 123-4567">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium mb-2 text-neutral-dark/80 dark:text-gray-300">Location</label>
+                                            <input type="text" class="dashboard-input" value="New York, USA">
+                                        </div>
+                                        <div class="md:col-span-2">
+                                            <label class="block text-sm font-medium mb-2 text-neutral-dark/80 dark:text-gray-300">Bio</label>
+                                            <textarea rows="4" class="dashboard-input">Travel enthusiast, food lover, and adventure seeker. Exploring the world one local experience at a time.</textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex justify-end mt-4">
+                                        <button class="save-btn px-10">
+                                            <i class="fas fa-save mr-2"></i> Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Change Password -->
+                            <div class="mt-10 pt-8 border-t border-neutral-light/50 dark:border-gray-700">
+                                <h3 class="text-xl font-bold mb-5 dark:text-white flex items-center">
+                                    <i class="fas fa-key text-drone-slate dark:text-drone-slate-bright mr-2"></i>
+                                    Change Password
+                                </h3>
+                                <div class="grid md:grid-cols-3 gap-5">
                                     <div>
-                                        <label class="block text-sm font-medium mb-2 dark:text-gray-300">Full Name</label>
-                                        <input type="text" class="dashboard-input" value="John Doe">
+                                        <input type="password" class="dashboard-input" placeholder="Current Password">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-2 dark:text-gray-300">Email Address</label>
-                                        <input type="email" class="dashboard-input" value="john.doe@example.com">
+                                        <input type="password" class="dashboard-input" placeholder="New Password">
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium mb-2 dark:text-gray-300">Phone Number</label>
-                                        <input type="tel" class="dashboard-input" value="+1 (555) 123-4567">
+                                        <input type="password" class="dashboard-input" placeholder="Confirm New Password">
                                     </div>
-                                    <div>
-                                        <label class="block text-sm font-medium mb-2 dark:text-gray-300">Location</label>
-                                        <input type="text" class="dashboard-input" value="New York, USA">
+                                </div>
+                                <div class="flex justify-end mt-5">
+                                    <button class="save-btn px-10">
+                                        <i class="fas fa-key mr-2"></i> Update Password
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 2. ORDER HISTORY SECTION ===== -->
+                    <div id="orders-section" class="dashboard-section hidden">
+                        <div class="dashboard-card">
+                            <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
+                                <i class="fas fa-suitcase text-drone-slate dark:text-drone-slate-bright mr-3 text-2xl"></i>
+                                Order History
+                            </h2>
+                            
+                            <!-- Filters -->
+                            <div class="flex flex-wrap gap-3 mb-7">
+                                <button class="px-5 py-2.5 rounded-full text-sm font-bold bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg shadow-md">All</button>
+                                <button class="px-5 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Upcoming</button>
+                                <button class="px-5 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Completed</button>
+                                <button class="px-5 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Cancelled</button>
+                            </div>
+                            
+                            <!-- Orders List -->
+                            <div class="space-y-5">
+                                <!-- Order 1 -->
+                                <div class="order-item">
+                                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                                        <div class="flex items-start gap-4">
+                                            <img src="assest/re.jpg" alt="Service" class="w-20 h-20 rounded-xl object-cover shadow-md">
+                                            <div>
+                                                <h4 class="font-bold text-lg dark:text-white">Beachfront Villa • Malibu</h4>
+                                                <p class="text-sm text-neutral-dark/80 dark:text-gray-400">California • 2 hour shoot</p>
+                                                <div class="flex items-center mt-2">
+                                                    <span class="status-badge status-confirmed">
+                                                        <i class="fas fa-check-circle mr-1"></i> Confirmed
+                                                    </span>
+                                                    <span class="text-xs text-neutral-dark/60 dark:text-gray-500 ml-3">#AV-2468-01</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-5 mt-4 md:mt-0">
+                                            <span class="font-bold text-xl text-drone-slate dark:text-drone-slate-bright">$499</span>
+                                            <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-sm font-semibold">View Details</button>
+                                        </div>
                                     </div>
-                                    <div class="md:col-span-2">
-                                        <label class="block text-sm font-medium mb-2 dark:text-gray-300">Bio</label>
-                                        <textarea rows="4" class="dashboard-input">Travel enthusiast, food lover, and adventure seeker. Exploring the world one local experience at a time.</textarea>
+                                    <div class="flex items-center gap-5 mt-3 text-sm text-neutral-dark/80 dark:text-gray-400">
+                                        <span><i class="fas fa-calendar mr-1"></i> Feb 5, 2026</span>
+                                        <span><i class="fas fa-user mr-1"></i> Pilot James</span>
                                     </div>
                                 </div>
                                 
-                                <div class="flex justify-end mt-4">
-                                    <button class="save-btn px-10">
-                                        <i class="fas fa-save mr-2"></i> Save Changes
+                                <!-- Order 2 -->
+                                <div class="order-item">
+                                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                                        <div class="flex items-start gap-4">
+                                            <img src="assest/re1.jpg" alt="Service" class="w-20 h-20 rounded-xl object-cover shadow-md">
+                                            <div>
+                                                <h4 class="font-bold text-lg dark:text-white">Downtown Penthouse • LA</h4>
+                                                <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Los Angeles • Twilight shoot</p>
+                                                <div class="flex items-center mt-2">
+                                                    <span class="status-badge status-confirmed">
+                                                        <i class="fas fa-check-circle mr-1"></i> Confirmed
+                                                    </span>
+                                                    <span class="text-xs text-neutral-dark/60 dark:text-gray-500 ml-3">#AV-3157-02</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-5 mt-4 md:mt-0">
+                                            <span class="font-bold text-xl text-drone-slate dark:text-drone-slate-bright">$599</span>
+                                            <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-sm font-semibold">View Details</button>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-5 mt-3 text-sm text-neutral-dark/80 dark:text-gray-400">
+                                        <span><i class="fas fa-calendar mr-1"></i> Mar 12, 2026</span>
+                                        <span><i class="fas fa-user mr-1"></i> Pilot Lena</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Order 3 -->
+                                <div class="order-item">
+                                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                                        <div class="flex items-start gap-4">
+                                            <img src="assest/re2.jpg" alt="Service" class="w-20 h-20 rounded-xl object-cover shadow-md">
+                                            <div>
+                                                <h4 class="font-bold text-lg dark:text-white">High‑rise Progress • Austin</h4>
+                                                <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Texas • Weekly monitoring</p>
+                                                <div class="flex items-center mt-2">
+                                                    <span class="status-badge status-pending">
+                                                        <i class="fas fa-clock mr-1"></i> Pending
+                                                    </span>
+                                                    <span class="text-xs text-neutral-dark/60 dark:text-gray-500 ml-3">#AV-4289-03</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-5 mt-4 md:mt-0">
+                                            <span class="font-bold text-xl text-drone-slate dark:text-drone-slate-bright">$399</span>
+                                            <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-sm font-semibold">View Details</button>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-5 mt-3 text-sm text-neutral-dark/80 dark:text-gray-400">
+                                        <span><i class="fas fa-calendar mr-1"></i> Apr 20, 2026</span>
+                                        <span><i class="fas fa-user mr-1"></i> Pilot Marcus</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-7 text-center">
+                                <button class="text-drone-slate dark:text-drone-slate-bright font-semibold hover:underline text-base">
+                                    View All 12 Orders <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 3. SAVED ITEMS SECTION ===== -->
+                    <div id="saved-section" class="dashboard-section hidden">
+                        <div class="dashboard-card">
+                            <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
+                                <i class="fas fa-heart text-drone-slate dark:text-drone-slate-bright mr-3 text-2xl"></i>
+                                Saved Items
+                            </h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                <!-- Saved Item 1 -->
+                                <div class="saved-item-card">
+                                    <img src="assest/cons.jpg" alt="Service" class="w-24 h-24 rounded-xl object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-lg dark:text-white">Torres del Paine Circuit</h4>
+                                        <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Chile • 10 days</p>
+                                        <div class="flex items-center justify-between mt-3">
+                                            <span class="font-bold text-drone-slate dark:text-drone-slate-bright text-xl">$449</span>
+                                            <div class="flex gap-2">
+                                                <button class="w-9 h-9 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-lg flex items-center justify-center text-drone-slate dark:text-drone-slate-bright hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </button>
+                                                <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-600 dark:text-red-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-500 transition">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Saved Item 2 -->
+                                <div class="saved-item-card">
+                                    <img src="assest/wed.jpg" alt="Service" class="w-24 h-24 rounded-xl object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-lg dark:text-white">Maui Beach Wedding</h4>
+                                        <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Hawaii • Sunset</p>
+                                        <div class="flex items-center justify-between mt-3">
+                                            <span class="font-bold text-drone-slate dark:text-drone-slate-bright text-xl">$899</span>
+                                            <div class="flex gap-2">
+                                                <button class="w-9 h-9 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-lg flex items-center justify-center text-drone-slate dark:text-drone-slate-bright hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </button>
+                                                <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-600 dark:text-red-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-500 transition">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Saved Item 3 -->
+                                <div class="saved-item-card">
+                                    <img src="assest/ev.jpg" alt="Service" class="w-24 h-24 rounded-xl object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-lg dark:text-white">Desert Music Fest</h4>
+                                        <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Indio • 3 days</p>
+                                        <div class="flex items-center justify-between mt-3">
+                                            <span class="font-bold text-drone-slate dark:text-drone-slate-bright text-xl">$1299</span>
+                                            <div class="flex gap-2">
+                                                <button class="w-9 h-9 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-lg flex items-center justify-center text-drone-slate dark:text-drone-slate-bright hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </button>
+                                                <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-600 dark:text-red-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-500 transition">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Saved Item 4 -->
+                                <div class="saved-item-card">
+                                    <img src="assest/ev2.jpg" alt="Service" class="w-24 h-24 rounded-xl object-cover">
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-lg dark:text-white">Tech Conference</h4>
+                                        <p class="text-xs text-neutral-dark/80 dark:text-gray-400">San Jose • 2 drones</p>
+                                        <div class="flex items-center justify-between mt-3">
+                                            <span class="font-bold text-drone-slate dark:text-drone-slate-bright text-xl">$899</span>
+                                            <div class="flex gap-2">
+                                                <button class="w-9 h-9 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-lg flex items-center justify-center text-drone-slate dark:text-drone-slate-bright hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </button>
+                                                <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-600 dark:text-red-400 hover:bg-red-600 hover:text-white dark:hover:bg-red-500 transition">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-7 text-center">
+                                <button class="text-drone-slate dark:text-drone-slate-bright font-semibold hover:underline text-base">
+                                    Browse More Services <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 4. MESSAGES SECTION ===== -->
+                    <div id="messages-section" class="dashboard-section hidden">
+                        <div class="dashboard-card">
+                            <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
+                                <i class="fas fa-envelope text-drone-slate dark:text-drone-slate-bright mr-3 text-2xl"></i>
+                                Messages
+                                <span class="ml-4 bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg text-xs px-2.5 py-1.5 rounded-full font-bold">3 unread</span>
+                            </h2>
+                            
+                            <div class="space-y-4">
+                                <!-- Message 1 - Unread -->
+                                <div class="message-item unread">
+                                    <div class="flex items-start gap-4">
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-center">
+                                                <h4 class="font-bold text-lg dark:text-white">James Carter</h4>
+                                                <span class="text-xs text-neutral-dark/60 dark:text-gray-500">2 hours ago</span>
+                                            </div>
+                                            <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Lead Pilot</p>
+                                            <p class="text-base mt-2 dark:text-gray-300">Hi John! I'm looking forward to our Malibu shoot. Just checking if you have any specific angles in mind...</p>
+                                            <span class="inline-block mt-3 text-xs bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg px-3 py-1.5 rounded-full font-semibold">New</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Message 2 - Unread -->
+                                <div class="message-item unread">
+                                    <div class="flex items-start gap-4">
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-center">
+                                                <h4 class="font-bold text-lg dark:text-white">Lena Park</h4>
+                                                <span class="text-xs text-neutral-dark/60 dark:text-gray-500">Yesterday</span>
+                                            </div>
+                                            <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Creative Director</p>
+                                            <p class="text-base mt-2 dark:text-gray-300">Your twilight penthouse shoot is confirmed! We'll meet at the rooftop at 6:30 PM for golden hour...</p>
+                                            <span class="inline-block mt-3 text-xs bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg px-3 py-1.5 rounded-full font-semibold">New</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Message 3 - Read -->
+                                <div class="message-item">
+                                    <div class="flex items-start gap-4">
+                                        <img src="assest/test2.jpg" alt="Support" class="w-12 h-12 rounded-full object-cover">
+                                        <div class="flex-1">
+                                            <div class="flex justify-between items-center">
+                                                <h4 class="font-bold text-lg dark:text-white">AEROVIEW Support</h4>
+                                                <span class="text-xs text-neutral-dark/60 dark:text-gray-500">3 days ago</span>
+                                            </div>
+                                            <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Customer Service</p>
+                                            <p class="text-base mt-2 dark:text-gray-300">Thank you for your recent booking! Here's everything you need to know before your shoot...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-7 text-center">
+                                <button class="text-drone-slate dark:text-drone-slate-bright font-semibold hover:underline text-base">
+                                    View All Messages <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 5. SETTINGS SECTION ===== -->
+                    <div id="settings-section" class="dashboard-section hidden">
+                        <div class="dashboard-card">
+                            <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
+                                <i class="fas fa-cog text-drone-slate dark:text-drone-slate-bright mr-3 text-2xl"></i>
+                                Settings
+                            </h2>
+                            
+                            <div class="space-y-8">
+                                <!-- Notification Settings -->
+                                <div>
+                                    <h3 class="text-xl font-bold mb-5 dark:text-white flex items-center">
+                                        <i class="fas fa-bell text-drone-slate dark:text-drone-slate-bright mr-2"></i>
+                                        Notifications
+                                    </h3>
+                                    <div class="space-y-4 bg-neutral-light/30 dark:bg-gray-800/30 p-5 rounded-2xl">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-bold dark:text-white text-lg">Email Notifications</p>
+                                                <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Receive booking confirmations</p>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-bold dark:text-white text-lg">SMS Notifications</p>
+                                                <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Get text alerts for urgent updates</p>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-bold dark:text-white text-lg">Promotional Emails</p>
+                                                <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Receive offers and travel inspiration</p>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Privacy Settings -->
+                                <div>
+                                    <h3 class="text-xl font-bold mb-5 dark:text-white flex items-center">
+                                        <i class="fas fa-shield-alt text-drone-slate dark:text-drone-slate-bright mr-2"></i>
+                                        Privacy
+                                    </h3>
+                                    <div class="space-y-4 bg-neutral-light/30 dark:bg-gray-800/30 p-5 rounded-2xl">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-bold dark:text-white text-lg">Profile Visibility</p>
+                                                <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Make your profile visible to pilots</p>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-bold dark:text-white text-lg">Share Booking History</p>
+                                                <p class="text-sm text-neutral-dark/80 dark:text-gray-400">Allow pilots to see your past shoots</p>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end mt-6">
+                                    <button class="save-btn px-12 py-3 text-base">
+                                        <i class="fas fa-save mr-2"></i> Save Settings
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Change Password -->
-                        <div class="mt-10 pt-8 border-t border-neutral-light/50 dark:border-gray-700">
-                            <h3 class="text-xl font-bold mb-5 dark:text-white flex items-center">
-                                <i class="fas fa-key text-drone-slate mr-2"></i>
-                                Change Password
-                            </h3>
-                            <div class="grid md:grid-cols-3 gap-5">
-                                <div>
-                                    <input type="password" class="dashboard-input" placeholder="Current Password">
-                                </div>
-                                <div>
-                                    <input type="password" class="dashboard-input" placeholder="New Password">
-                                </div>
-                                <div>
-                                    <input type="password" class="dashboard-input" placeholder="Confirm New Password">
-                                </div>
+                    </div>
+
+                    <!-- ===== 6. LOGOUT SECTION ===== -->
+                    <div id="logout-section" class="dashboard-section hidden">
+                        <div class="dashboard-card text-center py-12">
+                            <div class="w-28 h-28 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <i class="fas fa-sign-out-alt text-5xl text-drone-slate dark:text-drone-slate-bright"></i>
                             </div>
-                            <div class="flex justify-end mt-5">
-                                <button class="save-btn px-10">
-                                    <i class="fas fa-key mr-2"></i> Update Password
+                            <h2 class="text-4xl font-display font-bold mb-4 dark:text-white">Logout</h2>
+                            <p class="text-neutral-dark/80 dark:text-gray-400 text-lg max-w-md mx-auto mb-10">
+                                Click the button below to sign out of your account.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button class="logout-btn px-10 py-4 text-base inline-flex items-center justify-center" id="confirm-logout">
+                                    <i class="fas fa-sign-out-alt mr-2"></i> Logout Now
+                                </button>
+                                <button class="px-10 py-4 border-2 border-drone-slate dark:border-drone-slate-bright text-drone-slate dark:text-drone-slate-bright rounded-full font-bold hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition text-base" id="cancel-logout">
+                                    Cancel
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 2. ORDER HISTORY SECTION ===== -->
-                <div id="orders-section" class="dashboard-section hidden">
-                    <div class="dashboard-card">
-                        <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-suitcase text-drone-slate mr-3 text-2xl"></i>
-                            Order History
-                        </h2>
-                        
-                        <!-- Filters -->
-                        <div class="flex flex-wrap gap-3 mb-7">
-                            <button class="px-5 py-2.5 rounded-full text-sm font-bold bg-drone-slate text-white shadow-md">All</button>
-                            <button class="px-5 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Upcoming</button>
-                            <button class="px-5 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Completed</button>
-                            <button class="px-5 py-2.5 rounded-full text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Cancelled</button>
-                        </div>
-                        
-                        <!-- Orders List -->
-                        <div class="space-y-5">
-                            <!-- Order 1 -->
-                            <div class="order-item">
-                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                                    <div class="flex items-start gap-4">
-                                        <img src="assest/re.jpg" alt="Service" class="w-20 h-20 rounded-xl object-cover shadow-md">
-                                        <div>
-                                            <h4 class="font-bold text-lg dark:text-white">Beachfront Villa • Malibu</h4>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">California • 2 hour shoot</p>
-                                            <div class="flex items-center mt-2">
-                                                <span class="status-badge status-confirmed">
-                                                    <i class="fas fa-check-circle mr-1"></i> Confirmed
-                                                </span>
-                                                <span class="text-xs text-neutral-dark/50 dark:text-gray-500 ml-3">#AV-2468-01</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-5 mt-4 md:mt-0">
-                                        <span class="font-bold text-xl text-drone-slate">$499</span>
-                                        <button class="text-drone-slate hover:underline text-sm font-semibold">View Details</button>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
-                                    <span><i class="fas fa-calendar mr-1"></i> Feb 5, 2026</span>
-                                    <span><i class="fas fa-user mr-1"></i> Pilot James</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Order 2 -->
-                            <div class="order-item">
-                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                                    <div class="flex items-start gap-4">
-                                        <img src="assest/re1.jpg" alt="Service" class="w-20 h-20 rounded-xl object-cover shadow-md">
-                                        <div>
-                                            <h4 class="font-bold text-lg dark:text-white">Downtown Penthouse • LA</h4>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Los Angeles • Twilight shoot</p>
-                                            <div class="flex items-center mt-2">
-                                                <span class="status-badge status-confirmed">
-                                                    <i class="fas fa-check-circle mr-1"></i> Confirmed
-                                                </span>
-                                                <span class="text-xs text-neutral-dark/50 dark:text-gray-500 ml-3">#AV-3157-02</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-5 mt-4 md:mt-0">
-                                        <span class="font-bold text-xl text-drone-slate">$599</span>
-                                        <button class="text-drone-slate hover:underline text-sm font-semibold">View Details</button>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
-                                    <span><i class="fas fa-calendar mr-1"></i> Mar 12, 2026</span>
-                                    <span><i class="fas fa-user mr-1"></i> Pilot Lena</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Order 3 -->
-                            <div class="order-item">
-                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                                    <div class="flex items-start gap-4">
-                                        <img src="assest/re2.jpg" alt="Service" class="w-20 h-20 rounded-xl object-cover shadow-md">
-                                        <div>
-                                            <h4 class="font-bold text-lg dark:text-white">High‑rise Progress • Austin</h4>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Texas • Weekly monitoring</p>
-                                            <div class="flex items-center mt-2">
-                                                <span class="status-badge status-pending">
-                                                    <i class="fas fa-clock mr-1"></i> Pending
-                                                </span>
-                                                <span class="text-xs text-neutral-dark/50 dark:text-gray-500 ml-3">#AV-4289-03</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-5 mt-4 md:mt-0">
-                                        <span class="font-bold text-xl text-drone-slate">$399</span>
-                                        <button class="text-drone-slate hover:underline text-sm font-semibold">View Details</button>
-                                    </div>
-                                </div>
-                                <div class="flex items-center gap-5 mt-3 text-sm text-neutral-dark/60 dark:text-gray-400">
-                                    <span><i class="fas fa-calendar mr-1"></i> Apr 20, 2026</span>
-                                    <span><i class="fas fa-user mr-1"></i> Pilot Marcus</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-7 text-center">
-                            <button class="text-drone-slate font-semibold hover:underline text-base">
-                                View All 12 Orders <i class="fas fa-arrow-right ml-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 3. SAVED ITEMS SECTION ===== -->
-                <div id="saved-section" class="dashboard-section hidden">
-                    <div class="dashboard-card">
-                        <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-heart text-drone-slate mr-3 text-2xl"></i>
-                            Saved Items
-                        </h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <!-- Saved Item 1 -->
-                            <div class="saved-item-card">
-                                <img src="assest/cons.jpg" alt="Service" class="w-24 h-24 rounded-xl object-cover">
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-lg dark:text-white">Torres del Paine Circuit</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">Chile • 10 days</p>
-                                    <div class="flex items-center justify-between mt-3">
-                                        <span class="font-bold text-drone-slate text-xl">$449</span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-drone-slate/10 rounded-lg flex items-center justify-center text-drone-slate hover:bg-drone-slate hover:text-white transition">
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Saved Item 2 -->
-                            <div class="saved-item-card">
-                                <img src="assest/wed.jpg" alt="Service" class="w-24 h-24 rounded-xl object-cover">
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-lg dark:text-white">Maui Beach Wedding</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">Hawaii • Sunset</p>
-                                    <div class="flex items-center justify-between mt-3">
-                                        <span class="font-bold text-drone-slate text-xl">$899</span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-drone-slate/10 rounded-lg flex items-center justify-center text-drone-slate hover:bg-drone-slate hover:text-white transition">
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Saved Item 3 -->
-                            <div class="saved-item-card">
-                                <img src="assest/ev.jpg" alt="Service" class="w-24 h-24 rounded-xl object-cover">
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-lg dark:text-white">Desert Music Fest</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">Indio • 3 days</p>
-                                    <div class="flex items-center justify-between mt-3">
-                                        <span class="font-bold text-drone-slate text-xl">$1299</span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-drone-slate/10 rounded-lg flex items-center justify-center text-drone-slate hover:bg-drone-slate hover:text-white transition">
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Saved Item 4 -->
-                            <div class="saved-item-card">
-                                <img src="assest/ev2.jpg" alt="Service" class="w-24 h-24 rounded-xl object-cover">
-                                <div class="flex-1">
-                                    <h4 class="font-bold text-lg dark:text-white">Tech Conference</h4>
-                                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400">San Jose • 2 drones</p>
-                                    <div class="flex items-center justify-between mt-3">
-                                        <span class="font-bold text-drone-slate text-xl">$899</span>
-                                        <div class="flex gap-2">
-                                            <button class="w-9 h-9 bg-drone-slate/10 rounded-lg flex items-center justify-center text-drone-slate hover:bg-drone-slate hover:text-white transition">
-                                                <i class="fas fa-shopping-cart"></i>
-                                            </button>
-                                            <button class="w-9 h-9 bg-red-50 dark:bg-red-900/20 rounded-lg flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-7 text-center">
-                            <button class="text-drone-slate font-semibold hover:underline text-base">
-                                Browse More Services <i class="fas fa-arrow-right ml-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 4. MESSAGES SECTION ===== -->
-                <div id="messages-section" class="dashboard-section hidden">
-                    <div class="dashboard-card">
-                        <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-envelope text-drone-slate mr-3 text-2xl"></i>
-                            Messages
-                            <span class="ml-4 bg-drone-slate text-white text-xs px-2.5 py-1.5 rounded-full font-bold">3 unread</span>
-                        </h2>
-                        
-                        <div class="space-y-4">
-                            <!-- Message 1 - Unread -->
-                            <div class="message-item unread">
-                                <div class="flex items-start gap-4">
-                                    <div class="flex-1">
-                                        <div class="flex justify-between items-center">
-                                            <h4 class="font-bold text-lg dark:text-white">James Carter</h4>
-                                            <span class="text-xs text-neutral-dark/50 dark:text-gray-500">2 hours ago</span>
-                                        </div>
-                                        <p class="text-sm text-neutral-dark/70 dark:text-gray-400">Lead Pilot</p>
-                                        <p class="text-base mt-2 dark:text-gray-300">Hi John! I'm looking forward to our Malibu shoot. Just checking if you have any specific angles in mind...</p>
-                                        <span class="inline-block mt-3 text-xs bg-drone-slate text-white px-3 py-1.5 rounded-full font-semibold">New</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Message 2 - Unread -->
-                            <div class="message-item unread">
-                                <div class="flex items-start gap-4">
-                                    <div class="flex-1">
-                                        <div class="flex justify-between items-center">
-                                            <h4 class="font-bold text-lg dark:text-white">Lena Park</h4>
-                                            <span class="text-xs text-neutral-dark/50 dark:text-gray-500">Yesterday</span>
-                                        </div>
-                                        <p class="text-sm text-neutral-dark/70 dark:text-gray-400">Creative Director</p>
-                                        <p class="text-base mt-2 dark:text-gray-300">Your twilight penthouse shoot is confirmed! We'll meet at the rooftop at 6:30 PM for golden hour...</p>
-                                        <span class="inline-block mt-3 text-xs bg-drone-slate text-white px-3 py-1.5 rounded-full font-semibold">New</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Message 3 - Read -->
-                            <div class="message-item">
-                                <div class="flex items-start gap-4">
-                                    <img src="assest/test2.jpg" alt="Support" class="w-12 h-12 rounded-full object-cover">
-                                    <div class="flex-1">
-                                        <div class="flex justify-between items-center">
-                                            <h4 class="font-bold text-lg dark:text-white">AEROVIEW Support</h4>
-                                            <span class="text-xs text-neutral-dark/50 dark:text-gray-500">3 days ago</span>
-                                        </div>
-                                        <p class="text-sm text-neutral-dark/70 dark:text-gray-400">Customer Service</p>
-                                        <p class="text-base mt-2 dark:text-gray-300">Thank you for your recent booking! Here's everything you need to know before your shoot...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-7 text-center">
-                            <button class="text-drone-slate font-semibold hover:underline text-base">
-                                View All Messages <i class="fas fa-arrow-right ml-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 5. SETTINGS SECTION ===== -->
-                <div id="settings-section" class="dashboard-section hidden">
-                    <div class="dashboard-card">
-                        <h2 class="text-2xl font-display font-bold mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-cog text-drone-slate mr-3 text-2xl"></i>
-                            Settings
-                        </h2>
-                        
-                        <div class="space-y-8">
-                            <!-- Notification Settings -->
-                            <div>
-                                <h3 class="text-xl font-bold mb-5 dark:text-white flex items-center">
-                                    <i class="fas fa-bell text-drone-slate mr-2"></i>
-                                    Notifications
-                                </h3>
-                                <div class="space-y-4 bg-neutral-light/30 dark:bg-gray-800/30 p-5 rounded-2xl">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white text-lg">Email Notifications</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Receive booking confirmations</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white text-lg">SMS Notifications</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Get text alerts for urgent updates</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox">
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white text-lg">Promotional Emails</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Receive offers and travel inspiration</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Privacy Settings -->
-                            <div>
-                                <h3 class="text-xl font-bold mb-5 dark:text-white flex items-center">
-                                    <i class="fas fa-shield-alt text-drone-slate mr-2"></i>
-                                    Privacy
-                                </h3>
-                                <div class="space-y-4 bg-neutral-light/30 dark:bg-gray-800/30 p-5 rounded-2xl">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white text-lg">Profile Visibility</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Make your profile visible to pilots</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white text-lg">Share Booking History</p>
-                                            <p class="text-sm text-neutral-dark/60 dark:text-gray-400">Allow pilots to see your past shoots</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox">
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-end mt-6">
-                                <button class="save-btn px-12 py-3 text-base">
-                                    <i class="fas fa-save mr-2"></i> Save Settings
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 6. LOGOUT SECTION ===== -->
-                <div id="logout-section" class="dashboard-section hidden">
-                    <div class="dashboard-card text-center py-12">
-                        <div class="w-28 h-28 bg-drone-slate/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-sign-out-alt text-5xl text-drone-slate"></i>
-                        </div>
-                        <h2 class="text-4xl font-display font-bold mb-4 dark:text-white">Logout</h2>
-                        <p class="text-neutral-dark/70 dark:text-gray-400 text-lg max-w-md mx-auto mb-10">
-                            Are you sure you want to sign out? You'll need to log in again to access your dashboard.
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="register.html" class="logout-btn px-10 py-4 text-base inline-flex items-center justify-center">
-                                <i class="fas fa-sign-out-alt mr-2"></i> Yes, Logout
-                            </a>
-                            <button class="px-10 py-4 border-2 border-drone-slate text-drone-slate rounded-full font-bold hover:bg-drone-slate hover:text-white transition text-base">
-                                Cancel
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -1076,10 +1210,8 @@
                     const section = this.dataset.section;
                     
                     if (section === 'logout') {
-                        removeActiveClass();
-                        this.classList.add('active');
-                        hideAllSections();
-                        if (sections.logout) sections.logout.classList.remove('hidden');
+                        // Direct logout without confirmation
+                        window.location.href = 'login.html';
                         return;
                     }
                     
@@ -1095,10 +1227,30 @@
                 });
             });
             
-            // Cancel button in logout section
-            const cancelBtn = document.querySelector('#logout-section .border-2');
-            if (cancelBtn) {
-                cancelBtn.addEventListener('click', function() {
+            // ============ LOGOUT HANDLING ============
+            // Sidebar logout button (quick logout)
+            const sidebarLogout = document.getElementById('logout-btn-sidebar');
+            if (sidebarLogout) {
+                sidebarLogout.addEventListener('click', function() {
+                    // Direct logout without confirmation
+                    window.location.href = 'login.html';
+                });
+            }
+            
+            // Confirm logout button in logout section
+            const confirmLogout = document.getElementById('confirm-logout');
+            if (confirmLogout) {
+                confirmLogout.addEventListener('click', function() {
+                    // Direct logout without confirmation
+                    window.location.href = 'login.html';
+                });
+            }
+            
+            // Cancel logout button
+            const cancelLogout = document.getElementById('cancel-logout');
+            if (cancelLogout) {
+                cancelLogout.addEventListener('click', function() {
+                    // Go back to profile
                     removeActiveClass();
                     document.querySelector('.sidebar-item[data-section="profile"]').classList.add('active');
                     hideAllSections();

@@ -18,6 +18,7 @@
                         'drone-slate': '#586C89',
                         'drone-slate-light': '#7C8FA8',
                         'drone-slate-dark': '#3A4A64',
+                        'drone-slate-bright': '#8AA4C9',
                         'bg-warm': '#FFFAF1',
                         'neutral-dark': '#2D3A4A',
                         'neutral-light': '#E8EDF2',
@@ -73,6 +74,70 @@
             font-weight: 700;
         }
         
+        /* Improved contrast for dark mode */
+        .dark .text-drone-slate {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .bg-drone-slate {
+            background-color: #8AA4C9 !important;
+        }
+        
+        .dark .border-drone-slate {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .from-drone-slate {
+            --tw-gradient-from: #8AA4C9 !important;
+        }
+        
+        .dark .service-icon {
+            background: rgba(138, 164, 201, 0.15) !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .badge {
+            background: rgba(138, 164, 201, 0.2) !important;
+            color: #B8D0E8 !important;
+        }
+        
+        .dark .dropdown-item:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .auth-btn.login:hover {
+            border-color: #8AA4C9 !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .nav-item:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .nav-item::after {
+            background: #8AA4C9 !important;
+        }
+        
+        .dark .dropdown-item i {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .premium-line {
+            background: #8AA4C9 !important;
+        }
+        
+        .dark .hover\:text-drone-slate:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .text-drone-slate\/80 {
+            color: rgba(138, 164, 201, 0.8) !important;
+        }
+        
+        .dark .text-drone-slate\/60 {
+            color: rgba(138, 164, 201, 0.6) !important;
+        }
+        
         /* Hide scrollbar */
         body::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
@@ -95,6 +160,10 @@
             color: #586C89;
         }
         
+        .dark .nav-item:hover {
+            color: #8AA4C9;
+        }
+        
         .nav-item::after {
             content: '';
             position: absolute;
@@ -104,6 +173,10 @@
             height: 2px;
             background: #586C89;
             transition: width 0.3s ease;
+        }
+        
+        .dark .nav-item::after {
+            background: #8AA4C9;
         }
         
         [dir="rtl"] .nav-item::after {
@@ -173,13 +246,14 @@
             padding-left: 1.75rem;
         }
         
+        .dark .dropdown-item:hover {
+            background: #404040;
+            color: #8AA4C9;
+        }
+        
         [dir="rtl"] .dropdown-item:hover {
             padding-left: 1.5rem;
             padding-right: 1.75rem;
-        }
-        
-        .dark .dropdown-item:hover {
-            background: #404040;
         }
         
         .dropdown-item i {
@@ -187,6 +261,10 @@
             width: 20px;
             text-align: center;
             color: #586C89;
+        }
+        
+        .dark .dropdown-item i {
+            color: #8AA4C9;
         }
         
         [dir="rtl"] .dropdown-item i {
@@ -222,8 +300,8 @@
         }
         
         .dark .auth-btn.login:hover {
-            border-color: #7C8FA8;
-            color: white;
+            border-color: #8AA4C9;
+            color: #8AA4C9;
         }
         
         .auth-btn.signup {
@@ -231,10 +309,19 @@
             color: white;
         }
         
+        .dark .auth-btn.signup {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
+        
         .auth-btn.signup:hover {
             background: #3A4A64;
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(88,108,137,0.2);
+        }
+        
+        .dark .auth-btn.signup:hover {
+            background: #6B87B0;
         }
         
         /* Toggle Buttons - GROWW TOUR STRUCTURE with AEROVIEW COLORS */
@@ -263,13 +350,18 @@
         }
         
         .dark .toggle-btn:hover {
-            background: #4B5563;
-            color: #E5E7EB;
+            background: #8AA4C9;
+            color: #1a1a1a;
         }
         
         .toggle-btn.active {
             background: #586C89;
             color: white;
+        }
+        
+        .dark .toggle-btn.active {
+            background: #8AA4C9;
+            color: #1a1a1a;
         }
         
         /* Hide toggle buttons on mobile and tablet - up to xl breakpoint */
@@ -320,6 +412,7 @@
 
         .dark .mobile-menu-item:hover {
             background-color: #374151;
+            color: #8AA4C9;
         }
 
         .mobile-dropdown-content {
@@ -359,7 +452,7 @@
 
         .dark .mobile-dropdown-item:hover {
             background-color: #374151;
-            color: white;
+            color: #8AA4C9;
         }
 
         .mobile-auth-btn {
@@ -391,13 +484,28 @@
             border-color: #586C89;
         }
 
+        .dark .mobile-auth-btn.login:hover {
+            background-color: #8AA4C9;
+            color: #1a1a1a;
+            border-color: #8AA4C9;
+        }
+
         .mobile-auth-btn.signup {
             background: #586C89;
             color: white;
         }
 
+        .dark .mobile-auth-btn.signup {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
+
         .mobile-auth-btn.signup:hover {
             background: #3A4A64;
+        }
+
+        .dark .mobile-auth-btn.signup:hover {
+            background: #6B87B0;
         }
         
         /* Desktop navigation container */
@@ -416,6 +524,16 @@
             box-shadow: 30px 30px 60px rgba(0,0,0,0.3);
         }
         
+        /* Video container */
+        .video-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(88,108,137,0.15);
+        }
+        .dark .video-container {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        
         /* Service icons */
         .service-icon {
             width: 80px;
@@ -429,7 +547,7 @@
             font-size: 2rem;
             color: #586C89;
         }
-        .dark .service-icon { background: rgba(88,108,137,0.15); color: #A0B3CC; }
+        .dark .service-icon { background: rgba(138,164,201,0.15); color: #8AA4C9; }
         
         /* Cards */
         .drone-card {
@@ -455,7 +573,7 @@
             font-size: 0.8rem;
             backdrop-filter: blur(4px);
         }
-        .dark .badge { background: rgba(88,108,137,0.2); color: #B0C9E0; }
+        .dark .badge { background: rgba(138,164,201,0.2); color: #B8D0E8; }
         
         /* Footer */
         footer {
@@ -469,6 +587,7 @@
             border-color: #2A3647;
         }
         footer a:hover { color: #586C89; }
+        .dark footer a:hover { color: #8AA4C9; }
         
         .social-icon {
             width: 40px;
@@ -487,6 +606,10 @@
             color: white;
             transform: translateY(-3px);
         }
+        .dark .social-icon:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
         
         /* Button style */
         .btn-drone {
@@ -502,10 +625,20 @@
             font-size: 1rem;
             font-family: 'Montserrat', sans-serif;
         }
+        
+        .dark .btn-drone {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
+        
         .btn-drone:hover {
             background: #3A4A64;
             transform: translateY(-2px);
             box-shadow: 0 12px 24px -8px rgba(88,108,137,0.4);
+        }
+        
+        .dark .btn-drone:hover {
+            background: #6B87B0;
         }
         
         /* Premium line */
@@ -514,6 +647,37 @@
             height: 2px;
             background: #586C89;
             margin: 20px 0;
+        }
+        
+        .dark .premium-line {
+            background: #8AA4C9;
+        }
+        
+        /* Stats styling */
+        .dark .stat-number {
+            color: #8AA4C9;
+        }
+        
+        /* Testimonial cards */
+        .testimonial-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 8px 28px -6px rgba(88,108,137,0.08);
+            border: 1px solid rgba(88,108,137,0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .dark .testimonial-card {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+        
+        .testimonial-quote {
+            color: #8AA4C9;
+            opacity: 0.3;
+            font-size: 2.5rem;
         }
     </style>
 </head>
@@ -525,12 +689,12 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-3 group">
-                    <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-camera-retro text-white text-lg"></i>
+                    <div class="w-10 h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white dark:text-dark-bg text-lg"></i>
                     </div>
                     <div>
                         <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                        <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                        <span class="text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright">VUW</span>
                     </div>
                 </a>
 
@@ -541,7 +705,7 @@
                         <div class="flex items-center gap-8">
                             <!-- Home Dropdown -->
                             <div class="dropdown">
-                                <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition flex items-center">
                                     Home <i class="fas fa-chevron-down ml-2 text-xs"></i>
                                 </button>
                                 <div class="dropdown-menu">
@@ -557,33 +721,33 @@
                             </div>
                             
                             <!-- About -->
-                            <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 About
                             </a>
                             
                             <!-- Services -->
-                            <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 Services
                             </a>
                             
                             <!-- Book Now-->
-                            <a href="book.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="book.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 Book Now
                             </a>
                             
                             <!-- Portfolio-->
-                            <a href="portfolio.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="portfolio.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 Portfolio
                             </a>
                             
                             <!-- Contact Us -->
-                            <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 Contact 
                             </a>
                             
                             <!-- Dashboard Dropdown -->
                             <div class="dropdown">
-                                <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition flex items-center">
                                     Dashboard <i class="fas fa-chevron-down ml-2 text-xs"></i>
                                 </button>
                                 <div class="dropdown-menu">
@@ -638,7 +802,7 @@
                 <i class="fas fa-home mr-2"></i>
                 Home 1 
             </a>                     
-            <a href="home2.html" class="mobile-dropdown-item" style="background: rgba(88,108,137,0.08); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">
+            <a href="home2.html" class="mobile-dropdown-item" style="background: rgba(138,164,201,0.08); color: #8AA4C9; border-left: 3px solid #8AA4C9; font-weight: 600;">
                 <i class="fas fa-home mr-2"></i>
                 Home 2
             </a>
@@ -708,14 +872,14 @@
             <!-- Left content -->
             <div>
                 <!-- Simple badge -->
-                <span class="text-xs font-semibold tracking-[0.2em] uppercase text-drone-slate/80 dark:text-gray-400">
+                <span class="text-xs font-semibold tracking-[0.2em] uppercase text-drone-slate/80 dark:text-drone-slate-bright/80">
                     Aerial cinematography
                 </span>
                 
                 <!-- Clean headline -->
                 <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-neutral-dark dark:text-white mt-4 mb-5 leading-tight">
                     Drone video <br>
-                    <span class="text-drone-slate">for professionals</span>
+                    <span class="text-drone-slate dark:text-drone-slate-bright">for professionals</span>
                 </h1>
                 
                 <!-- Simple description -->
@@ -728,7 +892,7 @@
                     <button class="btn-drone px-8 py-4">
                         <i class="fas fa-images mr-2"></i> View work
                     </button>
-                    <button class="bg-white border border-drone-slate/30 text-drone-slate px-8 py-4 rounded-full font-semibold hover:bg-drone-slate/5 transition">
+                    <button class="bg-white border border-drone-slate/30 dark:border-drone-slate-bright/30 text-drone-slate dark:text-drone-slate-bright px-8 py-4 rounded-full font-semibold hover:bg-drone-slate/5 dark:hover:bg-drone-slate-bright/10 transition">
                         <i class="fas fa-calendar-alt mr-2"></i> Start a Project
                     </button>
                 </div>
@@ -736,23 +900,23 @@
                 <!-- Simple stats -->
                 <div class="flex gap-8">
                     <div>
-                        <span class="block text-3xl font-display font-semibold text-drone-slate">10+ yrs</span>
-                        <span class="text-sm text-neutral-dark/90">experience</span>
+                        <span class="block text-3xl font-display font-semibold text-drone-slate dark:text-drone-slate-bright">10+ yrs</span>
+                        <span class="text-sm text-neutral-dark/90 dark:text-gray-400">experience</span>
                     </div>
                     <div>
-                        <span class="block text-3xl font-display font-semibold text-drone-slate">600+</span>
-                        <span class="text-sm text-neutral-dark/90">projects</span>
+                        <span class="block text-3xl font-display font-semibold text-drone-slate dark:text-drone-slate-bright">600+</span>
+                        <span class="text-sm text-neutral-dark/90 dark:text-gray-400">projects</span>
                     </div>
                     <div>
-                        <span class="block text-3xl font-display font-semibold text-drone-slate">FAA</span>
-                        <span class="text-sm text-neutral-dark/90">certified</span>
+                        <span class="block text-3xl font-display font-semibold text-drone-slate dark:text-drone-slate-bright">FAA</span>
+                        <span class="text-sm text-neutral-dark/90 dark:text-gray-400">certified</span>
                     </div>
                 </div>
             </div>
             
             <!-- Right video -->
             <div class="relative">
-                <div class="rounded-xl overflow-hidden shadow-xl bg-black/5 aspect-video">
+                <div class="rounded-xl overflow-hidden shadow-xl bg-black/5 dark:bg-black/20 video-container aspect-video">
                     <video 
                         class="w-full h-full object-cover"
                         poster="/assest/hero-poster.jpg"
@@ -767,8 +931,8 @@
                 </div>
                 
                 <!-- Simple caption -->
-                <div class="flex justify-between items-center mt-3 text-xs text-neutral-dark/90">
-                    <span><i class="fas fa-play-circle text-drone-slate mr-1"></i> Showreel 2024</span>
+                <div class="flex justify-between items-center mt-3 text-xs text-neutral-dark/90 dark:text-gray-400">
+                    <span><i class="fas fa-play-circle text-drone-slate dark:text-drone-slate-bright mr-1"></i> Showreel 2024</span>
                     <span>2:34 min</span>
                 </div>
             </div>
@@ -777,15 +941,15 @@
 </section>
 
     <!-- SECTION 2: CLIENTS / TRUSTED BY (new) - text slightly bigger -->
-    <section class="py-12 bg-white dark:bg-dark-card border-y border-drone-slate/10">
+    <section class="py-12 bg-white dark:bg-dark-card border-y border-drone-slate/10 dark:border-drone-slate-bright/10">
         <div class="container mx-auto px-6">
-            <p class="text-center text-base uppercase tracking-widest text-drone-slate font-medium mb-6">trusted by leading brands</p>
+            <p class="text-center text-base uppercase tracking-widest text-drone-slate dark:text-drone-slate-bright font-medium mb-6">trusted by leading brands</p>
             <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-6 opacity-70">
-                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/60">COASTAL</span>
-                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/60">· URBAN ·</span>
-                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/60">ASPEN</span>
-                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/60">· NAPA ·</span>
-                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/60">SUNSET</span>
+                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/80">COASTAL</span>
+                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/80">· URBAN ·</span>
+                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/80">ASPEN</span>
+                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/80">· NAPA ·</span>
+                <span class="text-3xl font-display font-bold text-neutral-dark/60 dark:text-white/80">SUNSET</span>
             </div>
         </div>
     </section>
@@ -795,13 +959,13 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
                 <div>
-                    <span class="text-drone-slate font-medium text-base tracking-widest premium-text">/// LATEST WORK</span>
+                    <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-base tracking-widest premium-text">/// LATEST WORK</span>
                     <h2 class="text-4xl md:text-5xl lg:text-5xl font-display font-bold mb-4 text-neutral-dark dark:text-white mt-4">
-                        Featured <span class="text-drone-slate">Projects</span>
+                        Featured <span class="text-drone-slate dark:text-drone-slate-bright">Projects</span>
                     </h2>
-                    <p class="text-xl max-w-xl opacity-80">Each project tells a unique story from a new perspective.</p>
+                    <p class="text-xl max-w-xl opacity-80 dark:text-gray-300">Each project tells a unique story from a new perspective.</p>
                 </div>
-                <a href="portfolio.html" class="mt-4 md:mt-0 text-drone-slate font-medium hover:underline flex items-center gap-1 text-lg">View all projects <i class="fas fa-arrow-right"></i></a>
+                <a href="portfolio.html" class="mt-4 md:mt-0 text-drone-slate dark:text-drone-slate-bright font-medium hover:underline flex items-center gap-1 text-lg">View all projects <i class="fas fa-arrow-right"></i></a>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -811,7 +975,7 @@
         <img src="/assest/ph.jpg" alt="Winery drone" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
             <div class="flex flex-col items-start">
-                <span class="bg-drone-slate/90 text-white px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm shadow-lg mb-2">
+                <span class="bg-drone-slate/90 dark:bg-drone-slate-bright/90 text-white dark:text-dark-bg px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm shadow-lg mb-2">
                     <i class="fas fa-wine-glass-alt mr-1"></i> Napa Valley · Commercial
                 </span>
                 <h3 class="text-white font-display font-bold text-2xl text-left">Staglin Vineyard</h3>
@@ -826,7 +990,7 @@
         <img src="/assest/beach.jpg" alt="Golf course" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
             <div class="flex flex-col items-start">
-                <span class="bg-drone-slate/90 text-white px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm shadow-lg mb-2">
+                <span class="bg-drone-slate/90 dark:bg-drone-slate-bright/90 text-white dark:text-dark-bg px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm shadow-lg mb-2">
                     <i class="fas fa-flag mr-1"></i> Pebble Beach · View
                 </span>
                 <h3 class="text-white font-display font-bold text-2xl text-left">Links Course</h3>
@@ -841,7 +1005,7 @@
         <img src="/assest/sun.jpg" alt="Downtown LA" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
             <div class="flex flex-col items-start">
-                <span class="bg-drone-slate/90 text-white px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm shadow-lg mb-2">
+                <span class="bg-drone-slate/90 dark:bg-drone-slate-bright/90 text-white dark:text-dark-bg px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm shadow-lg mb-2">
                     <i class="fas fa-city mr-1"></i> Los Angeles · Architecture
                 </span>
                 <h3 class="text-white font-display font-bold text-2xl text-left">Sunset Boulevard</h3>
@@ -861,31 +1025,31 @@
                     <img src="/assest/grid2.jpg" alt="Pilot with drone" class="rounded-3xl shadow-2xl w-full h-auto object-cover">
                 </div>
                 <div class="order-1 lg:order-2">
-                    <span class="text-drone-slate font-medium text-base tracking-widest premium-text">/// THE PROCESS</span>
+                    <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-base tracking-widest premium-text">/// THE PROCESS</span>
                     <h2 class="text-4xl md:text-5xl lg:text-5xl font-display font-bold mt-4 mb-6 text-neutral-dark dark:text-white">
-                        From <span class="text-drone-slate">Concept</span> to Final Cut
+                        From <span class="text-drone-slate dark:text-drone-slate-bright">Concept</span> to Final Cut
                     </h2>
                     
                     <div class="space-y-6">
                         <div class="flex gap-4 items-start">
-                            <div class="w-14 h-14 bg-drone-slate/10 rounded-full flex items-center justify-center flex-shrink-0 text-drone-slate font-display font-bold text-2xl">1</div>
+                            <div class="w-14 h-14 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center flex-shrink-0 text-drone-slate dark:text-drone-slate-bright font-display font-bold text-2xl">1</div>
                             <div>
                                 <h4 class="font-display font-bold text-2xl">Consultation & Flight Plan</h4>
-                                <p class="text-lg opacity-80">We discuss your vision, scout locations, and plan every shot.</p>
+                                <p class="text-lg opacity-80 dark:text-gray-300">We discuss your vision, scout locations, and plan every shot.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start">
-                            <div class="w-14 h-14 bg-drone-slate/10 rounded-full flex items-center justify-center flex-shrink-0 text-drone-slate font-display font-bold text-2xl">2</div>
+                            <div class="w-14 h-14 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center flex-shrink-0 text-drone-slate dark:text-drone-slate-bright font-display font-bold text-2xl">2</div>
                             <div>
                                 <h4 class="font-display font-bold text-2xl">On-Site Shoot</h4>
-                                <p class="text-lg opacity-80">FAA-certified pilots capture high-res imagery and smooth video.</p>
+                                <p class="text-lg opacity-80 dark:text-gray-300">FAA-certified pilots capture high-res imagery and smooth video.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start">
-                            <div class="w-14 h-14 bg-drone-slate/10 rounded-full flex items-center justify-center flex-shrink-0 text-drone-slate font-display font-bold text-2xl">3</div>
+                            <div class="w-14 h-14 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center flex-shrink-0 text-drone-slate dark:text-drone-slate-bright font-display font-bold text-2xl">3</div>
                             <div>
                                 <h4 class="font-display font-bold text-2xl">Pro Editing & Delivery</h4>
-                                <p class="text-lg opacity-80">Color grading, stabilization, and fast digital delivery.</p>
+                                <p class="text-lg opacity-80 dark:text-gray-300">Color grading, stabilization, and fast digital delivery.</p>
                             </div>
                         </div>
                     </div>
@@ -902,9 +1066,9 @@
     <section class="py-20 bg-[#FFFAF1] dark:bg-dark-bg">
     <div class="container mx-auto px-6">
         <div class="text-center mb-16">
-            <span class="text-drone-slate font-medium text-base tracking-widest premium-text">/// TESTIMONIALS</span>
+            <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-base tracking-widest premium-text">/// TESTIMONIALS</span>
             <h2 class="text-4xl md:text-5xl lg:text-5xl font-display font-bold mb-4 text-neutral-dark dark:text-white mt-4">
-                What <span class="text-drone-slate">Clients</span> Say
+                What <span class="text-drone-slate dark:text-drone-slate-bright">Clients</span> Say
             </h2>
         </div>
         
@@ -912,40 +1076,40 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             
             <!-- Testimonial 1 -->
-            <div class="bg-white dark:bg-dark-card p-6 md:p-8 rounded-3xl shadow-sm border border-drone-slate/10 h-full flex flex-col">
-                <i class="fas fa-quote-left text-3xl md:text-4xl text-drone-slate/30 mb-4"></i>
-                <p class="text-base md:text-lg lg:text-xl italic mb-6 flex-grow">"The aerial footage transformed our property listing. We had multiple offers within a week. Truly professional work."</p>
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left testimonial-quote mb-4"></i>
+                <p class="text-base md:text-lg lg:text-xl italic mb-6 flex-grow dark:text-gray-200">"The aerial footage transformed our property listing. We had multiple offers within a week. Truly professional work."</p>
                 <div class="flex items-center gap-3 mt-auto">
-                    <div class="w-12 h-12 md:w-14 md:h-14 bg-drone-slate/20 rounded-full flex items-center justify-center text-drone-slate font-bold text-lg md:text-xl flex-shrink-0">JD</div>
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-drone-slate/20 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center text-drone-slate dark:text-drone-slate-bright font-bold text-lg md:text-xl flex-shrink-0">JD</div>
                     <div class="min-w-0">
-                        <h5 class="font-display font-bold text-lg md:text-xl truncate">Jessica Deacon</h5>
-                        <p class="text-sm md:text-base opacity-60 truncate">Real Estate Agent, Sotheby's</p>
+                        <h5 class="font-display font-bold text-lg md:text-xl truncate dark:text-white">Jessica Deacon</h5>
+                        <p class="text-sm md:text-base opacity-60 truncate dark:text-gray-400">Real Estate Agent, Sotheby's</p>
                     </div>
                 </div>
             </div>
             
             <!-- Testimonial 2 -->
-            <div class="bg-white dark:bg-dark-card p-6 md:p-8 rounded-3xl shadow-sm border border-drone-slate/10 h-full flex flex-col">
-                <i class="fas fa-quote-left text-3xl md:text-4xl text-drone-slate/30 mb-4"></i>
-                <p class="text-base md:text-lg lg:text-xl italic mb-6 flex-grow">"They covered our outdoor wedding and the drone shots of the ceremony were the highlight of our video. Seamless and discreet."</p>
+            <div class="testimonial-card">
+                <i class="fas fa-quote-left testimonial-quote mb-4"></i>
+                <p class="text-base md:text-lg lg:text-xl italic mb-6 flex-grow dark:text-gray-200">"They covered our outdoor wedding and the drone shots of the ceremony were the highlight of our video. Seamless and discreet."</p>
                 <div class="flex items-center gap-3 mt-auto">
-                    <div class="w-12 h-12 md:w-14 md:h-14 bg-drone-slate/20 rounded-full flex items-center justify-center text-drone-slate font-bold text-lg md:text-xl flex-shrink-0">MT</div>
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-drone-slate/20 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center text-drone-slate dark:text-drone-slate-bright font-bold text-lg md:text-xl flex-shrink-0">MT</div>
                     <div class="min-w-0">
-                        <h5 class="font-display font-bold text-lg md:text-xl truncate">Marcus & Talia</h5>
-                        <p class="text-sm md:text-base opacity-60 truncate">Wedding clients</p>
+                        <h5 class="font-display font-bold text-lg md:text-xl truncate dark:text-white">Marcus & Talia</h5>
+                        <p class="text-sm md:text-base opacity-60 truncate dark:text-gray-400">Wedding clients</p>
                     </div>
                 </div>
             </div>
             
             <!-- Testimonial 3 -->
-            <div class="bg-white dark:bg-dark-card p-6 md:p-8 rounded-3xl shadow-sm border border-drone-slate/10 h-full flex flex-col md:col-span-2 lg:col-span-1">
-                <i class="fas fa-quote-left text-3xl md:text-4xl text-drone-slate/30 mb-4"></i>
-                <p class="text-base md:text-lg lg:text-xl italic mb-6 flex-grow">"We use GROWW VUW for all our construction progress reports. Accurate, timely, and the 3D models are a game changer."</p>
+            <div class="testimonial-card md:col-span-2 lg:col-span-1">
+                <i class="fas fa-quote-left testimonial-quote mb-4"></i>
+                <p class="text-base md:text-lg lg:text-xl italic mb-6 flex-grow dark:text-gray-200">"We use GROWW VUW for all our construction progress reports. Accurate, timely, and the 3D models are a game changer."</p>
                 <div class="flex items-center gap-3 mt-auto">
-                    <div class="w-12 h-12 md:w-14 md:h-14 bg-drone-slate/20 rounded-full flex items-center justify-center text-drone-slate font-bold text-lg md:text-xl flex-shrink-0">RC</div>
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-drone-slate/20 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center text-drone-slate dark:text-drone-slate-bright font-bold text-lg md:text-xl flex-shrink-0">RC</div>
                     <div class="min-w-0">
-                        <h5 class="font-display font-bold text-lg md:text-xl truncate">Rebecca Chen</h5>
-                        <p class="text-sm md:text-base opacity-60 truncate">Project Manager, BuildCorp</p>
+                        <h5 class="font-display font-bold text-lg md:text-xl truncate dark:text-white">Rebecca Chen</h5>
+                        <p class="text-sm md:text-base opacity-60 truncate dark:text-gray-400">Project Manager, BuildCorp</p>
                     </div>
                 </div>
             </div>
@@ -953,18 +1117,18 @@
     </div>
 </section>
     <!-- SECTION 6: CTA BANNER (slightly different wording) - text increased -->
-    <section class="py-20 bg-drone-slate text-white">
+    <section class="py-20 bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg">
         <div class="container mx-auto px-6 text-center">
-            <span class="text-white/80 font-medium text-base tracking-widest premium-text">/// START YOUR PROJECT</span>
+            <span class="text-white/80 dark:text-dark-bg/80 font-medium text-base tracking-widest premium-text">/// START YOUR PROJECT</span>
             <h2 class="text-4xl md:text-5xl lg:text-5xl font-display font-bold mb-6 mt-4">Ready to Go Beyond?</h2>
             <p class="text-xl opacity-90 max-w-2xl mx-auto mb-8 font-light">
                 Whether it's a cinematic real estate tour or event coverage, let's make it happen.
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-    <button class="bg-white text-drone-slate px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition flex items-center gap-2">
+    <button class="bg-white text-drone-slate dark:bg-dark-bg dark:text-drone-slate-bright px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition flex items-center gap-2">
         <i class="fas fa-calendar-alt"></i> Book Online
     </button>
-    <button class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition flex items-center gap-2">
+    <button class="border-2 border-white dark:border-dark-bg text-white dark:text-dark-bg px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 dark:hover:bg-dark-bg/10 transition flex items-center gap-2">
         <i class="fas fa-comment"></i> Chat with Pilot
     </button>
 </div>
@@ -980,16 +1144,16 @@
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
                     <!-- Logo container with proper spacing and no cut-off -->
                 <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group flex-nowrap">
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-camera-retro text-white text-sm sm:text-lg"></i>
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white dark:text-dark-bg text-sm sm:text-lg"></i>
                     </div>
                     <div class="flex items-center whitespace-nowrap">
                         <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate ml-1">VUW</span>
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright ml-1">VUW</span>
                     </div>
                 </a>
                 </div>
-                <p class="text-base opacity-700 mb-6 leading-relaxed">
+                <p class="text-base opacity-700 mb-6 leading-relaxed dark:text-gray-300">
                     Professional aerial photography. Capturing stunning perspectives since 2019.
                 </p>
                 <div class="flex justify-center md:justify-start gap-4">
@@ -1004,11 +1168,11 @@
              <div class="text-center md:text-left">
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Quick Links</h3>
                 <ul class="space-y-4 text-base">
-                    <li><a href="index.html" class="hover:text-drone-slate transition text-base">Home</a></li>
-                    <li><a href="about.html" class="hover:text-drone-slate transition text-base">About</a></li>
-                    <li><a href="service.html" class="hover:text-drone-slate transition text-base">Services</a></li>
-                    <li><a href="portfolio.html" class="hover:text-drone-slate transition text-base">Portfolio</a></li>
-                    <li><a href="contact.html" class="hover:text-drone-slate transition text-base">Contact</a></li>
+                    <li><a href="index.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Home</a></li>
+                    <li><a href="about.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">About</a></li>
+                    <li><a href="service.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Services</a></li>
+                    <li><a href="portfolio.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Portfolio</a></li>
+                    <li><a href="contact.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Contact</a></li>
                 </ul>
             </div>
             
@@ -1016,11 +1180,11 @@
             <div class="text-center md:text-left">
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Photography</h3>
                 <ul class="space-y-4 text-base">
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Real Estate</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Event Coverage</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Construction</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Commercial</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Wedding</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Real Estate</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Event Coverage</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Construction</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Commercial</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Wedding</a></li>
                 </ul>
             </div>
             
@@ -1029,20 +1193,20 @@
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Contact</h3>
                 <ul class="space-y-4 text-base mb-8">
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-map-marker-alt text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">123 Aerial Way, Los Angeles, CA 90210</span>
+                        <i class="fas fa-map-marker-alt text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">123 Aerial Way, Los Angeles, CA 90210</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-phone-alt text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">+1 (555) 123-4567</span>
+                        <i class="fas fa-phone-alt text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">+1 (555) 123-4567</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-envelope text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">hello@growwvuw.com</span>
+                        <i class="fas fa-envelope text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">hello@growwvuw.com</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-clock text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">Mon-Fri: 9AM - 6PM</span>
+                        <i class="fas fa-clock text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">Mon-Fri: 9AM - 6PM</span>
                     </li>
                 </ul>
                 
@@ -1051,9 +1215,9 @@
         </div>
         
         <!-- Bottom Bar -->
-        <div class="border-t border-drone-slate/10 mt-12 pt-8 text-center">
-            <p class="text-base opacity-90">© 2026 GROWW VUW. All rights reserved. FAA certified operations.</p>
-            <p class="text-sm opacity-80 mt-2">Capturing stunning perspectives from above since 2019</p>
+        <div class="border-t border-drone-slate/10 dark:border-drone-slate-bright/10 mt-12 pt-8 text-center">
+            <p class="text-base opacity-90 dark:text-gray-300">© 2026 GROWW VUW. All rights reserved. FAA certified operations.</p>
+            <p class="text-sm opacity-80 mt-2 dark:text-gray-400">Capturing stunning perspectives from above since 2019</p>
         </div>
     </div>
 </footer>

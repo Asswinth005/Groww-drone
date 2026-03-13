@@ -18,6 +18,7 @@
                         'drone-slate': '#586C89',
                         'drone-slate-light': '#7C8FA8',
                         'drone-slate-dark': '#3A4A64',
+                        'drone-slate-bright': '#8AA4C9',
                         'bg-warm': '#FFFAF1',
                         'neutral-dark': '#2D3A4A',
                         'neutral-light': '#E8EDF2',
@@ -77,6 +78,37 @@
         body::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
         
+        /* Improved contrast for dark mode */
+        .dark .text-drone-slate {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .bg-drone-slate {
+            background-color: #8AA4C9 !important;
+        }
+        
+        .dark .border-drone-slate {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .from-drone-slate {
+            --tw-gradient-from: #8AA4C9 !important;
+        }
+        
+        .dark .hover\:text-drone-slate:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .btn-outline {
+            border-color: #8AA4C9 !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .btn-outline:hover {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
         /* navigation – identical to reference */
         .nav-item {
             position: relative;
@@ -88,6 +120,7 @@
         }
         .dark .nav-item { color: #e5e5e5; }
         .nav-item:hover { color: #586C89; }
+        .dark .nav-item:hover { color: #8AA4C9; }
         .nav-item::after {
             content: '';
             position: absolute;
@@ -97,6 +130,9 @@
             height: 2px;
             background: #586C89;
             transition: width 0.3s ease;
+        }
+        .dark .nav-item::after {
+            background: #8AA4C9;
         }
         [dir="rtl"] .nav-item::after { left: auto; right: 0; }
         .nav-item:hover::after { width: 100%; }
@@ -137,8 +173,13 @@
             color: #586C89;
             padding-left: 1.75rem;
         }
+        .dark .dropdown-item:hover {
+            background: #404040;
+            color: #8AA4C9;
+        }
         [dir="rtl"] .dropdown-item:hover { padding-left:1.5rem; padding-right:1.75rem; }
         .dropdown-item i { margin-right:0.75rem; width:20px; color:#586C89; }
+        .dark .dropdown-item i { color: #8AA4C9; }
         
         .auth-btn {
             padding: 0.5rem 1.5rem;
@@ -152,9 +193,11 @@
         .auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
         .dark .auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
         .auth-btn.login:hover { border-color:#586C89; color:#586C89; }
-        .dark .auth-btn.login:hover { border-color:#7C8FA8; color:white; }
+        .dark .auth-btn.login:hover { border-color:#8AA4C9; color:#8AA4C9; }
         .auth-btn.signup { background:#586C89; color:white; }
+        .dark .auth-btn.signup { background:#8AA4C9; color:#1a1a1a; }
         .auth-btn.signup:hover { background:#3A4A64; transform: translateY(-2px); box-shadow:0 8px 16px rgba(88,108,137,0.2); }
+        .dark .auth-btn.signup:hover { background:#6B87B0; }
         
         .toggle-btn {
             width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
@@ -162,7 +205,9 @@
         }
         .dark .toggle-btn { background:#2A3647; color:#A0B3CC; }
         .toggle-btn:hover { background:#586C89; color:white; }
+        .dark .toggle-btn:hover { background:#8AA4C9; color:#1a1a1a; }
         .toggle-btn.active { background:#586C89; color:white; }
+        .dark .toggle-btn.active { background:#8AA4C9; color:#1a1a1a; }
         @media (max-width:1279px) { .desktop-toggle-group { display:none !important; } }
         
         /* mobile menu styles exactly as reference */
@@ -172,20 +217,23 @@
         .mobile-menu-item { display:block; padding:1rem 1.5rem; font-weight:500; color:#2D3A4A; border-bottom:1px solid #E8EDF2; transition:0.2s; font-family:'Montserrat', sans-serif; }
         .dark .mobile-menu-item { color:#D1D5DB; border-bottom-color:#2A3647; }
         .mobile-menu-item:hover { background:#F5F8FC; color:#586C89; }
-        .dark .mobile-menu-item:hover { background:#374151; }
+        .dark .mobile-menu-item:hover { background:#374151; color:#8AA4C9; }
         .mobile-dropdown-content { max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:#F9FCFE; }
         .dark .mobile-dropdown-content { background:#1F2835; }
         .mobile-dropdown-content.show { max-height:300px; }
         .mobile-dropdown-item { display:block; padding:0.75rem 2.5rem; font-size:0.95rem; color:#4A5A70; transition:0.2s; border-bottom:1px solid #E8EDF2; font-family:'Montserrat', sans-serif; }
         .dark .mobile-dropdown-item { color:#9CA3AF; border-bottom-color:#2A3647; }
         .mobile-dropdown-item:hover { color:#586C89; background:#E8EDF2; }
-        .dark .mobile-dropdown-item:hover { background:#374151; color:white; }
+        .dark .mobile-dropdown-item:hover { background:#374151; color:#8AA4C9; }
         .mobile-auth-btn { display:inline-block; padding:0.75rem 1.5rem; font-weight:500; border-radius:40px; transition:0.3s; text-align:center; margin:0.25rem; border:1px solid transparent; font-family:'Montserrat', sans-serif; }
         .mobile-auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
         .dark .mobile-auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
         .mobile-auth-btn.login:hover { background:#586C89; color:white; border-color:#586C89; }
+        .dark .mobile-auth-btn.login:hover { background:#8AA4C9; color:#1a1a1a; border-color:#8AA4C9; }
         .mobile-auth-btn.signup { background:#586C89; color:white; }
+        .dark .mobile-auth-btn.signup { background:#8AA4C9; color:#1a1a1a; }
         .mobile-auth-btn.signup:hover { background:#3A4A64; }
+        .dark .mobile-auth-btn.signup:hover { background:#6B87B0; }
         
         /* portfolio page specific */
         .category-filter-btn {
@@ -204,11 +252,25 @@
             color: #e5e5e5;
             border-color: #404040;
         }
-        .category-filter-btn:hover,
+        .category-filter-btn:hover {
+            background: #586C89;
+            color: white;
+            border-color: #586C89;
+        }
+        .dark .category-filter-btn:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+            border-color: #8AA4C9;
+        }
         .category-filter-btn.active {
             background: #586C89;
             color: white;
             border-color: #586C89;
+        }
+        .dark .category-filter-btn.active {
+            background: #8AA4C9;
+            color: #1a1a1a;
+            border-color: #8AA4C9;
         }
         
         .portfolio-card {
@@ -231,6 +293,10 @@
             transform: translateY(-8px);
             box-shadow: 0 24px 48px -12px rgba(88,108,137,0.25);
             border-color: #586C89;
+        }
+        .dark .portfolio-card:hover {
+            border-color: #8AA4C9;
+            box-shadow: 0 24px 48px -12px rgba(138,164,201,0.25);
         }
         .portfolio-image {
             height: 240px;
@@ -258,11 +324,21 @@
             font-weight: 600;
             backdrop-filter: blur(4px);
         }
+        .dark .portfolio-overlay {
+            background: rgba(138,164,201,0.9);
+            color: #1a1a1a;
+        }
         .portfolio-content {
             padding: 1.5rem;
             flex: 1;
             display: flex;
             flex-direction: column;
+        }
+        .dark .portfolio-content h3 {
+            color: white;
+        }
+        .dark .portfolio-content p {
+            color: #9CA3AF;
         }
         
         .btn-outline {
@@ -280,12 +356,21 @@
             background: #586C89;
             color: white;
         }
+        .dark .btn-outline {
+            border-color: #8AA4C9;
+            color: #8AA4C9;
+        }
+        .dark .btn-outline:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
         
         .social-icon {
             width:40px; height:40px; border-radius:50%; background:#E8EDF2; color:#4A5A70; display:inline-flex; align-items:center; justify-content:center; transition:0.2s;
         }
         .dark .social-icon { background:#2A3647; color:#A0B3CC; }
         .social-icon:hover { background:#586C89; color:white; transform:translateY(-3px); }
+        .dark .social-icon:hover { background:#8AA4C9; color:#1a1a1a; }
 
         /* hero background */
         .portfolio-hero {
@@ -309,6 +394,7 @@
         .dark .video-card {
             background: #2d2d2d;
             border-color: #404040;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
         }
         .video-wrapper {
             position: relative;
@@ -325,6 +411,22 @@
             height: 100%;
             border: none;
         }
+
+        /* stats section */
+        .dark .stat-number {
+            color: #8AA4C9 !important;
+        }
+
+        /* footer links */
+        .dark footer a {
+            color: #9CA3AF;
+        }
+        .dark footer a:hover {
+            color: #8AA4C9 !important;
+        }
+        .dark footer h3 {
+            color: white;
+        }
     </style>
 </head>
 <body class="bg-[#FFFAF1] dark:bg-dark-bg">
@@ -335,12 +437,12 @@
         <div class="flex items-center justify-between h-20">
             <!-- Logo -->
             <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                    <i class="fas fa-camera-retro text-white text-lg"></i>
+                <div class="w-10 h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fas fa-camera-retro text-white dark:text-dark-bg text-lg"></i>
                 </div>
                 <div>
                     <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright">VUW</span>
                 </div>
             </a>
 
@@ -349,7 +451,7 @@
                 <div class="desktop-nav-container flex items-center gap-8">
                     <div class="flex items-center gap-8">
                         <div class="dropdown">
-                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition flex items-center">
                                 Home <i class="fas fa-chevron-down ml-2 text-xs"></i>
                             </button>
                             <div class="dropdown-menu">
@@ -359,13 +461,13 @@
                                 <a href="home2.html" class="dropdown-item"><i class="fas fa-home"></i> Home 2</a>
                             </div>
                         </div>
-                        <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">About</a>
-                        <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Services</a>
-                        <a href="book.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Book Now</a>
-                        <a href="portfolio.html" class="nav-item font-medium text-drone-slate dark:text-drone-slate-light transition" style="font-weight: 600;">Portfolio</a>
-                        <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Contact</a>
+                        <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">About</a>
+                        <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">Services</a>
+                        <a href="book.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">Book Now</a>
+                        <a href="portfolio.html" class="nav-item font-medium text-drone-slate dark:text-drone-slate-bright transition" style="font-weight: 600;">Portfolio</a>
+                        <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">Contact</a>
                         <div class="dropdown">
-                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition flex items-center">
                                 Dashboard <i class="fas fa-chevron-down ml-2 text-xs"></i>
                             </button>
                             <div class="dropdown-menu">
@@ -402,7 +504,7 @@
     <a href="about.html" class="mobile-menu-item">About</a>
     <a href="service.html" class="mobile-menu-item">Services</a>
     <a href="book.html" class="mobile-menu-item">Book Now</a>
-    <a href="portfolio.html" class="mobile-menu-item" style="background: rgba(88,108,137,0.1); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">Portfolio</a>
+    <a href="portfolio.html" class="mobile-menu-item" style="background: rgba(138,164,201,0.1); color: #8AA4C9; border-left: 3px solid #8AA4C9; font-weight: 600;">Portfolio</a>
     <a href="contact.html" class="mobile-menu-item">Contact</a>
     <div class="mobile-dropdown">
         <button class="mobile-dropdown-btn flex items-center justify-between w-full mobile-menu-item"><span>Dashboard</span><i class="fas fa-chevron-down text-xs"></i></button>
@@ -437,7 +539,7 @@
                 A selection of our favorite projects – from coastal villas to music festivals, skyscrapers to mountain weddings.
             </p>
             <div class="mt-10 flex flex-wrap gap-4 justify-center">
-                <a href="#portfolio-grid" class="bg-white text-drone-slate px-8 py-4 rounded-full font-bold hover:shadow-2xl transition inline-flex items-center gap-2">
+                <a href="#portfolio-grid" class="bg-white text-drone-slate dark:text-drone-slate-bright px-8 py-4 rounded-full font-bold hover:shadow-2xl transition inline-flex items-center gap-2">
                     <i class="fas fa-arrow-down"></i> View Projects
                 </a>
                 <a href="#video-showcase" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold hover:bg-white/10 transition inline-flex items-center gap-2">
@@ -452,8 +554,8 @@
 <section id="video-showcase" class="py-16 bg-white dark:bg-dark-card">
     <div class="container mx-auto px-6">
         <div class="text-center max-w-3xl mx-auto mb-12">
-            <span class="text-drone-slate font-medium text-sm tracking-widest">/// CINEMATIC REEL</span>
-            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Featured <span class="text-drone-slate">Showreel</span></h2>
+            <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-sm tracking-widest">/// CINEMATIC REEL</span>
+            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Featured <span class="text-drone-slate dark:text-drone-slate-bright">Showreel</span></h2>
             <p class="text-neutral-dark/70 dark:text-gray-300">A glimpse into our aerial storytelling – shot entirely with drones</p>
         </div>
         
@@ -501,10 +603,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Malibu Beachfront Villa</h3>
-                    <p class="text-sm opacity-90 mb-3">Malibu, California • 4K HDR • 20 images • 2 min video</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Malibu, California • 4K HDR • 20 images • 2 min video</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -516,10 +618,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Downtown Penthouse</h3>
-                    <p class="text-sm opacity-90 mb-3">Los Angeles • Twilight shoot • 25 images • 3 min video</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Los Angeles • Twilight shoot • 25 images • 3 min video</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -531,10 +633,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Hill Country Ranch</h3>
-                    <p class="text-sm opacity-90 mb-3">Texas • 50 acres • Orthomosaic • Property map</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Texas • 50 acres • Orthomosaic • Property map</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -547,10 +649,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Desert Music Fest</h3>
-                    <p class="text-sm opacity-90 mb-3">Indio, CA • Night pyro • 3 min aftermovie • 2 drones</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Indio, CA • Night pyro • 3 min aftermovie • 2 drones</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -562,10 +664,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Boston Marathon</h3>
-                    <p class="text-sm opacity-90 mb-3">Boston • Follow-cam • 5 mile coverage • Finish line</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Boston • Follow-cam • 5 mile coverage • Finish line</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -577,10 +679,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Tech Conference 2025</h3>
-                    <p class="text-sm opacity-90 mb-3">San Jose • Keynote • Group shots • Aftermovie</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">San Jose • Keynote • Group shots • Aftermovie</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -593,10 +695,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Austin High‑rise</h3>
-                    <p class="text-sm opacity-90 mb-3">Weekly progress • Orthomosaic • 3D model</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Weekly progress • Orthomosaic • 3D model</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -608,10 +710,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Golden Gate Inspection</h3>
-                    <p class="text-sm opacity-90 mb-3">San Francisco • Thermal • Crack detection</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">San Francisco • Thermal • Crack detection</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -623,10 +725,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Colorado Land Survey</h3>
-                    <p class="text-sm opacity-90 mb-3">Contour lines • 3D terrain • Cut/fill analysis</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Contour lines • 3D terrain • Cut/fill analysis</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -639,10 +741,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Maui Beach Wedding</h3>
-                    <p class="text-sm opacity-90 mb-3">Sunset ceremony • 2 min highlight • 50+ photos</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Sunset ceremony • 2 min highlight • 50+ photos</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -654,10 +756,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Napa Valley Wedding</h3>
-                    <p class="text-sm opacity-90 mb-3">Golden hour • Vineyard flyover • Full edit</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Golden hour • Vineyard flyover • Full edit</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -669,10 +771,10 @@
                 </div>
                 <div class="portfolio-content">
                     <h3 class="text-xl font-display font-bold mb-2 dark:text-white">Traditional Wedding</h3>
-                    <p class="text-sm opacity-90 mb-3">Alpine • Intimate ceremony • 4K + stills</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Alpine • Intimate ceremony • 4K + stills</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="text-drone-slate font-semibold">View Project</span>
-                        <i class="fas fa-arrow-right text-drone-slate"></i>
+                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold">View Project</span>
+                        <i class="fas fa-arrow-right text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                 </div>
             </div>
@@ -688,39 +790,39 @@
 </section>
 
 <!-- ========== STATS / ACHIEVEMENTS SECTION ========== -->
-<section class="py-16 bg-white dark:bg-dark-card border-y border-drone-slate/10">
+<section class="py-16 bg-white dark:bg-dark-card border-y border-drone-slate/10 dark:border-drone-slate-bright/10">
     <div class="container mx-auto px-6">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate mb-2">850+</div>
-                <p class="text-sm uppercase tracking-wide opacity-70">Flights</p>
+                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate dark:text-drone-slate-bright mb-2">850+</div>
+                <p class="text-sm uppercase tracking-wide opacity-70 dark:text-gray-400">Flights</p>
             </div>
             <div>
-                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate mb-2">210</div>
-                <p class="text-sm uppercase tracking-wide opacity-70">Happy Clients</p>
+                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate dark:text-drone-slate-bright mb-2">210</div>
+                <p class="text-sm uppercase tracking-wide opacity-70 dark:text-gray-400">Happy Clients</p>
             </div>
             <div>
-                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate mb-2">6</div>
-                <p class="text-sm uppercase tracking-wide opacity-70">Years Airborne</p>
+                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate dark:text-drone-slate-bright mb-2">6</div>
+                <p class="text-sm uppercase tracking-wide opacity-70 dark:text-gray-400">Years Airborne</p>
             </div>
             <div>
-                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate mb-2">14k</div>
-                <p class="text-sm uppercase tracking-wide opacity-70">Raw Files</p>
+                <div class="text-4xl md:text-5xl font-display font-bold text-drone-slate dark:text-drone-slate-bright mb-2">14k</div>
+                <p class="text-sm uppercase tracking-wide opacity-70 dark:text-gray-400">Raw Files</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ========== CTA SECTION ========== -->
-<section class="py-20 bg-drone-slate text-white">
+<section class="py-20 bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg">
     <div class="container mx-auto px-6 text-center">
         <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Ready to create your own story?</h2>
         <p class="text-xl opacity-90 max-w-2xl mx-auto mb-8">Let's discuss your project and capture stunning aerial imagery together.</p>
         <div class="flex flex-wrap gap-4 justify-center">
-            <a href="book.html" class="bg-white text-drone-slate px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition inline-flex items-center gap-2">
+            <a href="book.html" class="bg-white text-drone-slate dark:bg-dark-bg dark:text-drone-slate-bright px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition inline-flex items-center gap-2">
                 <i class="fas fa-calendar-check"></i> Book a Shoot
             </a>
-            <a href="contact.html" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition inline-flex items-center gap-2">
+            <a href="contact.html" class="border-2 border-white dark:border-dark-bg text-white dark:text-dark-bg px-8 py-4 rounded-full font-bold text-lg hover:bg-white/10 dark:hover:bg-dark-bg/10 transition inline-flex items-center gap-2">
                 <i class="fas fa-phone-alt"></i> Contact Us
             </a>
         </div>
@@ -736,16 +838,16 @@
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
                     <!-- Logo container with proper spacing and no cut-off -->
                 <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group flex-nowrap">
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-camera-retro text-white text-sm sm:text-lg"></i>
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white dark:text-dark-bg text-sm sm:text-lg"></i>
                     </div>
                     <div class="flex items-center whitespace-nowrap">
                         <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate ml-1">VUW</span>
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright ml-1">VUW</span>
                     </div>
                 </a>
                 </div>
-                <p class="text-base opacity-700 mb-6 leading-relaxed">
+                <p class="text-base opacity-700 mb-6 leading-relaxed dark:text-gray-300">
                     Professional aerial photography. Capturing stunning perspectives since 2019.
                 </p>
                 <div class="flex justify-center md:justify-start gap-4">
@@ -760,11 +862,11 @@
              <div class="text-center md:text-left">
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Quick Links</h3>
                 <ul class="space-y-4 text-base">
-                    <li><a href="index.html" class="hover:text-drone-slate transition text-base">Home</a></li>
-                    <li><a href="about.html" class="hover:text-drone-slate transition text-base">About</a></li>
-                    <li><a href="service.html" class="hover:text-drone-slate transition text-base">Services</a></li>
-                    <li><a href="portfolio.html" class="hover:text-drone-slate transition text-base">Portfolio</a></li>
-                    <li><a href="contact.html" class="hover:text-drone-slate transition text-base">Contact</a></li>
+                    <li><a href="index.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Home</a></li>
+                    <li><a href="about.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">About</a></li>
+                    <li><a href="service.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Services</a></li>
+                    <li><a href="portfolio.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Portfolio</a></li>
+                    <li><a href="contact.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Contact</a></li>
                 </ul>
             </div>
             
@@ -772,11 +874,11 @@
             <div class="text-center md:text-left">
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Photography</h3>
                 <ul class="space-y-4 text-base">
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Real Estate</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Event Coverage</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Construction</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Commercial</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Wedding</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Real Estate</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Event Coverage</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Construction</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Commercial</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Wedding</a></li>
                 </ul>
             </div>
             
@@ -785,20 +887,20 @@
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Contact</h3>
                 <ul class="space-y-4 text-base mb-8">
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-map-marker-alt text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">123 Aerial Way, Los Angeles, CA 90210</span>
+                        <i class="fas fa-map-marker-alt text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">123 Aerial Way, Los Angeles, CA 90210</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-phone-alt text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">+1 (555) 123-4567</span>
+                        <i class="fas fa-phone-alt text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">+1 (555) 123-4567</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-envelope text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">hello@growwvuw.com</span>
+                        <i class="fas fa-envelope text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">hello@growwvuw.com</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-clock text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">Mon-Fri: 9AM - 6PM</span>
+                        <i class="fas fa-clock text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">Mon-Fri: 9AM - 6PM</span>
                     </li>
                 </ul>
                 
@@ -807,9 +909,9 @@
         </div>
         
         <!-- Bottom Bar -->
-        <div class="border-t border-drone-slate/10 mt-12 pt-8 text-center">
-            <p class="text-base opacity-90">© 2026 GROWW VUW. All rights reserved. FAA certified operations.</p>
-            <p class="text-sm opacity-80 mt-2">Capturing stunning perspectives from above since 2019</p>
+        <div class="border-t border-drone-slate/10 dark:border-drone-slate-bright/10 mt-12 pt-8 text-center">
+            <p class="text-base opacity-90 dark:text-gray-300">© 2026 GROWW VUW. All rights reserved. FAA certified operations.</p>
+            <p class="text-sm opacity-80 mt-2 dark:text-gray-400">Capturing stunning perspectives from above since 2019</p>
         </div>
     </div>
 </footer>

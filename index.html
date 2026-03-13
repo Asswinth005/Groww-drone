@@ -18,11 +18,13 @@
                         'drone-slate': '#586C89',
                         'drone-slate-light': '#7C8FA8',
                         'drone-slate-dark': '#3A4A64',
+                        'drone-slate-bright': '#8AA4C9', // New brighter slate for dark mode
                         'bg-warm': '#FFFAF1',
                         'neutral-dark': '#2D3A4A',
                         'neutral-light': '#E8EDF2',
                         'dark-bg': '#1a1a1a',
                         'dark-card': '#2d2d2d',
+                        'dark-surface': '#363636', // New surface color
                     },
                     fontFamily: {
                         'sans': ['Inter', 'system-ui', 'sans-serif'],
@@ -73,6 +75,70 @@
             font-weight: 700;
         }
         
+        /* Improved contrast for dark mode */
+        .dark .text-drone-slate {
+            color: #8AA4C9 !important; /* Brighter slate for better contrast */
+        }
+        
+        .dark .bg-drone-slate {
+            background-color: #8AA4C9 !important;
+        }
+        
+        .dark .border-drone-slate {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .from-drone-slate {
+            --tw-gradient-from: #8AA4C9 !important;
+        }
+        
+        .dark .service-icon {
+            background: rgba(138, 164, 201, 0.15) !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .badge {
+            background: rgba(138, 164, 201, 0.2) !important;
+            color: #B8D0E8 !important;
+        }
+        
+        .dark .dropdown-item:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .auth-btn.login:hover {
+            border-color: #8AA4C9 !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .nav-item:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .nav-item::after {
+            background: #8AA4C9 !important;
+        }
+        
+        .dark .dropdown-item i {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .premium-line {
+            background: #8AA4C9 !important;
+        }
+        
+        .dark .hover\:text-drone-slate:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .text-drone-slate\/80 {
+            color: rgba(138, 164, 201, 0.8) !important;
+        }
+        
+        .dark .text-drone-slate\/60 {
+            color: rgba(138, 164, 201, 0.6) !important;
+        }
+        
         /* Hide scrollbar */
         body::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
@@ -95,6 +161,10 @@
             color: #586C89;
         }
         
+        .dark .nav-item:hover {
+            color: #8AA4C9;
+        }
+        
         .nav-item::after {
             content: '';
             position: absolute;
@@ -104,6 +174,10 @@
             height: 2px;
             background: #586C89;
             transition: width 0.3s ease;
+        }
+        
+        .dark .nav-item::after {
+            background: #8AA4C9;
         }
         
         [dir="rtl"] .nav-item::after {
@@ -173,13 +247,14 @@
             padding-left: 1.75rem;
         }
         
+        .dark .dropdown-item:hover {
+            background: #404040;
+            color: #8AA4C9;
+        }
+        
         [dir="rtl"] .dropdown-item:hover {
             padding-left: 1.5rem;
             padding-right: 1.75rem;
-        }
-        
-        .dark .dropdown-item:hover {
-            background: #404040;
         }
         
         .dropdown-item i {
@@ -187,6 +262,10 @@
             width: 20px;
             text-align: center;
             color: #586C89;
+        }
+        
+        .dark .dropdown-item i {
+            color: #8AA4C9;
         }
         
         [dir="rtl"] .dropdown-item i {
@@ -222,8 +301,8 @@
         }
         
         .dark .auth-btn.login:hover {
-            border-color: #7C8FA8;
-            color: white;
+            border-color: #8AA4C9;
+            color: #8AA4C9;
         }
         
         .auth-btn.signup {
@@ -231,10 +310,18 @@
             color: white;
         }
         
+        .dark .auth-btn.signup {
+            background: #8AA4C9;
+        }
+        
         .auth-btn.signup:hover {
             background: #3A4A64;
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(88,108,137,0.2);
+        }
+        
+        .dark .auth-btn.signup:hover {
+            background: #6B87B0;
         }
         
         /* Toggle Buttons - GROWW TOUR STRUCTURE with AEROVIEW COLORS */
@@ -263,13 +350,18 @@
         }
         
         .dark .toggle-btn:hover {
-            background: #4B5563;
-            color: #E5E7EB;
+            background: #8AA4C9;
+            color: #1a1a1a;
         }
         
         .toggle-btn.active {
             background: #586C89;
             color: white;
+        }
+        
+        .dark .toggle-btn.active {
+            background: #8AA4C9;
+            color: #1a1a1a;
         }
         
         /* Hide toggle buttons on mobile and tablet - up to xl breakpoint */
@@ -320,6 +412,7 @@
 
         .dark .mobile-menu-item:hover {
             background-color: #374151;
+            color: #8AA4C9;
         }
 
         .mobile-dropdown-content {
@@ -359,7 +452,7 @@
 
         .dark .mobile-dropdown-item:hover {
             background-color: #374151;
-            color: white;
+            color: #8AA4C9;
         }
 
         .mobile-auth-btn {
@@ -391,13 +484,28 @@
             border-color: #586C89;
         }
 
+        .dark .mobile-auth-btn.login:hover {
+            background-color: #8AA4C9;
+            color: #1a1a1a;
+            border-color: #8AA4C9;
+        }
+
         .mobile-auth-btn.signup {
             background: #586C89;
             color: white;
         }
 
+        .dark .mobile-auth-btn.signup {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
+
         .mobile-auth-btn.signup:hover {
             background: #3A4A64;
+        }
+
+        .dark .mobile-auth-btn.signup:hover {
+            background: #6B87B0;
         }
         
         /* Desktop navigation container */
@@ -429,7 +537,7 @@
             font-size: 2rem;
             color: #586C89;
         }
-        .dark .service-icon { background: rgba(88,108,137,0.15); color: #A0B3CC; }
+        .dark .service-icon { background: rgba(138,164,201,0.15); color: #8AA4C9; }
         
         /* Cards */
         .drone-card {
@@ -455,7 +563,7 @@
             font-size: 0.8rem;
             backdrop-filter: blur(4px);
         }
-        .dark .badge { background: rgba(88,108,137,0.2); color: #B0C9E0; }
+        .dark .badge { background: rgba(138,164,201,0.2); color: #B8D0E8; }
         
         /* Footer */
         footer {
@@ -469,6 +577,7 @@
             border-color: #2A3647;
         }
         footer a:hover { color: #586C89; }
+        .dark footer a:hover { color: #8AA4C9; }
         
         .social-icon {
             width: 40px;
@@ -487,6 +596,10 @@
             color: white;
             transform: translateY(-3px);
         }
+        .dark .social-icon:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
         
         /* Button style */
         .btn-drone {
@@ -502,10 +615,20 @@
             font-size: 1rem;
             font-family: 'Montserrat', sans-serif;
         }
+        
+        .dark .btn-drone {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
+        
         .btn-drone:hover {
             background: #3A4A64;
             transform: translateY(-2px);
             box-shadow: 0 12px 24px -8px rgba(88,108,137,0.4);
+        }
+        
+        .dark .btn-drone:hover {
+            background: #6B87B0;
         }
         
         /* Premium line */
@@ -514,6 +637,10 @@
             height: 2px;
             background: #586C89;
             margin: 20px 0;
+        }
+        
+        .dark .premium-line {
+            background: #8AA4C9;
         }
     </style>
 </head>
@@ -525,12 +652,12 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center space-x-3 group">
-                    <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-camera-retro text-white text-lg"></i>
+                    <div class="w-10 h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white dark:text-dark-bg text-lg"></i>
                     </div>
                     <div>
                         <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                        <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                        <span class="text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright">VUW</span>
                     </div>
                 </a>
 
@@ -541,7 +668,7 @@
                         <div class="flex items-center gap-8">
                             <!-- Home Dropdown -->
                             <div class="dropdown">
-                                <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition flex items-center">
                                     Home <i class="fas fa-chevron-down ml-2 text-xs"></i>
                                 </button>
                                 <div class="dropdown-menu">
@@ -557,33 +684,33 @@
                             </div>
                             
                             <!-- About -->
-                            <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 About
                             </a>
                             
                             <!-- Services -->
-                            <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 Services
                             </a>
                             
                             <!-- Book Now-->
-                            <a href="book.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="book.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 Book Now
                             </a>
                             
                             <!-- Portfolio-->
-                            <a href="portfolio.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="portfolio.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 Portfolio
                             </a>
                             
                             <!-- Contact Us -->
-                            <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">
+                            <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">
                                 Contact 
                             </a>
                             
                             <!-- Dashboard Dropdown -->
                             <div class="dropdown">
-                                <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                                <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition flex items-center">
                                     Dashboard <i class="fas fa-chevron-down ml-2 text-xs"></i>
                                 </button>
                                 <div class="dropdown-menu">
@@ -705,12 +832,12 @@
                 <!-- Left Content -->
                 <div class="animate-slide-up">
                     <div class="inline-flex items-center gap-2 bg-white dark:bg-dark-card/50 px-4 py-2 rounded-full shadow-sm mb-8">
-                        <i class="fas fa-camera text-drone-slate text-sm"></i>
-                        <span class="text-sm font-medium premium-text">PROFESSIONAL DRONE PHOTOGRAPHY</span>
+                        <i class="fas fa-camera text-drone-slate dark:text-drone-slate-bright text-sm"></i>
+                        <span class="text-sm font-medium premium-text dark:text-drone-slate-bright">PROFESSIONAL DRONE PHOTOGRAPHY</span>
                     </div>
                     
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 text-neutral-dark dark:text-white leading-tight">
-                        Capturing <span class="text-drone-slate">Stunning Perspectives</span> From Above
+                        Capturing <span class="text-drone-slate dark:text-drone-slate-bright">Stunning Perspectives</span> From Above
                     </h1>
                     
                     <div class="premium-line"></div>
@@ -724,29 +851,29 @@
                     <button class="btn-drone px-8 py-4">
                         <i class="fas fa-images mr-2"></i> View Portfolio
                     </button>
-                    <button class="bg-white border border-drone-slate/30 text-drone-slate px-8 py-4 rounded-full font-semibold hover:bg-drone-slate/5 transition">
+                    <button class="bg-white border border-drone-slate/30 dark:border-drone-slate-bright/30 text-drone-slate dark:text-drone-slate-bright px-8 py-4 rounded-full font-semibold hover:bg-drone-slate/5 dark:hover:bg-drone-slate-bright/10 transition">
                         <i class="fas fa-calendar-alt mr-2"></i> Book a Shoot
                     </button>
                 </div>
                     
                     <!-- Trust badges -->
                     <div class="flex items-center gap-6 text-[16px] text-neutral-dark/90 dark:text-gray-400">
-                        <span><i class="fas fa-check-circle text-drone-slate mr-1"></i> FAA Certified</span>
-                        <span><i class="fas fa-check-circle text-drone-slate mr-1"></i> Insured</span>
-                        <span><i class="fas fa-check-circle text-drone-slate mr-1"></i> 100+ Projects</span>
+                        <span><i class="fas fa-check-circle text-drone-slate dark:text-drone-slate-bright mr-1"></i> FAA Certified</span>
+                        <span><i class="fas fa-check-circle text-drone-slate dark:text-drone-slate-bright mr-1"></i> Insured</span>
+                        <span><i class="fas fa-check-circle text-drone-slate dark:text-drone-slate-bright mr-1"></i> 100+ Projects</span>
                     </div>
                 </div>
                 
                 <!-- Right Content - Hero Image -->
                 <div class="animate-slide-in-right">
                     <div class="relative">
-                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-drone-slate/10 rounded-full blur-2xl"></div>
-                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-drone-slate/20 rounded-full blur-3xl"></div>
+                        <div class="absolute -top-6 -left-6 w-24 h-24 bg-drone-slate/10 dark:bg-drone-slate-bright/10 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-drone-slate/20 dark:bg-drone-slate-bright/20 rounded-full blur-3xl"></div>
                         <img src="/assest/hero1.jpg" 
                              alt="Drone aerial photography view" 
                              class="hero-image w-full h-auto relative z-10">
                         <div class="absolute bottom-6 left-6 bg-white/90 dark:bg-dark-card/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                            <span class="text-sm font-medium"><i class="fas fa-map-pin text-drone-slate mr-1"></i> Malibu, California</span>
+                            <span class="text-sm font-medium"><i class="fas fa-map-pin text-drone-slate dark:text-drone-slate-bright mr-1"></i> Malibu, California</span>
                         </div>
                     </div>
                 </div>
@@ -758,36 +885,36 @@
     <section class="py-20 bg-white dark:bg-dark-card">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="text-drone-slate font-medium text-sm tracking-widest premium-text">/// WHAT WE OFFER</span>
+                <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-sm tracking-widest premium-text">/// WHAT WE OFFER</span>
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4 text-neutral-dark dark:text-white mt-4">
-                    Photography <span class="text-drone-slate">Services</span>
+                    Photography <span class="text-drone-slate dark:text-drone-slate-bright">Services</span>
                 </h2>
                 <p class="text-lg max-w-2xl mx-auto opacity-80">Specialized aerial imaging solutions for every need</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center p-6 group hover:bg-drone-slate/5 rounded-2xl transition">
+                <div class="text-center p-6 group hover:bg-drone-slate/5 dark:hover:bg-drone-slate-bright/10 rounded-2xl transition">
                     <div class="service-icon mx-auto group-hover:scale-110 transition">
                         <i class="fas fa-home"></i>
                     </div>
                     <h3 class="text-xl font-display font-bold mb-2">Real Estate</h3>
                     <p class="text-base opacity-90">Property showcases & marketing</p>
                 </div>
-                <div class="text-center p-6 group hover:bg-drone-slate/5 rounded-2xl transition">
+                <div class="text-center p-6 group hover:bg-drone-slate/5 dark:hover:bg-drone-slate-bright/10 rounded-2xl transition">
                     <div class="service-icon mx-auto group-hover:scale-110 transition">
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <h3 class="text-xl font-display font-bold mb-2">Events</h3>
                     <p class="text-base opacity-90">Aerial wedding & event coverage</p>
                 </div>
-                <div class="text-center p-6 group hover:bg-drone-slate/5 rounded-2xl transition">
+                <div class="text-center p-6 group hover:bg-drone-slate/5 dark:hover:bg-drone-slate-bright/10 rounded-2xl transition">
                     <div class="service-icon mx-auto group-hover:scale-110 transition">
                         <i class="fas fa-hard-hat"></i>
                     </div>
                     <h3 class="text-xl font-display font-bold mb-2">Construction</h3>
                     <p class="text-base opacity-90">Progress tracking and site surveys</p>
                 </div>
-                <div class="text-center p-6 group hover:bg-drone-slate/5 rounded-2xl transition">
+                <div class="text-center p-6 group hover:bg-drone-slate/5 dark:hover:bg-drone-slate-bright/10 rounded-2xl transition">
                     <div class="service-icon mx-auto group-hover:scale-110 transition">
                         <i class="fas fa-gem"></i>
                     </div>
@@ -802,9 +929,9 @@
     <section class="py-20 bg-[#FFFAF1] dark:bg-dark-bg">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="text-drone-slate font-medium text-sm tracking-widest premium-text">/// OUR WORK</span>
+                <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-sm tracking-widest premium-text">/// OUR WORK</span>
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-4 text-neutral-dark dark:text-white mt-4">
-                    Recent <span class="text-drone-slate">Captures</span>
+                    Recent <span class="text-drone-slate dark:text-drone-slate-bright">Captures</span>
                 </h2>
                 <p class="text-lg max-w-2xl mx-auto opacity-80">A selection of our favorite aerial photography</p>
             </div>
@@ -817,7 +944,7 @@
                         alt="Coastal drone photography" 
                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
-                        <span class="bg-drone-slate/90 text-white px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm shadow-lg">
+                        <span class="bg-drone-slate/90 dark:bg-drone-slate-bright/90 text-white dark:text-dark-bg px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm shadow-lg">
                             <i class="fas fa-map-pin mr-1"></i> Malibu · Real Estate
                         </span>
                     </div>
@@ -835,7 +962,7 @@
                             alt="Mountain drone photography" 
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
-                            <span class="bg-drone-slate/90 text-white px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm shadow-lg">
+                            <span class="bg-drone-slate/90 dark:bg-drone-slate-bright/90 text-white dark:text-dark-bg px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm shadow-lg">
                                 <i class="fas fa-mountain mr-1"></i> Aspen · Landscape
                             </span>
                         </div>
@@ -853,7 +980,7 @@
                             alt="City drone photography" 
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
-                            <span class="bg-drone-slate/90 text-white px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm shadow-lg">
+                            <span class="bg-drone-slate/90 dark:bg-drone-slate-bright/90 text-white dark:text-dark-bg px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm shadow-lg">
                                 <i class="fas fa-city mr-1"></i> Downtown LA · Architecture
                             </span>
                         </div>
@@ -876,9 +1003,9 @@
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <span class="text-drone-slate font-medium text-sm tracking-widest premium-text">/// WHY CHOOSE US</span>
+                    <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-sm tracking-widest premium-text">/// WHY CHOOSE US</span>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-bold mt-4 mb-6 text-neutral-dark dark:text-white">
-                        Professional Quality, <span class="text-drone-slate">Complete Peace of Mind</span>
+                        Professional Quality, <span class="text-drone-slate dark:text-drone-slate-bright">Complete Peace of Mind</span>
                     </h2>
                     <p class="text-lg opacity-100 mb-8">
                         Every flight is conducted by FAA-certified pilots with professional-grade equipment. 
@@ -887,8 +1014,8 @@
                     
                     <div class="space-y-5">
                         <div class="flex gap-4">
-                            <div class="w-12 h-12 bg-drone-slate/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-certificate text-xl text-drone-slate"></i>
+                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-certificate text-xl text-drone-slate dark:text-drone-slate-bright"></i>
                             </div>
                             <div>
                                 <h4 class="font-display font-bold text-lg">FAA Part 107 Certified</h4>
@@ -896,8 +1023,8 @@
                             </div>
                         </div>
                         <div class="flex gap-4">
-                            <div class="w-12 h-12 bg-drone-slate/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-shield-alt text-xl text-drone-slate"></i>
+                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-shield-alt text-xl text-drone-slate dark:text-drone-slate-bright"></i>
                             </div>
                             <div>
                                 <h4 class="font-display font-bold text-lg">$2M Liability Insurance</h4>
@@ -905,8 +1032,8 @@
                             </div>
                         </div>
                         <div class="flex gap-4">
-                            <div class="w-12 h-12 bg-drone-slate/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-sync-alt text-xl text-drone-slate"></i>
+                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-sync-alt text-xl text-drone-slate dark:text-drone-slate-bright"></i>
                             </div>
                             <div>
                                 <h4 class="font-display font-bold text-lg">48hr Turnaround</h4>
@@ -932,18 +1059,18 @@
     </section>
 
     <!-- ========== SECTION 5: CTA & BOOKING ========== -->
-    <section class="py-20 bg-drone-slate text-white">
+    <section class="py-20 bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg">
         <div class="container mx-auto px-6 text-center">
-            <span class="text-white/80 font-medium text-sm tracking-widest premium-text">/// LET'S FLY</span>
+            <span class="text-white/80 dark:text-dark-bg/80 font-medium text-sm tracking-widest premium-text">/// LET'S FLY</span>
             <h2 class="text-4xl md:text-5xl lg:text-5xl font-display font-bold mb-6 mt-4">Ready to Capture Your Project?</h2>
             <p class="text-xl opacity-90 max-w-2xl mx-auto mb-8 font-light">
                 Let's discuss your vision and create stunning aerial imagery together.
             </p>
             <div class="flex flex-wrap gap-4 justify-center">
-                <button class="bg-white text-drone-slate px-10 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition flex items-center gap-2">
+                <button class="bg-white text-drone-slate dark:bg-dark-bg dark:text-drone-slate-bright px-10 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition flex items-center gap-2">
                     <i class="fas fa-calendar-check"></i> Request a Quote
                 </button>
-                <button class="border-2 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 transition flex items-center gap-2">
+                <button class="border-2 border-white dark:border-dark-bg text-white dark:text-dark-bg px-10 py-4 rounded-full font-bold text-lg hover:bg-white/10 dark:hover:bg-dark-bg/10 transition flex items-center gap-2">
                     <i class="fas fa-phone-alt"></i> Schedule Call
                 </button>
             </div>
@@ -959,12 +1086,12 @@
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
                     <!-- Logo container with proper spacing and no cut-off -->
                 <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group flex-nowrap">
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-camera-retro text-white text-sm sm:text-lg"></i>
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white dark:text-dark-bg text-sm sm:text-lg"></i>
                     </div>
                     <div class="flex items-center whitespace-nowrap">
                         <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate ml-1">VUW</span>
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright ml-1">VUW</span>
                     </div>
                 </a>
                 </div>
@@ -983,11 +1110,11 @@
              <div class="text-center md:text-left">
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Quick Links</h3>
                 <ul class="space-y-4 text-base">
-                    <li><a href="index.html" class="hover:text-drone-slate transition text-base">Home</a></li>
-                    <li><a href="about.html" class="hover:text-drone-slate transition text-base">About</a></li>
-                    <li><a href="service.html" class="hover:text-drone-slate transition text-base">Services</a></li>
-                    <li><a href="portfolio.html" class="hover:text-drone-slate transition text-base">Portfolio</a></li>
-                    <li><a href="contact.html" class="hover:text-drone-slate transition text-base">Contact</a></li>
+                    <li><a href="index.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Home</a></li>
+                    <li><a href="about.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">About</a></li>
+                    <li><a href="service.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Services</a></li>
+                    <li><a href="portfolio.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Portfolio</a></li>
+                    <li><a href="contact.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Contact</a></li>
                 </ul>
             </div>
             
@@ -995,11 +1122,11 @@
             <div class="text-center md:text-left">
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Photography</h3>
                 <ul class="space-y-4 text-base">
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Real Estate</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Event Coverage</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Construction</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Commercial</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Wedding</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Real Estate</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Event Coverage</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Construction</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Commercial</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base">Wedding</a></li>
                 </ul>
             </div>
             
@@ -1008,19 +1135,19 @@
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Contact</h3>
                 <ul class="space-y-4 text-base mb-8">
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-map-marker-alt text-drone-slate w-5 text-lg"></i>
+                        <i class="fas fa-map-marker-alt text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
                         <span class="text-base">123 Aerial Way, Los Angeles, CA 90210</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-phone-alt text-drone-slate w-5 text-lg"></i>
+                        <i class="fas fa-phone-alt text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
                         <span class="text-base">+1 (555) 123-4567</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-envelope text-drone-slate w-5 text-lg"></i>
+                        <i class="fas fa-envelope text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
                         <span class="text-base">hello@growwvuw.com</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-clock text-drone-slate w-5 text-lg"></i>
+                        <i class="fas fa-clock text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
                         <span class="text-base">Mon-Fri: 9AM - 6PM</span>
                     </li>
                 </ul>
@@ -1030,7 +1157,7 @@
         </div>
         
         <!-- Bottom Bar -->
-        <div class="border-t border-drone-slate/10 mt-12 pt-8 text-center">
+        <div class="border-t border-drone-slate/10 dark:border-drone-slate-bright/10 mt-12 pt-8 text-center">
             <p class="text-base opacity-90">© 2026 GROWW VUW. All rights reserved. FAA certified operations.</p>
             <p class="text-sm opacity-80 mt-2">Capturing stunning perspectives from above since 2019</p>
         </div>

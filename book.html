@@ -606,88 +606,87 @@
 
        <!-- Booking Form Card -->
 <div class="booking-card max-w-4xl mx-auto">
-    <!-- Step 1: Service Selection -->
-    <div id="step1" class="step-content">
-        <h2 class="text-xl sm:text-2xl font-display font-bold mb-4 sm:mb-6 dark:text-white">Choose your service</h2>
-        
-        <!-- Service options - mobile optimized -->
-        <div class="space-y-3 sm:space-y-4">
-            <!-- Real Estate -->
-            <div class="service-option p-4 sm:p-6" onclick="selectService('realestate')" id="service-realestate">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                    <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-home text-xl sm:text-2xl text-drone-slate"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base sm:text-lg dark:text-white">Real Estate Photography</h3>
-                            <p class="text-xs sm:text-sm opacity-90 truncate">4K HDR, 15-20 images, 2-3 min video</p>
-                        </div>
+   <!-- Step 1: Service Selection -->
+<div id="step1" class="step-content">
+    <h2 class="text-xl sm:text-2xl font-display font-bold mb-4 sm:mb-6 dark:text-white">Choose your service</h2>
+    
+    <!-- Service options - mobile optimized with improved price alignment -->
+    <div class="space-y-3 sm:space-y-4">
+        <!-- Real Estate -->
+        <div class="service-option p-4 sm:p-6" onclick="selectService('realestate')" id="service-realestate">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-home text-xl sm:text-2xl text-drone-slate"></i>
                     </div>
-                    <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
-                        <span class="font-bold text-drone-slate text-base sm:text-lg bg-drone-slate/5 px-4 py-2 rounded-full w-full sm:w-auto text-center">$499+</span>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-base sm:text-lg dark:text-white">Real Estate Photography</h3>
+                        <p class="text-xs sm:text-sm opacity-90 truncate">4K HDR, 15-20 images, 2-3 min video</p>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Events -->
-            <div class="service-option p-4 sm:p-6" onclick="selectService('events')" id="service-events">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                    <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-calendar-alt text-xl sm:text-2xl text-drone-slate"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base sm:text-lg dark:text-white">Event Coverage</h3>
-                            <p class="text-xs sm:text-sm opacity-90 truncate">Conferences, festivals – 2 drones option</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
-                        <span class="font-bold text-drone-slate text-base sm:text-lg bg-drone-slate/5 px-4 py-2 rounded-full w-full sm:w-auto text-center">$899+</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Construction -->
-            <div class="service-option p-4 sm:p-6" onclick="selectService('construction')" id="service-construction">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                    <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-hard-hat text-xl sm:text-2xl text-drone-slate"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base sm:text-lg dark:text-white">Construction Progress</h3>
-                            <p class="text-xs sm:text-sm opacity-90 truncate">Orthomosaic, 3D models, weekly reports</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
-                        <span class="font-bold text-drone-slate text-base sm:text-lg bg-drone-slate/5 px-4 py-2 rounded-full w-full sm:w-auto text-center">$399+</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Wedding -->
-            <div class="service-option p-4 sm:p-6" onclick="selectService('wedding')" id="service-wedding">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                    <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-gem text-xl sm:text-2xl text-drone-slate"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-base sm:text-lg dark:text-white">Wedding Coverage</h3>
-                            <p class="text-xs sm:text-sm opacity-90 truncate">Sunset ceremony and highlight video</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-center sm:justify-end w-full sm:w-auto mt-2 sm:mt-0">
-                        <span class="font-bold text-drone-slate text-base sm:text-lg bg-drone-slate/5 px-4 py-2 rounded-full w-full sm:w-auto text-center">$899+</span>
-                    </div>
+                <div class="flex items-center ml-4 flex-shrink-0">
+                    <span class="font-bold text-drone-slate text-base sm:text-lg whitespace-nowrap">$499+</span>
                 </div>
             </div>
         </div>
         
-        <div class="mt-6 sm:mt-8 flex justify-end">
-            <button class="btn-primary w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base" onclick="nextStep()" id="step1-next" disabled>Continue</button>
+        <!-- Events -->
+        <div class="service-option p-4 sm:p-6" onclick="selectService('events')" id="service-events">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-calendar-alt text-xl sm:text-2xl text-drone-slate"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-base sm:text-lg dark:text-white">Event Coverage</h3>
+                        <p class="text-xs sm:text-sm opacity-90 truncate">Conferences, festivals – 2 drones option</p>
+                    </div>
+                </div>
+                <div class="flex items-center ml-4 flex-shrink-0">
+                    <span class="font-bold text-drone-slate text-base sm:text-lg whitespace-nowrap">$899+</span>
+                </div>
+            </div>
         </div>
+        
+        <!-- Construction -->
+        <div class="service-option p-4 sm:p-6" onclick="selectService('construction')" id="service-construction">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-hard-hat text-xl sm:text-2xl text-drone-slate"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-base sm:text-lg dark:text-white">Construction Progress</h3>
+                        <p class="text-xs sm:text-sm opacity-90 truncate">Orthomosaic, 3D models, weekly reports</p>
+                    </div>
+                </div>
+                <div class="flex items-center ml-4 flex-shrink-0">
+                    <span class="font-bold text-drone-slate text-base sm:text-lg whitespace-nowrap">$399+</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Wedding -->
+        <div class="service-option p-4 sm:p-6" onclick="selectService('wedding')" id="service-wedding">
+            <div class="flex items-center justify-between w-full">
+                <div class="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-gem text-xl sm:text-2xl text-drone-slate"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-base sm:text-lg dark:text-white">Wedding Coverage</h3>
+                        <p class="text-xs sm:text-sm opacity-90 truncate">Sunset ceremony and highlight video</p>
+                    </div>
+                </div>
+                <div class="flex items-center ml-4 flex-shrink-0">
+                    <span class="font-bold text-drone-slate text-base sm:text-lg whitespace-nowrap">$899+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-6 sm:mt-8 flex justify-end">
+        <button class="btn-primary w-full sm:w-auto px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base" onclick="nextStep()" id="step1-next" disabled>Continue</button>
     </div>
 </div>
 
@@ -918,7 +917,7 @@
     <div class="container mx-auto px-6 max-w-4xl">
         <div class="text-center max-w-3xl mx-auto mb-12">
             <span class="text-drone-slate font-medium text-sm tracking-widest">/// GOT QUESTIONS?</span>
-            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Frequently <span class="text-drone-slate">Asked</span></h2>
+            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Frequently <span class="text-drone-slate">Asked Questions</span></h2>
             <p class="text-neutral-dark/70 dark:text-gray-300">Everything you need to know about booking an aerial shoot</p>
         </div>
         

@@ -17,6 +17,7 @@
                         'drone-slate': '#586C89',
                         'drone-slate-light': '#7C8FA8',
                         'drone-slate-dark': '#3A4A64',
+                        'drone-slate-bright': '#8AA4C9',
                         'bg-warm': '#FFFAF1',
                         'neutral-dark': '#2D3A4A',
                         'neutral-light': '#E8EDF2',
@@ -48,19 +49,89 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
+        /* Full screen layout */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
         body {
             background-color: #FFFAF1;
             color: #2D3A4A;
             font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
         }
         .dark body {
             background-color: #1a1a1a;
             color: #e5e5e5;
         }
         
+        /* Main container - full height with scrolling content */
+        .dashboard-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            width: 100%;
+        }
+        
+        /* Improved contrast for dark mode */
+        .dark .text-drone-slate {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .bg-drone-slate {
+            background-color: #8AA4C9 !important;
+        }
+        
+        .dark .border-drone-slate {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .hover\:text-drone-slate:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .sidebar-item:hover {
+            background: rgba(138,164,201,0.15) !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .sidebar-item.active {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
+        .dark .stat-card:hover {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .admin-btn {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
+        .dark .admin-btn:hover {
+            background: #6B87B0 !important;
+        }
+        
+        .dark .logout-btn {
+            background: rgba(138,164,201,0.15) !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .logout-btn:hover {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
         /* Hide scrollbar */
         body::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
+        .dashboard-container::-webkit-scrollbar { display: none; }
+        .dashboard-container { -ms-overflow-style: none; scrollbar-width: none; }
         
         /* Toggle button */
         .toggle-btn {
@@ -84,27 +155,35 @@
             background: #586C89;
             color: white;
         }
+        .dark .toggle-btn:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
         .toggle-btn.active {
             background: #586C89;
             color: white;
         }
+        .dark .toggle-btn.active {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
         
         /* Header */
         .header {
-            padding-top: 1.5rem;
+            padding-top: 1rem;
             padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
         }
         
-        /* Dashboard card */
+        /* Dashboard card - full width */
         .dashboard-card {
             background: white;
             border-radius: 24px;
             padding: 2rem;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(88,108,137,0.1);
+            border: 1px solid rgba(88,108,137,0.15);
             transition: all 0.3s ease;
             height: 100%;
+            width: 100%;
         }
         .dark .dashboard-card {
             background: #2d2d2d;
@@ -114,13 +193,16 @@
             box-shadow: 0 15px 30px rgba(88,108,137,0.08);
             border-color: #586C89;
         }
+        .dark .dashboard-card:hover {
+            border-color: #8AA4C9;
+        }
         
         /* Stat card */
         .stat-card {
             background: white;
             border-radius: 20px;
             padding: 1.5rem;
-            border: 1px solid rgba(88,108,137,0.1);
+            border: 1px solid rgba(88,108,137,0.15);
             transition: all 0.3s ease;
         }
         .dark .stat-card {
@@ -131,6 +213,9 @@
             border-color: #586C89;
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(88,108,137,0.1);
+        }
+        .dark .stat-card:hover {
+            border-color: #8AA4C9;
         }
         
         /* Sidebar item */
@@ -159,23 +244,48 @@
             color: white;
             box-shadow: 0 8px 15px rgba(88,108,137,0.2);
         }
-        .dark .sidebar-item.active {
+        
+        /* Logout button */
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            background: rgba(88,108,137,0.1);
+            color: #586C89;
+            border-radius: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            width: 100%;
+        }
+        .logout-btn:hover {
             background: #586C89;
             color: white;
+            transform: translateX(5px);
         }
         
         /* Table styles */
         .table-header {
-            background: rgba(88,108,137,0.05);
+            background: rgba(88,108,137,0.08);
             padding: 1rem;
             font-weight: 600;
+            color: #2D3A4A;
+        }
+        .dark .table-header {
+            background: rgba(138,164,201,0.15);
+            color: #e5e5e5;
         }
         .table-row {
-            border-bottom: 1px solid rgba(88,108,137,0.1);
+            border-bottom: 1px solid rgba(88,108,137,0.15);
             transition: all 0.2s ease;
         }
         .table-row:hover {
-            background: rgba(88,108,137,0.02);
+            background: rgba(88,108,137,0.03);
+        }
+        .dark .table-row:hover {
+            background: rgba(138,164,201,0.05);
         }
         
         /* Badge */
@@ -188,20 +298,20 @@
             font-weight: 600;
         }
         .status-active {
-            background: rgba(76, 175, 80, 0.1);
-            color: #2E7D32;
+            background: rgba(76, 175, 80, 0.15);
+            color: #1B5E20;
         }
         .status-pending {
-            background: rgba(230, 126, 34, 0.1);
-            color: #E67E22;
+            background: rgba(230, 126, 34, 0.15);
+            color: #B85E00;
         }
         .status-inactive {
-            background: rgba(211, 47, 47, 0.1);
-            color: #B71C1C;
+            background: rgba(211, 47, 47, 0.15);
+            color: #9A1F1F;
         }
         .status-completed {
-            background: rgba(76, 175, 80, 0.1);
-            color: #2E7D32;
+            background: rgba(76, 175, 80, 0.15);
+            color: #1B5E20;
         }
         .dark .status-active {
             background: rgba(76, 175, 80, 0.2);
@@ -214,6 +324,10 @@
         .dark .status-inactive {
             background: rgba(211, 47, 47, 0.2);
             color: #EF9A9A;
+        }
+        .dark .status-completed {
+            background: rgba(76, 175, 80, 0.2);
+            color: #A5D6A7;
         }
         
         /* Form input */
@@ -236,6 +350,10 @@
             border-color: #586C89;
             background: white;
             box-shadow: 0 0 0 4px rgba(88,108,137,0.1);
+        }
+        .dark .admin-input:focus {
+            border-color: #8AA4C9;
+            background: #2d2d2d;
         }
         
         /* Save button */
@@ -292,6 +410,9 @@
         input:checked + .toggle-slider {
             background-color: #586C89;
         }
+        .dark input:checked + .toggle-slider {
+            background-color: #8AA4C9;
+        }
         input:checked + .toggle-slider:before {
             transform: translateX(24px);
         }
@@ -314,6 +435,7 @@
         [dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
         [dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-x-reverse: 1; }
         [dir="rtl"] .sidebar-item:hover { transform: translateX(-5px); }
+        [dir="rtl"] .logout-btn:hover { transform: translateX(-5px); }
         
         /* Mobile fixes */
         @media (max-width: 640px) {
@@ -332,13 +454,13 @@
             .flex.gap-3.mb-6 {
                 gap: 0.5rem;
             }
-           .px-5-py-2_5 {
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-            font-size: 0.75rem;
-        }
+            .px-5-py-2_5 {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.5rem;
+                font-size: 0.75rem;
+            }
             .grid-cols-2.sm\:flex {
                 gap: 0.5rem;
             }
@@ -348,24 +470,52 @@
                 text-overflow: ellipsis;
             }
         }
+        
+        /* Full width container */
+        .max-w-full {
+            max-width: 100%;
+        }
+        
+        /* Chart legend text color fix for light mode */
+        .chart-legend-light {
+            color: #2D3A4A !important;
+            font-weight: 500;
+        }
+        
+        /* Message items hover */
+        .message-item {
+            transition: all 0.2s ease;
+        }
+        .message-item:hover {
+            background: rgba(88,108,137,0.08) !important;
+        }
+        .dark .message-item:hover {
+            background: rgba(138,164,201,0.15) !important;
+        }
     </style>
 </head>
-<body class="bg-bg-warm dark:bg-dark-bg p-4 sm:p-6 md:p-8">
+<body class="bg-bg-warm dark:bg-dark-bg">
 
-    <!-- ============ HEADER ============ -->
-    <div class="header">
-        <div class="flex justify-between items-center">
-            <!-- Logo with AEROVIEW branding -->
+    <!-- ============ HEADER - FULL WIDTH ============ -->
+    <div class="header px-4 sm:px-6 lg:px-8 w-full">
+        <div class="flex justify-between items-center max-w-full mx-auto">
+            <!-- Logo with proper placement - brand name on left -->
             <a class='flex items-center space-x-3 group' href='index.html'>
-                <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                    <i class="fas fa-camera-retro text-white text-lg"></i>
+                <div class="w-10 h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fas fa-camera-retro text-white dark:text-dark-bg text-lg"></i>
                 </div>
                 <div>
                     <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright ml-1">VUW</span>
                 </div>
             </a>
+            
+            <!-- Admin badge moved to center/right -->
             <div class="flex items-center gap-3">
+                <div class="hidden md:flex items-center gap-2 px-4 py-2 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full">
+                    <i class="fas fa-user-shield text-drone-slate dark:text-drone-slate-bright"></i>
+                    <span class="text-sm font-semibold text-drone-slate dark:text-drone-slate-bright">Admin Panel</span>
+                </div>
                 <button id="theme-toggle" class="toggle-btn" title="Toggle theme">
                     <i class="fas fa-moon"></i>
                     <i class="fas fa-sun hidden"></i>
@@ -377,824 +527,832 @@
         </div>
     </div>
 
-    <!-- Dashboard Main Container -->
-    <div class="max-w-7xl mx-auto">
-        
-        <!-- Welcome Header -->
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 sm:mb-8">
-            <div>
-                <h1 class="text-2xl sm:text-3xl md:text-4xl font-display font-bold dark:text-white">
-                    Admin <span class="text-drone-slate">Dashboard</span>
-                </h1>
-                <p class="text-sm sm:text-base md:text-lg text-neutral-dark/70 dark:text-gray-400 mt-1">
-                    Manage your platform, users, content, and analytics
-                </p>
-            </div>
-            <div class="mt-4 md:mt-0 flex items-center gap-3 sm:gap-4 bg-white dark:bg-dark-card px-4 sm:px-5 py-2 sm:py-3 rounded-2xl shadow-sm border border-neutral-light/50 dark:border-gray-700">
-                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/20 rounded-full flex items-center justify-center">
-                    <i class="fas fa-user-tie text-lg sm:text-xl text-drone-slate"></i>
-                </div>
-                <div>
-                    <p class="font-semibold dark:text-white text-base sm:text-lg">Admin User</p>
-                    <p class="text-xs text-neutral-dark/60 dark:text-gray-400 truncate max-w-[120px] sm:max-w-none">admin@growwvuw.com</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Main Dashboard Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+    <!-- Dashboard Main Container - Full Screen Scrolling - FULL WIDTH -->
+    <div class="dashboard-container w-full">
+        <div class="w-full px-4 sm:px-6 lg:px-8">
             
-            <!-- ============ SIDEBAR - 7 SECTIONS ============ -->
-            <div class="lg:col-span-3 xl:col-span-3">
-                <div class="dashboard-card p-4 sm:p-6 lg:p-8">
-                    <div class="flex flex-col space-y-1">
-                        
-                        <!-- Overview / Statistics -->
-                        <div class="sidebar-item active py-3 sm:py-4 px-3 sm:px-5" data-section="overview">
-                            <i class="fas fa-chart-pie w-5 sm:w-7 text-xl sm:text-2xl"></i>
-                            <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Overview</span>
-                        </div>
-                        
-                        <!-- User Management -->
-                        <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="users">
-                            <i class="fas fa-users w-5 sm:w-7 text-xl sm:text-2xl"></i>
-                            <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">User Mgmt</span>
-                        </div>
-                        
-                        <!-- Content Management -->
-                        <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="content">
-                            <i class="fas fa-file-alt w-5 sm:w-7 text-xl sm:text-2xl"></i>
-                            <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Content Mgmt</span>
-                        </div>
-                        
-                        <!-- Orders / Bookings -->
-                        <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="orders">
-                            <i class="fas fa-shopping-cart w-5 sm:w-7 text-xl sm:text-2xl"></i>
-                            <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Orders / Bookings</span>
-                        </div>
-                        
-                        <!-- Messages / Notifications -->
-                        <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="messages">
-                            <i class="fas fa-envelope w-5 sm:w-7 text-xl sm:text-2xl"></i>
-                            <span class="ml-3 sm:ml-4 mr-1 font-semibold text-base sm:text-lg">Inbox</span>
-                            <span class="ml-auto bg-drone-slate text-white text-xs px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-full font-bold">5</span>
-                        </div>
-                        
-                        <!-- Settings / Configuration -->
-                        <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="settings">
-                            <i class="fas fa-cog w-5 sm:w-7 text-xl sm:text-2xl"></i>
-                            <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Settings</span>
-                        </div>
-                        
-                        <!-- Reports / Analytics -->
-                        <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="reports">
-                            <i class="fas fa-chart-line w-5 sm:w-7 text-xl sm:text-2xl"></i>
-                            <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Reports</span>
-                        </div>
+            <!-- Welcome Header - Full Width -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 sm:mb-8 w-full">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-display font-bold dark:text-white">
+                        Admin <span class="text-drone-slate dark:text-drone-slate-bright">Dashboard</span>
+                    </h1>
+                    <p class="text-sm sm:text-base md:text-lg text-neutral-dark/80 dark:text-gray-400 mt-1">
+                        Manage your platform, users, content, and analytics
+                    </p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center gap-3 sm:gap-4 bg-white dark:bg-dark-card px-4 sm:px-5 py-2 sm:py-3 rounded-2xl shadow-sm border border-neutral-light/50 dark:border-gray-700">
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/20 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user-tie text-lg sm:text-xl text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
-                    
-                    <!-- Admin Info -->
-                    <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-neutral-light/50 dark:border-gray-700">
-                        <div class="flex items-center">
-                            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/20 rounded-full flex items-center justify-center">
-                                <i class="fas fa-user-cog text-lg sm:text-xl text-drone-slate"></i>
-                            </div>
-                            <div class="ml-3 sm:ml-4">
-                                <p class="font-bold dark:text-white text-sm sm:text-base">Admin</p>
-                                <p class="text-xs text-neutral-dark/60 dark:text-gray-400">Super Admin</p>
-                                <p class="text-xs text-drone-slate mt-1 font-semibold"> Full Access 🔑</p>
-                            </div>
-                        </div>
+                    <div>
+                        <p class="font-semibold dark:text-white text-base sm:text-lg">Admin User</p>
+                        <p class="text-xs text-neutral-dark/80 dark:text-gray-400 truncate max-w-[120px] sm:max-w-none">admin@growwvuw.com</p>
                     </div>
                 </div>
             </div>
 
-            <!-- ============ CONTENT AREA - 7 SECTIONS ============ -->
-            <div class="lg:col-span-9 xl:col-span-9">
+            <!-- Main Dashboard Grid - FULL WIDTH -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 pb-8 w-full">
                 
-                <!-- ===== 1. OVERVIEW / STATISTICS SECTION ===== -->
-                <div id="overview-section" class="dashboard-section active">
+                <!-- ============ SIDEBAR - 7 SECTIONS ============ -->
+                <div class="lg:col-span-3 xl:col-span-3">
                     <div class="dashboard-card p-4 sm:p-6 lg:p-8">
-                        <h2 class="text-xl sm:text-2xl font-display font-bold mb-5 sm:mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-chart-pie text-drone-slate mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
-                            Overview & Statistics
-                        </h2>
-                        
-                        <!-- Stats Cards -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 mb-6 sm:mb-8">
-                            <!-- Card 1 - Total Users -->
-                            <div class="stat-card p-4 sm:p-5">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400 mb-1">Total Users</p>
-                                        <p class="text-2xl sm:text-3xl font-bold dark:text-white">2,547</p>
-                                        <p class="text-sm text-green-600 dark:text-green-400 mt-2">↑ +12% this month</p>
-                                    </div>
-                                    <div class="w-10 h-10 bg-drone-slate/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-users text-drone-slate text-lg"></i>
-                                    </div>
-                                </div>
+                        <div class="flex flex-col space-y-1">
+                            
+                            <!-- Overview / Statistics -->
+                            <div class="sidebar-item active py-3 sm:py-4 px-3 sm:px-5" data-section="overview">
+                                <i class="fas fa-chart-pie w-5 sm:w-7 text-xl sm:text-2xl"></i>
+                                <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Overview</span>
                             </div>
                             
-                            <!-- Card 2 - Total Bookings -->
-                            <div class="stat-card p-4 sm:p-5">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400 mb-1">Total Bookings</p>
-                                        <p class="text-2xl sm:text-3xl font-bold dark:text-white">1,892</p>
-                                        <p class="text-sm text-green-600 dark:text-green-400 mt-2">↑ +8% this month</p>
-                                    </div>
-                                    <div class="w-10 h-10 bg-drone-slate/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-shopping-cart text-drone-slate text-lg"></i>
-                                    </div>
-                                </div>
+                            <!-- User Management -->
+                            <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="users">
+                                <i class="fas fa-users w-5 sm:w-7 text-xl sm:text-2xl"></i>
+                                <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">User Mgmt</span>
                             </div>
                             
-                            <!-- Card 3 - Active Tours -->
-                            <div class="stat-card p-4 sm:p-5">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400 mb-1">Active Tours</p>
-                                        <p class="text-2xl sm:text-3xl font-bold dark:text-white">156</p>
-                                        <p class="text-sm text-green-600 dark:text-green-400 mt-2">↑ +5 new</p>
-                                    </div>
-                                    <div class="w-10 h-10 bg-drone-slate/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-camera-retro text-drone-slate text-lg"></i>
-                                    </div>
-                                </div>
+                            <!-- Content Management -->
+                            <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="content">
+                                <i class="fas fa-file-alt w-5 sm:w-7 text-xl sm:text-2xl"></i>
+                                <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Content Mgmt</span>
                             </div>
                             
-                            <!-- Card 4 - Revenue -->
-                            <div class="stat-card p-4 sm:p-5">
-                                <div class="flex items-start justify-between">
-                                    <div>
-                                        <p class="text-sm text-neutral-dark/60 dark:text-gray-400 mb-1">Revenue</p>
-                                        <p class="text-2xl sm:text-3xl font-bold dark:text-white">$124K</p>
-                                        <p class="text-sm text-green-600 dark:text-green-400 mt-2">↑ +23% vs last month</p>
-                                    </div>
-                                    <div class="w-10 h-10 bg-drone-slate/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                                        <i class="fas fa-dollar-sign text-drone-slate text-lg"></i>
-                                    </div>
-                                </div>
+                            <!-- Orders / Bookings -->
+                            <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="orders">
+                                <i class="fas fa-shopping-cart w-5 sm:w-7 text-xl sm:text-2xl"></i>
+                                <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Orders / Bookings</span>
+                            </div>
+                            
+                            <!-- Messages / Notifications -->
+                            <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="messages">
+                                <i class="fas fa-envelope w-5 sm:w-7 text-xl sm:text-2xl"></i>
+                                <span class="ml-3 sm:ml-4 mr-1 font-semibold text-base sm:text-lg">Inbox</span>
+                                <span class="ml-auto bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg text-xs px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-full font-bold">5</span>
+                            </div>
+                            
+                            <!-- Settings / Configuration -->
+                            <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="settings">
+                                <i class="fas fa-cog w-5 sm:w-7 text-xl sm:text-2xl"></i>
+                                <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Settings</span>
+                            </div>
+                            
+                            <!-- Reports / Analytics -->
+                            <div class="sidebar-item py-3 sm:py-4 px-3 sm:px-5" data-section="reports">
+                                <i class="fas fa-chart-line w-5 sm:w-7 text-xl sm:text-2xl"></i>
+                                <span class="ml-3 sm:ml-4 font-semibold text-base sm:text-lg">Reports</span>
                             </div>
                         </div>
                         
-                        <!-- Charts Row -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                            <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-3 sm:p-5 rounded-2xl">
-                                <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 dark:text-white">Weekly Bookings</h3>
-                                <div class="chart-container h-[200px] sm:h-[250px] md:h-[300px]">
-                                    <canvas id="bookingsChart"></canvas>
+                        <!-- Admin Info & Logout -->
+                        <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-neutral-light/50 dark:border-gray-700">
+                            <div class="flex items-center mb-4">
+                                <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/20 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-user-cog text-lg sm:text-xl text-drone-slate dark:text-drone-slate-bright"></i>
+                                </div>
+                                <div class="ml-3 sm:ml-4">
+                                    <p class="font-bold dark:text-white text-sm sm:text-base">Admin</p>
+                                    <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Super Admin</p>
+                                    <p class="text-xs text-drone-slate dark:text-drone-slate-bright mt-1 font-semibold"> Full Access 🔑</p>
                                 </div>
                             </div>
-                            <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-3 sm:p-5 rounded-2xl">
-                                <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 dark:text-white">Revenue by Category</h3>
-                                <div class="chart-container h-[200px] sm:h-[250px] md:h-[300px]">
-                                    <canvas id="revenueChart"></canvas>
-                                </div>
+                            
+                            <!-- Logout Button -->
+                            <div class="logout-btn" id="logout-btn">
+                                <i class="fas fa-sign-out-alt mr-2"></i>
+                                <span>Logout</span>
                             </div>
                         </div>
-                        
-                        <!-- Recent Activity -->
-                        <div class="mt-6 sm:mt-8">
-                            <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 dark:text-white">Recent Activity</h3>
-                            <div class="space-y-2 sm:space-y-3">
-                                <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                    <div class="flex items-center gap-2 sm:gap-3">
-                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/10 rounded-full flex items-center justify-center">
-                                            <i class="fas fa-user-plus text-drone-slate text-sm sm:text-base"></i>
-                                        </div>
+                    </div>
+                </div>
+
+                <!-- ============ CONTENT AREA - 7 SECTIONS (FULL WIDTH) ============ -->
+                <div class="lg:col-span-9 xl:col-span-9 w-full">
+                    
+                    <!-- ===== 1. OVERVIEW / STATISTICS SECTION ===== -->
+                    <div id="overview-section" class="dashboard-section active w-full">
+                        <div class="dashboard-card p-4 sm:p-6 lg:p-8 w-full">
+                            <h2 class="text-xl sm:text-2xl font-display font-bold mb-5 sm:mb-7 dark:text-white flex items-center">
+                                <i class="fas fa-chart-pie text-drone-slate dark:text-drone-slate-bright mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
+                                Overview & Statistics
+                            </h2>
+                            
+                            <!-- Stats Cards -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-5 mb-6 sm:mb-8">
+                                <!-- Card 1 - Total Users -->
+                                <div class="stat-card p-4 sm:p-5">
+                                    <div class="flex items-start justify-between">
                                         <div>
-                                            <p class="font-semibold dark:text-white text-sm sm:text-base">New user registered</p>
-                                            <p class="text-xs text-neutral-dark/60 dark:text-gray-400">Sarah Johnson • 5 min ago</p>
+                                            <p class="text-sm text-neutral-dark/80 dark:text-gray-400 mb-1">Total Users</p>
+                                            <p class="text-2xl sm:text-3xl font-bold text-neutral-dark dark:text-white">2,547</p>
+                                            <p class="text-sm text-green-700 dark:text-green-400 mt-2 font-medium">↑ +12% this month</p>
                                         </div>
-                                    </div>
-                                    <span class="text-xs text-drone-slate font-semibold">View</span>
-                                </div>
-                                <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                    <div class="flex items-center gap-2 sm:gap-3">
-                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/10 rounded-full flex items-center justify-center">
-                                            <i class="fas fa-shopping-cart text-drone-slate text-sm sm:text-base"></i>
+                                        <div class="w-10 h-10 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <i class="fas fa-users text-drone-slate dark:text-drone-slate-bright text-lg"></i>
                                         </div>
-                                        <div>
-                                            <p class="font-semibold dark:text-white text-sm sm:text-base">New booking #GW-4821</p>
-                                            <p class="text-xs text-neutral-dark/60 dark:text-gray-400">Beachfront Villa • 15 min ago</p>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-drone-slate font-semibold">View</span>
-                                </div>
-                                <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                    <div class="flex items-center gap-2 sm:gap-3">
-                                        <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/10 rounded-full flex items-center justify-center">
-                                            <i class="fas fa-star text-drone-slate text-sm sm:text-base"></i>
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold dark:text-white text-sm sm:text-base">New review posted</p>
-                                            <p class="text-xs text-neutral-dark/60 dark:text-gray-400">5 stars • Malibu shoot • 1 hour ago</p>
-                                        </div>
-                                    </div>
-                                    <span class="text-xs text-drone-slate font-semibold">View</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 2. USER MANAGEMENT SECTION ===== -->
-                <div id="users-section" class="dashboard-section hidden">
-                    <div class="dashboard-card p-4 sm:p-6 lg:p-8">
-                        <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-7 dark:text-white flex items-center" style="font-family: 'Poppins', sans-serif;">
-                            <i class="fas fa-users text-drone-slate mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
-                            <span class="font-medium">User Management</span>
-                        </h2>
-                        
-                        <!-- Filters & Search -->
-                        <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold bg-drone-slate text-white shadow-md">All Users</button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Admins</button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Guides</button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Travelers</button>
-                            <div class="w-full sm:flex-1 min-w-[200px] mt-2 sm:mt-0">
-                                <input type="text" placeholder="Search users..." class="admin-input py-1.5 sm:py-2.5 text-sm">
-                            </div>
-                        </div>
-                        
-                        <!-- Users Table -->
-                        <div class="overflow-x-auto -mx-4 sm:mx-0">
-                            <div class="inline-block min-w-full align-middle">
-                                <div class="border border-neutral-light/20 dark:border-gray-700 rounded-lg">
-                                    <table class="min-w-full divide-y divide-neutral-light/30 dark:divide-gray-700">
-                                        <thead class="table-header">
-                                            <tr>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">User</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Role</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Status</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Joined</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="table-row">
-                                                <td class="p-2 sm:p-3">
-                                                    <div class="flex items-center gap-2 sm:gap-3">
-                                                        <div>
-                                                            <p class="font-semibold dark:text-white text-xs sm:text-sm">James Carter</p>
-                                                            <p class="text-xs text-neutral-dark/60 hidden sm:block">james@example.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm">Pilot</td>
-                                                <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 sm:px-3 py-1">Active</span></td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Jan 15, 2024</td>
-                                                <td class="p-2 sm:p-3">
-                                                    <button class="text-red-500 hover:underline text-xs ml-2">Suspend</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <td class="p-2 sm:p-3">
-                                                    <div class="flex items-center gap-2 sm:gap-3">
-                                                        <div>
-                                                            <p class="font-semibold dark:text-white text-xs sm:text-sm">Lena Park</p>
-                                                            <p class="text-xs text-neutral-dark/60 hidden sm:block">lena@example.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm">Creative Dir</td>
-                                                <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 sm:px-3 py-1">Active</span></td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Feb 3, 2024</td>
-                                                <td class="p-2 sm:p-3">
-                                                    <button class="text-red-500 hover:underline text-xs ml-2">Approve</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <td class="p-2 sm:p-3">
-                                                    <div class="flex items-center gap-2 sm:gap-3">
-                                                        <div>
-                                                            <p class="font-semibold dark:text-white text-xs sm:text-sm">Marcus Velez</p>
-                                                            <p class="text-xs text-neutral-dark/60 hidden sm:block">marcus@example.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm">Engineer</td>
-                                                <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 sm:px-3 py-1">Active</span></td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Mar 20, 2024</td>
-                                                <td class="p-2 sm:p-3">
-                                                    <button class="text-red-500 hover:underline text-xs ml-2">Suspend</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <td class="p-2 sm:p-3">
-                                                    <div class="flex items-center gap-2 sm:gap-3">
-                                                        <div>
-                                                            <p class="font-semibold dark:text-white text-xs sm:text-sm">Sophia Reed</p>
-                                                            <p class="text-xs text-neutral-dark/60 hidden sm:block">sophia@example.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm">Editor</td>
-                                                <td class="p-2 sm:p-3"><span class="status-badge status-pending text-xs px-2 sm:px-3 py-1">Pending</span></td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Apr 2, 2024</td>
-                                                <td class="p-2 sm:p-3">
-                                                    <button class="text-red-500 hover:underline text-xs ml-2">Reject</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-                            <p class="text-xs sm:text-sm text-neutral-dark/60">Showing 1-4 of 24 users</p>
-                            <div class="flex gap-1 sm:gap-2">
-                                <button class="px-2 sm:px-3 py-1 sm:py-2 border rounded-lg hover:bg-drone-slate/10 text-xs sm:text-sm">1</button>
-                                <button class="px-2 sm:px-3 py-1 sm:py-2 border rounded-lg hover:bg-drone-slate/10 text-xs sm:text-sm">2</button>
-                                <button class="px-2 sm:px-3 py-1 sm:py-2 border rounded-lg hover:bg-drone-slate/10 text-xs sm:text-sm">3</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 3. CONTENT MANAGEMENT SECTION ===== -->
-                <div id="content-section" class="dashboard-section hidden">
-                    <div class="dashboard-card p-4 sm:p-6 lg:p-8">
-                        <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-7 dark:text-white flex items-center" style="font-family: 'Poppins', sans-serif;">
-                            <i class="fas fa-file-alt text-drone-slate mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
-                            <span class="font-medium">Content Management</span>
-                        </h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                            <!-- Tours Content -->
-                            <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
-                                <div class="flex items-center justify-between mb-3 sm:mb-4">
-                                    <h3 class="font-bold text-base sm:text-lg dark:text-white">Tours</h3>
-                                    <span class="text-drone-slate font-semibold text-sm sm:text-base">156 active</span>
-                                </div>
-                                <div class="space-y-2 sm:space-y-3">
-                                    <div class="flex justify-between items-center text-sm sm:text-base">
-                                        <span>Real Estate</span>
-                                        <span class="font-semibold">45</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm sm:text-base">
-                                        <span>Events</span>
-                                        <span class="font-semibold">38</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm sm:text-base">
-                                        <span>Construction</span>
-                                        <span class="font-semibold">32</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm sm:text-base">
-                                        <span>Wedding</span>
-                                        <span class="font-semibold">41</span>
-                                    </div>
-                                </div>
-                                <button class="w-full mt-4 py-2 sm:py-3 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-sm sm:text-base hover:bg-drone-slate hover:text-white transition">
-                                    Manage Tours
-                                </button>
-                            </div>
-                            
-                            <!-- Guides Content -->
-                            <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
-                                <div class="flex items-center justify-between mb-3 sm:mb-4">
-                                    <h3 class="font-bold text-base sm:text-lg dark:text-white">Pilots</h3>
-                                    <span class="text-drone-slate font-semibold text-sm sm:text-base">84 active</span>
-                                </div>
-                                <div class="space-y-2 sm:space-y-3">
-                                    <div class="flex justify-between items-center text-sm sm:text-base">
-                                        <span>Lead Pilots</span>
-                                        <span class="font-semibold">28</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm sm:text-base">
-                                        <span>Editors</span>
-                                        <span class="font-semibold">22</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm sm:text-base">
-                                        <span>Engineers</span>
-                                        <span class="font-semibold">18</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm sm:text-base">
-                                        <span>Support</span>
-                                        <span class="font-semibold">16</span>
-                                    </div>
-                                </div>
-                                <button class="w-full mt-4 py-2 sm:py-3 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-sm sm:text-base hover:bg-drone-slate hover:text-white transition">
-                                    Manage Pilots
-                                </button>
-                            </div>
-                            
-                            <!-- Blog Posts -->
-                            <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
-                                <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 dark:text-white">Blog Posts</h3>
-                                <div class="space-y-2 sm:space-y-3">
-                                    <div class="flex items-center justify-between text-sm sm:text-base">
-                                        <span>Published</span>
-                                        <span class="font-semibold">24</span>
-                                    </div>
-                                    <div class="flex items-center justify-between text-sm sm:text-base">
-                                        <span>Drafts</span>
-                                        <span class="font-semibold">8</span>
-                                    </div>
-                                    <div class="flex items-center justify-between text-sm sm:text-base">
-                                        <span>Pending Review</span>
-                                        <span class="font-semibold">5</span>
-                                    </div>
-                                </div>
-                                <button class="w-full mt-4 py-2 sm:py-3 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-sm sm:text-base hover:bg-drone-slate hover:text-white transition">
-                                    Manage Blog
-                                </button>
-                            </div>
-                            
-                            <!-- Media Library -->
-                            <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
-                                <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 dark:text-white">Media Library</h3>
-                                <div class="space-y-2 sm:space-y-3">
-                                    <div class="flex items-center justify-between text-sm sm:text-base">
-                                        <span>Images</span>
-                                        <span class="font-semibold">1,247</span>
-                                    </div>
-                                    <div class="flex items-center justify-between text-sm sm:text-base">
-                                        <span>Videos</span>
-                                        <span class="font-semibold">89</span>
-                                    </div>
-                                    <div class="flex items-center justify-between text-sm sm:text-base">
-                                        <span>Documents</span>
-                                        <span class="font-semibold">156</span>
-                                    </div>
-                                </div>
-                                <button class="w-full mt-4 py-2 sm:py-3 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-sm sm:text-base hover:bg-drone-slate hover:text-white transition">
-                                    Manage Media
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 4. ORDERS / BOOKINGS SECTION ===== -->
-                <div id="orders-section" class="dashboard-section hidden">
-                    <div class="dashboard-card p-4 sm:p-6 lg:p-8">
-                        <h2 class="text-xl sm:text-2xl font-display font-bold mb-5 sm:mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-shopping-cart text-drone-slate mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
-                            Orders / Bookings
-                        </h2>
-                        
-                        <!-- Filters -->
-                        <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold bg-drone-slate text-white shadow-md">All</button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Confirmed</button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Pending</button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Completed</button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 hover:bg-drone-slate/10 transition">Cancelled</button>
-                        </div>
-                        
-                        <!-- Bookings Table -->
-                        <div class="overflow-x-auto -mx-4 sm:mx-0">
-                            <div class="inline-block min-w-full align-middle">
-                                <div class="border border-neutral-light/20 dark:border-gray-700 rounded-lg">
-                                    <table class="min-w-full divide-y divide-neutral-light/30 dark:divide-gray-700">
-                                        <thead class="table-header">
-                                            <tr>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Booking ID</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Customer</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Service</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell">Date</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Amount</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Status</th>
-                                                <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="table-row">
-                                                <td class="p-2 sm:p-3 font-mono text-xs sm:text-sm">#AV-2468</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm">John Doe</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Malibu Villa</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell">Feb 5, 2026</td>
-                                                <td class="p-2 sm:p-3 font-semibold text-xs sm:text-sm">$499</td>
-                                                <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 py-1">Confirmed</span></td>
-                                                <td class="p-2 sm:p-3">
-                                                    <button class="text-drone-slate hover:underline text-xs">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <td class="p-2 sm:p-3 font-mono text-xs sm:text-sm">#AV-3157</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm">Sarah Johnson</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Penthouse LA</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell">Mar 12, 2026</td>
-                                                <td class="p-2 sm:p-3 font-semibold text-xs sm:text-sm">$599</td>
-                                                <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 py-1">Confirmed</span></td>
-                                                <td class="p-2 sm:p-3">
-                                                    <button class="text-drone-slate hover:underline text-xs">View</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <td class="p-2 sm:p-3 font-mono text-xs sm:text-sm">#AV-4289</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm">Michael Chen</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Ranch Survey</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell">Apr 20, 2026</td>
-                                                <td class="p-2 sm:p-3 font-semibold text-xs sm:text-sm">$749</td>
-                                                <td class="p-2 sm:p-3"><span class="status-badge status-pending text-xs px-2 py-1">Pending</span></td>
-                                                <td class="p-2 sm:p-3">
-                                                    <button class="text-drone-slate hover:underline text-xs">Approve</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="table-row">
-                                                <td class="p-2 sm:p-3 font-mono text-xs sm:text-sm">#AV-5632</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm">Emma Watson</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Tech Conf</td>
-                                                <td class="p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell">May 3, 2026</td>
-                                                <td class="p-2 sm:p-3 font-semibold text-xs sm:text-sm">$899</td>
-                                                <td class="p-2 sm:p-3"><span class="status-badge status-completed text-xs px-2 py-1">Completed</span></td>
-                                                <td class="p-2 sm:p-3">
-                                                    <button class="text-drone-slate hover:underline text-xs">View</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 5. MESSAGES / NOTIFICATIONS SECTION ===== -->
-                <div id="messages-section" class="dashboard-section hidden">
-                    <div class="dashboard-card p-4 sm:p-6 lg:p-8">
-                        <h2 class="text-lg sm:text-xl md:text-2xl font-display font-bold mb-4 sm:mb-5 dark:text-white flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 w-full">
-                            <div class="flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
-                                <i class="fas fa-envelope text-drone-slate text-lg sm:text-xl md:text-2xl"></i>
-                                <span class="font-medium text-base sm:text-lg md:text-xl">Messages & Notifications</span>
-                            </div>
-                            <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto">
-                                <span class="text-xs text-neutral-dark/50 dark:text-gray-400 sm:hidden">Unread:</span>
-                                <span class="bg-drone-slate text-white text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full font-bold ml-auto sm:ml-3">5 unread</span>
-                            </div>
-                        </h2>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-                            <!-- Messages List -->
-                            <div class="md:col-span-2 space-y-3 sm:space-y-4">
-                                <div class="message-item unread p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                    <div class="flex items-start gap-2 sm:gap-3">
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex justify-between items-center">
-                                                <h4 class="font-bold dark:text-white text-sm sm:text-base truncate">James Carter</h4>
-                                                <span class="text-xs text-neutral-dark/50 ml-1">2h</span>
-                                            </div>
-                                            <p class="text-xs text-neutral-dark/70 truncate">Pilot Application</p>
-                                            <p class="text-xs mt-1 line-clamp-2 sm:line-clamp-1">I would like to apply as a lead pilot for coastal shoots...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="message-item unread p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                    <div class="flex items-start gap-2 sm:gap-3">
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex justify-between items-center">
-                                                <h4 class="font-bold dark:text-white text-sm sm:text-base truncate">Lena Park</h4>
-                                                <span class="text-xs text-neutral-dark/50 ml-1">1d</span>
-                                            </div>
-                                            <p class="text-xs text-neutral-dark/70 truncate">Booking Question</p>
-                                            <p class="text-xs mt-1 line-clamp-2 sm:line-clamp-1">Can I reschedule my Malibu shoot to next week?</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="message-item p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                    <div class="flex items-start gap-2 sm:gap-3">
-                                        <div class="flex-1 min-w-0">
-                                            <div class="flex justify-between items-center">
-                                                <h4 class="font-bold dark:text-white text-sm sm:text-base truncate">Support System</h4>
-                                                <span class="text-xs text-neutral-dark/50 ml-1">3d</span>
-                                            </div>
-                                            <p class="text-xs text-neutral-dark/70 truncate">New ticket #2847</p>
-                                            <p class="text-xs mt-1 line-clamp-2 sm:line-clamp-1">Payment issue reported by user...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Quick Actions -->
-                            <div class="space-y-3 sm:space-y-4">
-                                <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
-                                    <h3 class="font-bold text-sm sm:text-lg mb-3 sm:mb-4 dark:text-white">Quick Actions</h3>
-                                    <div class="space-y-2 sm:space-y-3">
-                                        <button class="w-full py-2 sm:py-3 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white transition">
-                                            <i class="fas fa-envelope mr-1 sm:mr-2"></i> New Message
-                                        </button>
-                                        <button class="w-full py-2 sm:py-3 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white transition">
-                                            <i class="fas fa-bell mr-1 sm:mr-2"></i> Send Notification
-                                        </button>
-                                        <button class="w-full py-2 sm:py-3 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white transition">
-                                            <i class="fas fa-cog mr-1 sm:mr-2"></i> Settings
-                                        </button>
                                     </div>
                                 </div>
                                 
+                                <!-- Card 2 - Total Bookings -->
+                                <div class="stat-card p-4 sm:p-5">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <p class="text-sm text-neutral-dark/80 dark:text-gray-400 mb-1">Total Bookings</p>
+                                            <p class="text-2xl sm:text-3xl font-bold text-neutral-dark dark:text-white">1,892</p>
+                                            <p class="text-sm text-green-700 dark:text-green-400 mt-2 font-medium">↑ +8% this month</p>
+                                        </div>
+                                        <div class="w-10 h-10 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <i class="fas fa-shopping-cart text-drone-slate dark:text-drone-slate-bright text-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card 3 - Active Tours -->
+                                <div class="stat-card p-4 sm:p-5">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <p class="text-sm text-neutral-dark/80 dark:text-gray-400 mb-1">Active Tours</p>
+                                            <p class="text-2xl sm:text-3xl font-bold text-neutral-dark dark:text-white">156</p>
+                                            <p class="text-sm text-green-700 dark:text-green-400 mt-2 font-medium">↑ +5 new</p>
+                                        </div>
+                                        <div class="w-10 h-10 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <i class="fas fa-camera-retro text-drone-slate dark:text-drone-slate-bright text-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Card 4 - Revenue -->
+                                <div class="stat-card p-4 sm:p-5">
+                                    <div class="flex items-start justify-between">
+                                        <div>
+                                            <p class="text-sm text-neutral-dark/80 dark:text-gray-400 mb-1">Revenue</p>
+                                            <p class="text-2xl sm:text-3xl font-bold text-neutral-dark dark:text-white">$124K</p>
+                                            <p class="text-sm text-green-700 dark:text-green-400 mt-2 font-medium">↑ +23% vs last month</p>
+                                        </div>
+                                        <div class="w-10 h-10 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <i class="fas fa-dollar-sign text-drone-slate dark:text-drone-slate-bright text-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Charts Row -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                                <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-3 sm:p-5 rounded-2xl">
+                                    <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 text-neutral-dark dark:text-white">Weekly Bookings</h3>
+                                    <div class="chart-container h-[200px] sm:h-[250px] md:h-[300px]">
+                                        <canvas id="bookingsChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-3 sm:p-5 rounded-2xl">
+                                    <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 text-neutral-dark dark:text-white">Revenue by Category</h3>
+                                    <div class="chart-container h-[200px] sm:h-[250px] md:h-[300px]">
+                                        <canvas id="revenueChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Recent Activity -->
+                            <div class="mt-6 sm:mt-8">
+                                <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 text-neutral-dark dark:text-white">Recent Activity</h3>
+                                <div class="space-y-2 sm:space-y-3">
+                                    <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                        <div class="flex items-center gap-2 sm:gap-3">
+                                            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-user-plus text-drone-slate dark:text-drone-slate-bright text-sm sm:text-base"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-neutral-dark dark:text-white text-sm sm:text-base">New user registered</p>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Sarah Johnson • 5 min ago</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs text-drone-slate dark:text-drone-slate-bright font-semibold cursor-pointer hover:underline">View</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                        <div class="flex items-center gap-2 sm:gap-3">
+                                            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-shopping-cart text-drone-slate dark:text-drone-slate-bright text-sm sm:text-base"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-neutral-dark dark:text-white text-sm sm:text-base">New booking #GW-4821</p>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Beachfront Villa • 15 min ago</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs text-drone-slate dark:text-drone-slate-bright font-semibold cursor-pointer hover:underline">View</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                        <div class="flex items-center gap-2 sm:gap-3">
+                                            <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center">
+                                                <i class="fas fa-star text-drone-slate dark:text-drone-slate-bright text-sm sm:text-base"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-semibold text-neutral-dark dark:text-white text-sm sm:text-base">New review posted</p>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400">5 stars • Malibu shoot • 1 hour ago</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs text-drone-slate dark:text-drone-slate-bright font-semibold cursor-pointer hover:underline">View</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 2. USER MANAGEMENT SECTION ===== -->
+                    <div id="users-section" class="dashboard-section hidden w-full">
+                        <div class="dashboard-card p-4 sm:p-6 lg:p-8 w-full">
+                            <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-7 text-neutral-dark dark:text-white flex items-center" style="font-family: 'Poppins', sans-serif;">
+                                <i class="fas fa-users text-drone-slate dark:text-drone-slate-bright mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
+                                <span class="font-medium">User Management</span>
+                            </h2>
+                            
+                            <!-- Filters & Search -->
+                            <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg shadow-md">All Users</button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Admins</button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Guides</button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Travelers</button>
+                                <div class="w-full sm:flex-1 min-w-[200px] mt-2 sm:mt-0">
+                                    <input type="text" placeholder="Search users..." class="admin-input py-1.5 sm:py-2.5 text-sm">
+                                </div>
+                            </div>
+                            
+                            <!-- Users Table -->
+                            <div class="overflow-x-auto -mx-4 sm:mx-0">
+                                <div class="inline-block min-w-full align-middle">
+                                    <div class="border border-neutral-light/20 dark:border-gray-700 rounded-lg">
+                                        <table class="min-w-full divide-y divide-neutral-light/30 dark:divide-gray-700">
+                                            <thead class="table-header">
+                                                <tr>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">User</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Role</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Status</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Joined</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="table-row">
+                                                    <td class="p-2 sm:p-3">
+                                                        <div class="flex items-center gap-2 sm:gap-3">
+                                                            <div>
+                                                                <p class="font-semibold text-neutral-dark dark:text-white text-xs sm:text-sm">James Carter</p>
+                                                                <p class="text-xs text-neutral-dark/80 hidden sm:block dark:text-gray-400">james@example.com</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">Pilot</td>
+                                                    <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 sm:px-3 py-1">Active</span></td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell text-neutral-dark/80 dark:text-gray-400">Jan 15, 2024</td>
+                                                    <td class="p-2 sm:p-3">
+                                                        <button class="text-red-600 dark:text-red-400 hover:underline text-xs ml-2 font-medium">Suspend</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-row">
+                                                    <td class="p-2 sm:p-3">
+                                                        <div class="flex items-center gap-2 sm:gap-3">
+                                                            <div>
+                                                                <p class="font-semibold text-neutral-dark dark:text-white text-xs sm:text-sm">Lena Park</p>
+                                                                <p class="text-xs text-neutral-dark/80 hidden sm:block dark:text-gray-400">lena@example.com</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">Creative Dir</td>
+                                                    <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 sm:px-3 py-1">Active</span></td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell text-neutral-dark/80 dark:text-gray-400">Feb 3, 2024</td>
+                                                    <td class="p-2 sm:p-3">
+                                                        <button class="text-green-700 dark:text-green-400 hover:underline text-xs ml-2 font-medium">Approve</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-row">
+                                                    <td class="p-2 sm:p-3">
+                                                        <div class="flex items-center gap-2 sm:gap-3">
+                                                            <div>
+                                                                <p class="font-semibold text-neutral-dark dark:text-white text-xs sm:text-sm">Marcus Velez</p>
+                                                                <p class="text-xs text-neutral-dark/80 hidden sm:block dark:text-gray-400">marcus@example.com</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">Engineer</td>
+                                                    <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 sm:px-3 py-1">Active</span></td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell text-neutral-dark/80 dark:text-gray-400">Mar 20, 2024</td>
+                                                    <td class="p-2 sm:p-3">
+                                                        <button class="text-red-600 dark:text-red-400 hover:underline text-xs ml-2 font-medium">Suspend</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-row">
+                                                    <td class="p-2 sm:p-3">
+                                                        <div class="flex items-center gap-2 sm:gap-3">
+                                                            <div>
+                                                                <p class="font-semibold text-neutral-dark dark:text-white text-xs sm:text-sm">Sophia Reed</p>
+                                                                <p class="text-xs text-neutral-dark/80 hidden sm:block dark:text-gray-400">sophia@example.com</p>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">Editor</td>
+                                                    <td class="p-2 sm:p-3"><span class="status-badge status-pending text-xs px-2 sm:px-3 py-1">Pending</span></td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell text-neutral-dark/80 dark:text-gray-400">Apr 2, 2024</td>
+                                                    <td class="p-2 sm:p-3">
+                                                        <button class="text-red-600 dark:text-red-400 hover:underline text-xs ml-2 font-medium">Reject</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
+                                <p class="text-xs sm:text-sm text-neutral-dark/80 dark:text-gray-400">Showing 1-4 of 24 users</p>
+                                <div class="flex gap-1 sm:gap-2">
+                                    <button class="px-2 sm:px-3 py-1 sm:py-2 border rounded-lg hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">1</button>
+                                    <button class="px-2 sm:px-3 py-1 sm:py-2 border rounded-lg hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">2</button>
+                                    <button class="px-2 sm:px-3 py-1 sm:py-2 border rounded-lg hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">3</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 3. CONTENT MANAGEMENT SECTION ===== -->
+                    <div id="content-section" class="dashboard-section hidden w-full">
+                        <div class="dashboard-card p-4 sm:p-6 lg:p-8 w-full">
+                            <h2 class="text-xl sm:text-2xl font-bold mb-5 sm:mb-7 text-neutral-dark dark:text-white flex items-center" style="font-family: 'Poppins', sans-serif;">
+                                <i class="fas fa-file-alt text-drone-slate dark:text-drone-slate-bright mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
+                                <span class="font-medium">Content Management</span>
+                            </h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                                <!-- Tours Content -->
                                 <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
-                                    <h3 class="font-bold text-sm sm:text-lg mb-3 sm:mb-4 dark:text-white">Stats</h3>
-                                    <div class="space-y-1 sm:space-y-2">
-                                        <div class="flex justify-between text-xs sm:text-sm">
-                                            <span>Unread</span>
-                                            <span class="font-bold text-drone-slate">5</span>
+                                    <div class="flex items-center justify-between mb-3 sm:mb-4">
+                                        <h3 class="font-bold text-base sm:text-lg text-neutral-dark dark:text-white">Tours</h3>
+                                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold text-sm sm:text-base">156 active</span>
+                                    </div>
+                                    <div class="space-y-2 sm:space-y-3">
+                                        <div class="flex justify-between items-center text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Real Estate</span>
+                                            <span class="font-semibold">45</span>
                                         </div>
-                                        <div class="flex justify-between text-xs sm:text-sm">
-                                            <span>Total</span>
-                                            <span class="font-bold">28</span>
+                                        <div class="flex justify-between items-center text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Events</span>
+                                            <span class="font-semibold">38</span>
                                         </div>
-                                        <div class="flex justify-between text-xs sm:text-sm">
-                                            <span>Response Rate</span>
-                                            <span class="font-bold text-green-600">98%</span>
+                                        <div class="flex justify-between items-center text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Construction</span>
+                                            <span class="font-semibold">32</span>
+                                        </div>
+                                        <div class="flex justify-between items-center text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Wedding</span>
+                                            <span class="font-semibold">41</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-4 py-2 sm:py-3 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-sm sm:text-base hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                        Manage Tours
+                                    </button>
+                                </div>
+                                
+                                <!-- Guides Content -->
+                                <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
+                                    <div class="flex items-center justify-between mb-3 sm:mb-4">
+                                        <h3 class="font-bold text-base sm:text-lg text-neutral-dark dark:text-white">Pilots</h3>
+                                        <span class="text-drone-slate dark:text-drone-slate-bright font-semibold text-sm sm:text-base">84 active</span>
+                                    </div>
+                                    <div class="space-y-2 sm:space-y-3">
+                                        <div class="flex justify-between items-center text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Lead Pilots</span>
+                                            <span class="font-semibold">28</span>
+                                        </div>
+                                        <div class="flex justify-between items-center text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Editors</span>
+                                            <span class="font-semibold">22</span>
+                                        </div>
+                                        <div class="flex justify-between items-center text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Engineers</span>
+                                            <span class="font-semibold">18</span>
+                                        </div>
+                                        <div class="flex justify-between items-center text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Support</span>
+                                            <span class="font-semibold">16</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-4 py-2 sm:py-3 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-sm sm:text-base hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                        Manage Pilots
+                                    </button>
+                                </div>
+                                
+                                <!-- Blog Posts -->
+                                <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
+                                    <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 text-neutral-dark dark:text-white">Blog Posts</h3>
+                                    <div class="space-y-2 sm:space-y-3">
+                                        <div class="flex items-center justify-between text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Published</span>
+                                            <span class="font-semibold">24</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Drafts</span>
+                                            <span class="font-semibold">8</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Pending Review</span>
+                                            <span class="font-semibold">5</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-4 py-2 sm:py-3 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-sm sm:text-base hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                        Manage Blog
+                                    </button>
+                                </div>
+                                
+                                <!-- Media Library -->
+                                <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
+                                    <h3 class="font-bold text-base sm:text-lg mb-3 sm:mb-4 text-neutral-dark dark:text-white">Media Library</h3>
+                                    <div class="space-y-2 sm:space-y-3">
+                                        <div class="flex items-center justify-between text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Images</span>
+                                            <span class="font-semibold">1,247</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Videos</span>
+                                            <span class="font-semibold">89</span>
+                                        </div>
+                                        <div class="flex items-center justify-between text-sm sm:text-base text-neutral-dark dark:text-gray-300">
+                                            <span>Documents</span>
+                                            <span class="font-semibold">156</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full mt-4 py-2 sm:py-3 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-sm sm:text-base hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                        Manage Media
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 4. ORDERS / BOOKINGS SECTION ===== -->
+                    <div id="orders-section" class="dashboard-section hidden w-full">
+                        <div class="dashboard-card p-4 sm:p-6 lg:p-8 w-full">
+                            <h2 class="text-xl sm:text-2xl font-display font-bold mb-5 sm:mb-7 text-neutral-dark dark:text-white flex items-center">
+                                <i class="fas fa-shopping-cart text-drone-slate dark:text-drone-slate-bright mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
+                                Orders / Bookings
+                            </h2>
+                            
+                            <!-- Filters -->
+                            <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg shadow-md">All</button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Confirmed</button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Pending</button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Completed</button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20 transition">Cancelled</button>
+                            </div>
+                            
+                            <!-- Bookings Table -->
+                            <div class="overflow-x-auto -mx-4 sm:mx-0">
+                                <div class="inline-block min-w-full align-middle">
+                                    <div class="border border-neutral-light/20 dark:border-gray-700 rounded-lg">
+                                        <table class="min-w-full divide-y divide-neutral-light/30 dark:divide-gray-700">
+                                            <thead class="table-header">
+                                                <tr>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Booking ID</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Customer</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell">Service</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell">Date</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Amount</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Status</th>
+                                                    <th class="text-left p-2 sm:p-3 text-xs sm:text-sm">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="table-row">
+                                                    <td class="p-2 sm:p-3 font-mono text-xs sm:text-sm text-neutral-dark dark:text-gray-300">#AV-2468</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">John Doe</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell text-neutral-dark dark:text-gray-300">Malibu Villa</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell text-neutral-dark/80 dark:text-gray-400">Feb 5, 2026</td>
+                                                    <td class="p-2 sm:p-3 font-semibold text-xs sm:text-sm text-neutral-dark dark:text-white">$499</td>
+                                                    <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 py-1">Confirmed</span></td>
+                                                    <td class="p-2 sm:p-3">
+                                                        <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-xs font-medium">View</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-row">
+                                                    <td class="p-2 sm:p-3 font-mono text-xs sm:text-sm text-neutral-dark dark:text-gray-300">#AV-3157</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">Sarah Johnson</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell text-neutral-dark dark:text-gray-300">Penthouse LA</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell text-neutral-dark/80 dark:text-gray-400">Mar 12, 2026</td>
+                                                    <td class="p-2 sm:p-3 font-semibold text-xs sm:text-sm text-neutral-dark dark:text-white">$599</td>
+                                                    <td class="p-2 sm:p-3"><span class="status-badge status-active text-xs px-2 py-1">Confirmed</span></td>
+                                                    <td class="p-2 sm:p-3">
+                                                        <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-xs font-medium">View</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-row">
+                                                    <td class="p-2 sm:p-3 font-mono text-xs sm:text-sm text-neutral-dark dark:text-gray-300">#AV-4289</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">Michael Chen</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell text-neutral-dark dark:text-gray-300">Ranch Survey</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell text-neutral-dark/80 dark:text-gray-400">Apr 20, 2026</td>
+                                                    <td class="p-2 sm:p-3 font-semibold text-xs sm:text-sm text-neutral-dark dark:text-white">$749</td>
+                                                    <td class="p-2 sm:p-3"><span class="status-badge status-pending text-xs px-2 py-1">Pending</span></td>
+                                                    <td class="p-2 sm:p-3">
+                                                        <button class="text-green-700 dark:text-green-400 hover:underline text-xs ml-2 font-medium">Approve</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="table-row">
+                                                    <td class="p-2 sm:p-3 font-mono text-xs sm:text-sm text-neutral-dark dark:text-gray-300">#AV-5632</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm text-neutral-dark dark:text-gray-300">Emma Watson</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden sm:table-cell text-neutral-dark dark:text-gray-300">Tech Conf</td>
+                                                    <td class="p-2 sm:p-3 text-xs sm:text-sm hidden md:table-cell text-neutral-dark/80 dark:text-gray-400">May 3, 2026</td>
+                                                    <td class="p-2 sm:p-3 font-semibold text-xs sm:text-sm text-neutral-dark dark:text-white">$899</td>
+                                                    <td class="p-2 sm:p-3"><span class="status-badge status-completed text-xs px-2 py-1">Completed</span></td>
+                                                    <td class="p-2 sm:p-3">
+                                                        <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-xs font-medium">View</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 5. MESSAGES / NOTIFICATIONS SECTION ===== -->
+                    <div id="messages-section" class="dashboard-section hidden w-full">
+                        <div class="dashboard-card p-4 sm:p-6 lg:p-8 w-full">
+                            <h2 class="text-lg sm:text-xl md:text-2xl font-display font-bold mb-4 sm:mb-5 text-neutral-dark dark:text-white flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 w-full">
+                                <div class="flex items-center gap-2" style="font-family: 'Poppins', sans-serif;">
+                                    <i class="fas fa-envelope text-drone-slate dark:text-drone-slate-bright text-lg sm:text-xl md:text-2xl"></i>
+                                    <span class="font-medium text-base sm:text-lg md:text-xl">Messages & Notifications</span>
+                                </div>
+                                <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto">
+                                    <span class="text-xs text-neutral-dark/60 dark:text-gray-400 sm:hidden">Unread:</span>
+                                    <span class="bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg text-xs px-2 sm:px-3 py-1 sm:py-1.5 rounded-full font-bold ml-auto sm:ml-3">5 unread</span>
+                                </div>
+                            </h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                                <!-- Messages List -->
+                                <div class="md:col-span-2 space-y-3 sm:space-y-4">
+                                    <div class="message-item unread p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                        <div class="flex items-start gap-2 sm:gap-3">
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex justify-between items-center">
+                                                    <h4 class="font-bold text-neutral-dark dark:text-white text-sm sm:text-base truncate">James Carter</h4>
+                                                    <span class="text-xs text-neutral-dark/60 dark:text-gray-400 ml-1">2h</span>
+                                                </div>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400 truncate">Pilot Application</p>
+                                                <p class="text-xs mt-1 line-clamp-2 sm:line-clamp-1 text-neutral-dark/70 dark:text-gray-500">I would like to apply as a lead pilot for coastal shoots...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="message-item unread p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                        <div class="flex items-start gap-2 sm:gap-3">
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex justify-between items-center">
+                                                    <h4 class="font-bold text-neutral-dark dark:text-white text-sm sm:text-base truncate">Lena Park</h4>
+                                                    <span class="text-xs text-neutral-dark/60 dark:text-gray-400 ml-1">1d</span>
+                                                </div>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400 truncate">Booking Question</p>
+                                                <p class="text-xs mt-1 line-clamp-2 sm:line-clamp-1 text-neutral-dark/70 dark:text-gray-500">Can I reschedule my Malibu shoot to next week?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="message-item p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                        <div class="flex items-start gap-2 sm:gap-3">
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex justify-between items-center">
+                                                    <h4 class="font-bold text-neutral-dark dark:text-white text-sm sm:text-base truncate">Support System</h4>
+                                                    <span class="text-xs text-neutral-dark/60 dark:text-gray-400 ml-1">3d</span>
+                                                </div>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400 truncate">New ticket #2847</p>
+                                                <p class="text-xs mt-1 line-clamp-2 sm:line-clamp-1 text-neutral-dark/70 dark:text-gray-500">Payment issue reported by user...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Quick Actions -->
+                                <div class="space-y-3 sm:space-y-4">
+                                    <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
+                                        <h3 class="font-bold text-sm sm:text-lg mb-3 sm:mb-4 text-neutral-dark dark:text-white">Quick Actions</h3>
+                                        <div class="space-y-2 sm:space-y-3">
+                                            <button class="w-full py-2 sm:py-3 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                                <i class="fas fa-envelope mr-1 sm:mr-2"></i> New Message
+                                            </button>
+                                            <button class="w-full py-2 sm:py-3 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                                <i class="fas fa-bell mr-1 sm:mr-2"></i> Send Notification
+                                            </button>
+                                            <button class="w-full py-2 sm:py-3 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                                <i class="fas fa-cog mr-1 sm:mr-2"></i> Settings
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-neutral-light/30 dark:bg-gray-800/30 p-4 sm:p-6 rounded-2xl">
+                                        <h3 class="font-bold text-sm sm:text-lg mb-3 sm:mb-4 text-neutral-dark dark:text-white">Stats</h3>
+                                        <div class="space-y-1 sm:space-y-2">
+                                            <div class="flex justify-between text-xs sm:text-sm">
+                                                <span class="text-neutral-dark/80 dark:text-gray-400">Unread</span>
+                                                <span class="font-bold text-drone-slate dark:text-drone-slate-bright">5</span>
+                                            </div>
+                                            <div class="flex justify-between text-xs sm:text-sm">
+                                                <span class="text-neutral-dark/80 dark:text-gray-400">Total</span>
+                                                <span class="font-bold text-neutral-dark dark:text-white">28</span>
+                                            </div>
+                                            <div class="flex justify-between text-xs sm:text-sm">
+                                                <span class="text-neutral-dark/80 dark:text-gray-400">Response Rate</span>
+                                                <span class="font-bold text-green-700 dark:text-green-400">98%</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- ===== 6. SETTINGS / CONFIGURATION SECTION ===== -->
-                <div id="settings-section" class="dashboard-section hidden">
-                    <div class="dashboard-card p-4 sm:p-6 lg:p-8">
-                        <h2 class="text-xl sm:text-2xl font-display font-bold mb-5 sm:mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-cog text-drone-slate mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
-                            Settings & Configuration
-                        </h2>
-                        
-                        <div class="space-y-6 sm:space-y-8">
-                            <!-- General Settings -->
-                            <div>
-                                <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-5 dark:text-white">General Settings</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5">
-                                    <div>
-                                        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">Site Name</label>
-                                        <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="AEROVIEW">
+                    <!-- ===== 6. SETTINGS / CONFIGURATION SECTION ===== -->
+                    <div id="settings-section" class="dashboard-section hidden w-full">
+                        <div class="dashboard-card p-4 sm:p-6 lg:p-8 w-full">
+                            <h2 class="text-xl sm:text-2xl font-display font-bold mb-5 sm:mb-7 text-neutral-dark dark:text-white flex items-center">
+                                <i class="fas fa-cog text-drone-slate dark:text-drone-slate-bright mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
+                                Settings & Configuration
+                            </h2>
+                            
+                            <div class="space-y-6 sm:space-y-8">
+                                <!-- General Settings -->
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-5 text-neutral-dark dark:text-white">General Settings</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5">
+                                        <div>
+                                            <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-neutral-dark/80 dark:text-gray-300">Site Name</label>
+                                            <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="AEROVIEW">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-neutral-dark/80 dark:text-gray-300">Site URL</label>
+                                            <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="https://aeroview.com">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-neutral-dark/80 dark:text-gray-300">Admin Email</label>
+                                            <input type="email" class="admin-input py-2 sm:py-3 text-sm" value="admin@aeroview.com">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-neutral-dark/80 dark:text-gray-300">Support Email</label>
+                                            <input type="email" class="admin-input py-2 sm:py-3 text-sm" value="support@aeroview.com">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">Site URL</label>
-                                        <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="https://aeroview.com">
+                                </div>
+                                
+                                <!-- Payment Settings -->
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-5 text-neutral-dark dark:text-white">Payment Configuration</h3>
+                                    <div class="space-y-3 sm:space-y-4 bg-neutral-light/30 dark:bg-gray-800/30 p-3 sm:p-5 rounded-2xl">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-bold text-neutral-dark dark:text-white text-sm sm:text-base">Stripe</p>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Accept credit card payments</p>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-bold text-neutral-dark dark:text-white text-sm sm:text-base">PayPal</p>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Accept PayPal payments</p>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="font-bold text-neutral-dark dark:text-white text-sm sm:text-base">Currency</p>
+                                                <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Default: USD</p>
+                                            </div>
+                                            <select class="bg-transparent border border-drone-slate/30 dark:border-drone-slate-bright/30 rounded-lg p-1 sm:p-2 text-sm text-neutral-dark dark:text-white">
+                                                <option class="dark:bg-dark-card">USD</option>
+                                                <option class="dark:bg-dark-card">EUR</option>
+                                                <option class="dark:bg-dark-card">GBP</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">Admin Email</label>
-                                        <input type="email" class="admin-input py-2 sm:py-3 text-sm" value="admin@aeroview.com">
+                                </div>
+                                
+                                <!-- Email Settings -->
+                                <div>
+                                    <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-5 text-neutral-dark dark:text-white">Email Configuration</h3>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5">
+                                        <div>
+                                            <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-neutral-dark/80 dark:text-gray-300">SMTP Host</label>
+                                            <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="smtp.gmail.com">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-neutral-dark/80 dark:text-gray-300">SMTP Port</label>
+                                            <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="587">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-neutral-dark/80 dark:text-gray-300">Username</label>
+                                            <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="noreply@aeroview.com">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2 text-neutral-dark/80 dark:text-gray-300">Password</label>
+                                            <input type="password" class="admin-input py-2 sm:py-3 text-sm" value="********">
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">Support Email</label>
-                                        <input type="email" class="admin-input py-2 sm:py-3 text-sm" value="support@aeroview.com">
-                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end">
+                                    <button class="admin-btn px-6 sm:px-8 lg:px-10 py-2 sm:py-3 text-sm sm:text-base">
+                                        <i class="fas fa-save mr-1 sm:mr-2"></i> Save Settings
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== 7. REPORTS / ANALYTICS SECTION ===== -->
+                    <div id="reports-section" class="dashboard-section hidden w-full">
+                        <div class="dashboard-card p-4 sm:p-6 lg:p-8 w-full">
+                            <h2 class="text-xl sm:text-2xl font-display font-bold mb-5 sm:mb-7 text-neutral-dark dark:text-white flex items-center">
+                                <i class="fas fa-chart-line text-drone-slate dark:text-drone-slate-bright mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
+                                Reports & Analytics
+                            </h2>
+                            
+                            <!-- Date Range -->
+                            <div class="grid grid-cols-2 sm:flex sm:flex-row gap-1 sm:gap-3 mb-4 sm:mb-6">
+                                <button class="w-full sm:w-auto px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold bg-drone-slate dark:bg-drone-slate-bright text-white dark:text-dark-bg">7 Days</button>
+                                <button class="w-full sm:w-auto px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20">30 Days</button>
+                                <button class="w-full sm:w-auto px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20">Month</button>
+                                <button class="w-full sm:w-auto px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border border-neutral-light dark:border-gray-700 text-neutral-dark dark:text-gray-300 hover:bg-drone-slate/10 dark:hover:bg-drone-slate-bright/20">Custom</button>
+                            </div>
+                            
+                            <!-- Summary Cards -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+                                <div class="stat-card p-3 sm:p-4">
+                                    <p class="text-xs sm:text-sm text-neutral-dark/80 dark:text-gray-400">Revenue</p>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-neutral-dark dark:text-white">$24.5K</p>
+                                    <p class="text-xs text-green-700 dark:text-green-400 font-medium">+15.3%</p>
+                                </div>
+                                <div class="stat-card p-3 sm:p-4">
+                                    <p class="text-xs sm:text-sm text-neutral-dark/80 dark:text-gray-400">Bookings</p>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-neutral-dark dark:text-white">342</p>
+                                    <p class="text-xs text-green-700 dark:text-green-400 font-medium">+8.2%</p>
+                                </div>
+                                <div class="stat-card p-3 sm:p-4">
+                                    <p class="text-xs sm:text-sm text-neutral-dark/80 dark:text-gray-400">New Users</p>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-neutral-dark dark:text-white">89</p>
+                                    <p class="text-xs text-green-700 dark:text-green-400 font-medium">+12.5%</p>
+                                </div>
+                                <div class="stat-card p-3 sm:p-4">
+                                    <p class="text-xs sm:text-sm text-neutral-dark/80 dark:text-gray-400">Conversion</p>
+                                    <p class="text-lg sm:text-xl lg:text-2xl font-bold text-neutral-dark dark:text-white">4.8%</p>
+                                    <p class="text-xs text-green-700 dark:text-green-400 font-medium">+0.6%</p>
                                 </div>
                             </div>
                             
-                            <!-- Payment Settings -->
-                            <div>
-                                <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-5 dark:text-white">Payment Configuration</h3>
-                                <div class="space-y-3 sm:space-y-4 bg-neutral-light/30 dark:bg-gray-800/30 p-3 sm:p-5 rounded-2xl">
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white text-sm sm:text-base">Stripe</p>
-                                            <p class="text-xs text-neutral-dark/60">Accept credit card payments</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white text-sm sm:text-base">PayPal</p>
-                                            <p class="text-xs text-neutral-dark/60">Accept PayPal payments</p>
-                                        </div>
-                                        <label class="toggle-switch">
-                                            <input type="checkbox" checked>
-                                            <span class="toggle-slider"></span>
-                                        </label>
-                                    </div>
-                                    <div class="flex items-center justify-between">
-                                        <div>
-                                            <p class="font-bold dark:text-white text-sm sm:text-base">Currency</p>
-                                            <p class="text-xs text-neutral-dark/60">Default: USD</p>
-                                        </div>
-                                        <select class="bg-transparent border border-drone-slate/30 rounded-lg p-1 sm:p-2 text-sm">
-                                            <option>USD</option>
-                                            <option>EUR</option>
-                                            <option>GBP</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Email Settings -->
-                            <div>
-                                <h3 class="text-lg sm:text-xl font-bold mb-4 sm:mb-5 dark:text-white">Email Configuration</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-5">
-                                    <div>
-                                        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">SMTP Host</label>
-                                        <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="smtp.gmail.com">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">SMTP Port</label>
-                                        <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="587">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">Username</label>
-                                        <input type="text" class="admin-input py-2 sm:py-3 text-sm" value="noreply@aeroview.com">
-                                    </div>
-                                    <div>
-                                        <label class="block text-xs sm:text-sm font-medium mb-1 sm:mb-2">Password</label>
-                                        <input type="password" class="admin-input py-2 sm:py-3 text-sm" value="********">
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex justify-end">
-                                <button class="admin-btn px-6 sm:px-8 lg:px-10 py-2 sm:py-3 text-sm sm:text-base">
-                                    <i class="fas fa-save mr-1 sm:mr-2"></i> Save Settings
+                            <!-- Export Buttons -->
+                            <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                    <i class="fas fa-file-pdf mr-1 sm:mr-2"></i> PDF
+                                </button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                    <i class="fas fa-file-excel mr-1 sm:mr-2"></i> CSV
+                                </button>
+                                <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 bg-drone-slate/10 dark:bg-drone-slate-bright/20 text-drone-slate dark:text-drone-slate-bright rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white dark:hover:bg-drone-slate-bright dark:hover:text-dark-bg transition">
+                                    <i class="fas fa-print mr-1 sm:mr-2"></i> Print
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ===== 7. REPORTS / ANALYTICS SECTION ===== -->
-                <div id="reports-section" class="dashboard-section hidden">
-                    <div class="dashboard-card p-4 sm:p-6 lg:p-8">
-                        <h2 class="text-xl sm:text-2xl font-display font-bold mb-5 sm:mb-7 dark:text-white flex items-center">
-                            <i class="fas fa-chart-line text-drone-slate mr-2 sm:mr-3 text-xl sm:text-2xl"></i>
-                            Reports & Analytics
-                        </h2>
-                        
-                        <!-- Date Range -->
-                        <div class="grid grid-cols-2 sm:flex sm:flex-row gap-1 sm:gap-3 mb-4 sm:mb-6">
-                            <button class="w-full sm:w-auto px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold bg-drone-slate text-white">7 Days</button>
-                            <button class="w-full sm:w-auto px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border hover:bg-drone-slate/10">30 Days</button>
-                            <button class="w-full sm:w-auto px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border hover:bg-drone-slate/10">Month</button>
-                            <button class="w-full sm:w-auto px-2 sm:px-5 py-1.5 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white dark:bg-dark-card border hover:bg-drone-slate/10">Custom</button>
-                        </div>
-                        
-                        <!-- Summary Cards -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-                            <div class="stat-card p-3 sm:p-4">
-                                <p class="text-xs sm:text-sm text-neutral-dark/60">Revenue</p>
-                                <p class="text-lg sm:text-xl lg:text-2xl font-bold dark:text-white">$24.5K</p>
-                                <p class="text-xs text-green-600">+15.3%</p>
-                            </div>
-                            <div class="stat-card p-3 sm:p-4">
-                                <p class="text-xs sm:text-sm text-neutral-dark/60">Bookings</p>
-                                <p class="text-lg sm:text-xl lg:text-2xl font-bold dark:text-white">342</p>
-                                <p class="text-xs text-green-600">+8.2%</p>
-                            </div>
-                            <div class="stat-card p-3 sm:p-4">
-                                <p class="text-xs sm:text-sm text-neutral-dark/60">New Users</p>
-                                <p class="text-lg sm:text-xl lg:text-2xl font-bold dark:text-white">89</p>
-                                <p class="text-xs text-green-600">+12.5%</p>
-                            </div>
-                            <div class="stat-card p-3 sm:p-4">
-                                <p class="text-xs sm:text-sm text-neutral-dark/60">Conversion</p>
-                                <p class="text-lg sm:text-xl lg:text-2xl font-bold dark:text-white">4.8%</p>
-                                <p class="text-xs text-green-600">+0.6%</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Export Buttons -->
-                        <div class="flex flex-wrap gap-2 sm:gap-3 mb-4 sm:mb-6">
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white transition">
-                                <i class="fas fa-file-pdf mr-1 sm:mr-2"></i> PDF
-                            </button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white transition">
-                                <i class="fas fa-file-excel mr-1 sm:mr-2"></i> CSV
-                            </button>
-                            <button class="px-3 sm:px-5 py-1.5 sm:py-2.5 bg-drone-slate/10 text-drone-slate rounded-xl font-semibold text-xs sm:text-sm hover:bg-drone-slate hover:text-white transition">
-                                <i class="fas fa-print mr-1 sm:mr-2"></i> Print
-                            </button>
-                        </div>
-                        
-                        <!-- Reports List -->
-                        <div class="space-y-2 sm:space-y-3">
-                            <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                <div class="flex items-center gap-2 sm:gap-3">
-                                    <i class="fas fa-chart-bar text-drone-slate text-base sm:text-xl"></i>
-                                    <div>
-                                        <p class="font-semibold dark:text-white text-sm sm:text-base">Monthly Revenue Report</p>
-                                        <p class="text-xs text-neutral-dark/60">January 2026</p>
+                            
+                            <!-- Reports List -->
+                            <div class="space-y-2 sm:space-y-3">
+                                <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                    <div class="flex items-center gap-2 sm:gap-3">
+                                        <i class="fas fa-chart-bar text-drone-slate dark:text-drone-slate-bright text-base sm:text-xl"></i>
+                                        <div>
+                                            <p class="font-semibold text-neutral-dark dark:text-white text-sm sm:text-base">Monthly Revenue Report</p>
+                                            <p class="text-xs text-neutral-dark/80 dark:text-gray-400">January 2026</p>
+                                        </div>
                                     </div>
+                                    <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-xs sm:text-sm font-medium">Download</button>
                                 </div>
-                                <button class="text-drone-slate hover:underline text-xs sm:text-sm">Download</button>
-                            </div>
-                            <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                <div class="flex items-center gap-2 sm:gap-3">
-                                    <i class="fas fa-users text-drone-slate text-base sm:text-xl"></i>
-                                    <div>
-                                        <p class="font-semibold dark:text-white text-sm sm:text-base">User Growth Analysis</p>
-                                        <p class="text-xs text-neutral-dark/60">Q1 2026</p>
+                                <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                    <div class="flex items-center gap-2 sm:gap-3">
+                                        <i class="fas fa-users text-drone-slate dark:text-drone-slate-bright text-base sm:text-xl"></i>
+                                        <div>
+                                            <p class="font-semibold text-neutral-dark dark:text-white text-sm sm:text-base">User Growth Analysis</p>
+                                            <p class="text-xs text-neutral-dark/80 dark:text-gray-400">Q1 2026</p>
+                                        </div>
                                     </div>
+                                    <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-xs sm:text-sm font-medium">Download</button>
                                 </div>
-                                <button class="text-drone-slate hover:underline text-xs sm:text-sm">Download</button>
-                            </div>
-                            <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl">
-                                <div class="flex items-center gap-2 sm:gap-3">
-                                    <i class="fas fa-camera-retro text-drone-slate text-base sm:text-xl"></i>
-                                    <div>
-                                        <p class="font-semibold dark:text-white text-sm sm:text-base">Popular Services Report</p>
-                                        <p class="text-xs text-neutral-dark/60">February 2026</p>
+                                <div class="flex items-center justify-between p-3 sm:p-4 bg-neutral-light/30 dark:bg-gray-800/30 rounded-xl hover:bg-neutral-light/50 dark:hover:bg-gray-800/50 transition">
+                                    <div class="flex items-center gap-2 sm:gap-3">
+                                        <i class="fas fa-camera-retro text-drone-slate dark:text-drone-slate-bright text-base sm:text-xl"></i>
+                                        <div>
+                                            <p class="font-semibold text-neutral-dark dark:text-white text-sm sm:text-base">Popular Services Report</p>
+                                            <p class="text-xs text-neutral-dark/80 dark:text-gray-400">February 2026</p>
+                                        </div>
                                     </div>
+                                    <button class="text-drone-slate dark:text-drone-slate-bright hover:underline text-xs sm:text-sm font-medium">Download</button>
                                 </div>
-                                <button class="text-drone-slate hover:underline text-xs sm:text-sm">Download</button>
                             </div>
                         </div>
                     </div>
@@ -1226,6 +1384,9 @@
                     if (themeToggle) themeToggle.classList.remove('active');
                     localStorage.setItem('theme', 'light');
                 }
+                
+                // Update chart colors
+                updateChartColors();
             }
             
             if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
@@ -1306,59 +1467,123 @@
                 });
             });
             
+            // ============ LOGOUT BUTTON ============
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', function() {
+        // Direct logout without confirmation or alert
+        window.location.href = 'login.html';
+    });
+}
+            
             // ============ CHARTS ============
-            // Bookings Chart
-            const bookingsCtx = document.getElementById('bookingsChart')?.getContext('2d');
-            if (bookingsCtx) {
-                new Chart(bookingsCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                        datasets: [{
-                            label: 'Bookings',
-                            data: [12, 19, 15, 22, 24, 32, 28],
-                            borderColor: '#586C89',
-                            backgroundColor: 'rgba(88,108,137,0.1)',
-                            tension: 0.4,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: false
+            let bookingsChart, revenueChart;
+            
+            function initCharts() {
+                const isDark = document.documentElement.classList.contains('dark');
+                const textColor = isDark ? '#e5e5e5' : '#2D3A4A';
+                
+                // Bookings Chart
+                const bookingsCtx = document.getElementById('bookingsChart')?.getContext('2d');
+                if (bookingsCtx) {
+                    if (bookingsChart) bookingsChart.destroy();
+                    bookingsChart = new Chart(bookingsCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            datasets: [{
+                                label: 'Bookings',
+                                data: [12, 19, 15, 22, 24, 32, 28],
+                                borderColor: '#586C89',
+                                backgroundColor: 'rgba(88,108,137,0.1)',
+                                tension: 0.4,
+                                fill: true
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    grid: {
+                                        color: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'
+                                    },
+                                    ticks: {
+                                        color: textColor
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        color: textColor
+                                    }
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
+                
+                // Revenue Chart - FIXED LIGHT MODE TEXT VISIBILITY
+                const revenueCtx = document.getElementById('revenueChart')?.getContext('2d');
+                if (revenueCtx) {
+                    if (revenueChart) revenueChart.destroy();
+                    revenueChart = new Chart(revenueCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Real Estate', 'Events', 'Construction', 'Wedding'],
+                            datasets: [{
+                                data: [45, 38, 32, 41],
+                                backgroundColor: ['#586C89', '#7C8FA8', '#3A4A64', '#2D3A4A'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        color: isDark ? '#e5e5e5' : '#2D3A4A',
+                                        font: {
+                                            size: 12,
+                                            weight: '500'
+                                        },
+                                        padding: 15
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             }
             
-            // Revenue Chart
-            const revenueCtx = document.getElementById('revenueChart')?.getContext('2d');
-            if (revenueCtx) {
-                new Chart(revenueCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Real Estate', 'Events', 'Construction', 'Wedding'],
-                        datasets: [{
-                            data: [45, 38, 32, 41],
-                            backgroundColor: ['#586C89', '#7C8FA8', '#3A4A64', '#2D3A4A'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }
-                });
+            function updateChartColors() {
+                const isDark = document.documentElement.classList.contains('dark');
+                const textColor = isDark ? '#e5e5e5' : '#2D3A4A';
+                
+                if (bookingsChart) {
+                    bookingsChart.options.scales.y.grid.color = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
+                    bookingsChart.options.scales.y.ticks.color = textColor;
+                    bookingsChart.options.scales.x.ticks.color = textColor;
+                    bookingsChart.update();
+                }
+                
+                if (revenueChart) {
+                    revenueChart.options.plugins.legend.labels.color = textColor;
+                    revenueChart.update();
+                }
             }
+            
+            // Initialize charts
+            initCharts();
             
             // Save buttons
             document.querySelectorAll('.admin-btn').forEach(btn => {

@@ -16,6 +16,7 @@
                         'drone-slate': '#586C89',
                         'drone-slate-light': '#7C8FA8',
                         'drone-slate-dark': '#3A4A64',
+                        'drone-slate-bright': '#8AA4C9',
                         'bg-warm': '#FFFAF1',
                         'neutral-dark': '#2D3A4A',
                         'neutral-light': '#E8EDF2',
@@ -31,15 +32,10 @@
                     animation: {
                         'fade-in': 'fadeIn 0.4s ease-out',
                         'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s ease-in-out infinite'
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
                         float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-12px)' } }
-                    },
-                    backgroundImage: {
-                        'pattern-dots': "radial-gradient(circle at 1px 1px, rgba(88,108,137,0.1) 1px, transparent 0)",
-                        'hero-404': "radial-gradient(circle at 20% 30%, rgba(88,108,137,0.05) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(76, 175, 80, 0.05) 0%, transparent 45%)"
                     }
                 }
             }
@@ -70,6 +66,42 @@
             color: #e5e5e5;
         }
         
+        /* Improved contrast for dark mode */
+        .dark .text-drone-slate {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .bg-drone-slate {
+            background-color: #8AA4C9 !important;
+        }
+        
+        .dark .border-drone-slate {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .from-drone-slate {
+            --tw-gradient-from: #8AA4C9 !important;
+        }
+        
+        .dark .hover\:text-drone-slate:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .adventure-btn {
+            background: linear-gradient(135deg, #8AA4C9 0%, #6B87B0 100%);
+            color: #1a1a1a;
+        }
+        
+        .dark .outline-btn {
+            border-color: #8AA4C9;
+            color: #8AA4C9;
+        }
+        
+        .dark .outline-btn:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
+        
         /* toggle buttons - consistent with brand */
         .toggle-btn {
             width: 42px;
@@ -96,9 +128,19 @@
             color: white;
         }
         
+        .dark .toggle-btn:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
+        
         .toggle-btn.active {
             background: #586C89;
             color: white;
+        }
+        
+        .dark .toggle-btn.active {
+            background: #8AA4C9;
+            color: #1a1a1a;
         }
         
         /* adventure btn - full width on mobile, auto on desktop */
@@ -124,6 +166,10 @@
             box-shadow: 0 12px 28px rgba(88,108,137,0.35);
         }
         
+        .dark .adventure-btn:hover {
+            box-shadow: 0 12px 28px rgba(138,164,201,0.35);
+        }
+        
         /* outline button style */
         .outline-btn {
             background: transparent;
@@ -143,8 +189,8 @@
         }
         
         .dark .outline-btn {
-            border-color: #7C8FA8;
-            color: #e5e5e5;
+            border-color: #8AA4C9;
+            color: #8AA4C9;
         }
         
         .outline-btn:hover {
@@ -152,6 +198,13 @@
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(88,108,137,0.25);
+        }
+        
+        .dark .outline-btn:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+            border-color: #8AA4C9;
+            box-shadow: 0 12px 25px rgba(138,164,201,0.25);
         }
         
         /* logo spin */
@@ -170,13 +223,11 @@
             font-family: 'Playfair Display', serif;
             line-height: 1;
             color: #586C89;
-            text-shadow: 0 12px 28px rgba(88,108,137,0.25);
             letter-spacing: -0.02em;
         }
         
         .dark .error-number {
-            color: #7C8FA8;
-            text-shadow: 0 12px 28px rgba(88,108,137,0.35);
+            color: #8AA4C9;
         }
         
         /* compass animation */
@@ -186,7 +237,7 @@
         }
         
         .dark .compass-large {
-            color: #7C8FA8;
+            color: #8AA4C9;
         }
         
         /* RTL adjustments */
@@ -211,24 +262,59 @@
             width: 100%;
         }
         
-        /* background pattern */
-        .bg-pattern-404 {
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(88,108,137,0.04) 0%, transparent 35%),
-                radial-gradient(circle at 90% 65%, rgba(76, 175, 80, 0.04) 0%, transparent 40%),
-                radial-gradient(circle at 30% 80%, rgba(88,108,137,0.03) 0%, transparent 30%);
+        /* Error badge */
+        .dark .bg-drone-slate\/10 {
+            background: rgba(138,164,201,0.15) !important;
         }
         
-        .dark .bg-pattern-404 {
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(88,108,137,0.08) 0%, transparent 35%),
-                radial-gradient(circle at 90% 65%, rgba(76, 175, 80, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 30% 80%, rgba(88,108,137,0.06) 0%, transparent 30%);
+        .dark .text-drone-slate\/90 {
+            color: #8AA4C9 !important;
+        }
+        
+        /* Popular services icons */
+        .dark .bg-drone-slate\/10,
+        .dark .bg-drone-slate\/20 {
+            background: rgba(138,164,201,0.2) !important;
+        }
+        
+        .dark .group:hover .bg-drone-slate\/10,
+        .dark .group:hover .bg-drone-slate\/20 {
+            background: rgba(138,164,201,0.3) !important;
+        }
+        
+        .dark .text-drone-slate {
+            color: #8AA4C9 !important;
+        }
+        
+        /* Separator line */
+        .dark .border-neutral-light\/60 {
+            border-color: rgba(138,164,201,0.15) !important;
+        }
+        
+        .dark .bg-bg-warm {
+            background-color: #1a1a1a !important;
+        }
+        
+        .dark .text-neutral-dark\/90 {
+            color: #9CA3AF !important;
+        }
+        
+        /* Footer links */
+        .dark footer a {
+            color: #9CA3AF;
+        }
+        
+        .dark footer a:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark footer span {
+            color: #9CA3AF;
         }
     </style>
 </head>
 
-<body class="bg-pattern-404">
+<body class="bg-[#FFFAF1] dark:bg-dark-bg">
 
     <!-- ===== SIMPLE NAVIGATION BAR - LIKE HOMEPAGE STYLE ===== -->
     <nav class="flex-shrink-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-neutral-light dark:border-gray-800">
@@ -236,12 +322,12 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Logo - redirects to index.html -->
                 <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse group">
-                    <div class="logo-icon w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center">
-                        <i class="fas fa-camera-retro text-white text-lg"></i>
+                    <div class="logo-icon w-10 h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center">
+                        <i class="fas fa-camera-retro text-white dark:text-dark-bg text-lg"></i>
                     </div>
                     <div>
                         <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">GROWW</span>
-                        <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                        <span class="text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright">VUW</span>
                     </div>
                 </a>
                 
@@ -271,16 +357,15 @@
                     <div class="flex items-center justify-center gap-1 md:gap-4 mb-6">
                         <span class="error-number text-7xl md:text-8xl lg:text-9xl">4</span>
                         <div class="relative mx-1 md:mx-2">
-                            <i class="fas fa-compass text-7xl md:text-8xl lg:text-9xl compass-large text-drone-slate/90 dark:text-drone-slate/80"></i>
-                            <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-drone-slate/5 dark:bg-drone-slate/10 rounded-full blur-xl"></div>
+                            <i class="fas fa-compass text-7xl md:text-8xl lg:text-9xl compass-large text-drone-slate dark:text-drone-slate-bright"></i>
                         </div>
                         <span class="error-number text-7xl md:text-8xl lg:text-9xl">4</span>
                     </div>
                     
                     <!-- Error Badge -->
-                    <div class="inline-flex items-center px-4 py-2 bg-drone-slate/10 dark:bg-drone-slate/20 rounded-full mb-6">
-                        <i class="fas fa-map-signs text-drone-slate mr-2 text-sm"></i>
-                        <span class="text-xs font-semibold uppercase tracking-wider text-drone-slate dark:text-drone-slate/90">Error 404 · Lost Path</span>
+                    <div class="inline-flex items-center px-4 py-2 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full mb-6">
+                        <i class="fas fa-map-signs text-drone-slate dark:text-drone-slate-bright mr-2 text-sm"></i>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-drone-slate dark:text-drone-slate-bright">Error 404 · Lost Path</span>
                     </div>
                     
                     <!-- Main Heading -->
@@ -311,10 +396,10 @@
                     <!-- Helpful Links Section - Visual separation -->
                     <div class="relative py-8">
                         <div class="absolute inset-0 flex items-center">
-                            <div class="w-full border-t border-neutral-light/60 dark:border-gray-800/60"></div>
+                            <div class="w-full border-t border-neutral-light/60 dark:border-drone-slate-bright/20"></div>
                         </div>
                         <div class="relative flex justify-center">
-                            <span class="bg-bg-warm dark:bg-dark-bg px-6 text-sm text-neutral-dark/90 dark:text-gray-500">
+                            <span class="bg-bg-warm dark:bg-dark-bg px-6 text-sm text-neutral-dark/90 dark:text-gray-400">
                                 popular services
                             </span>
                         </div>
@@ -323,26 +408,26 @@
                     <!-- Popular Services Grid -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                         <a href="#" class="group p-4 rounded-2xl hover:bg-white/60 dark:hover:bg-dark-card/60 transition-all duration-300">
-                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-home text-drone-slate"></i>
+                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-home text-drone-slate dark:text-drone-slate-bright"></i>
                             </div>
                             <span class="text-xs font-medium text-neutral-dark dark:text-gray-300">Real Estate</span>
                         </a>
                         <a href="#" class="group p-4 rounded-2xl hover:bg-white/60 dark:hover:bg-dark-card/60 transition-all duration-300">
-                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-calendar-alt text-drone-slate"></i>
+                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-calendar-alt text-drone-slate dark:text-drone-slate-bright"></i>
                             </div>
                             <span class="text-xs font-medium text-neutral-dark dark:text-gray-300">Events</span>
                         </a>
                         <a href="#" class="group p-4 rounded-2xl hover:bg-white/60 dark:hover:bg-dark-card/60 transition-all duration-300">
-                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-hard-hat text-drone-slate"></i>
+                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-hard-hat text-drone-slate dark:text-drone-slate-bright"></i>
                             </div>
                             <span class="text-xs font-medium text-neutral-dark dark:text-gray-300">Construction</span>
                         </a>
                         <a href="#" class="group p-4 rounded-2xl hover:bg-white/60 dark:hover:bg-dark-card/60 transition-all duration-300">
-                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
-                                <i class="fas fa-gem text-drone-slate"></i>
+                            <div class="w-12 h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-gem text-drone-slate dark:text-drone-slate-bright"></i>
                             </div>
                             <span class="text-xs font-medium text-neutral-dark dark:text-gray-300">Wedding</span>
                         </a>
@@ -350,7 +435,7 @@
                     
                     <!-- Back to Home Link (mobile friendly) -->
                     <div class="mt-10 md:hidden">
-                        <a href="index.html" class="text-drone-slate hover:text-drone-slate-dark font-medium text-sm inline-flex items-center">
+                        <a href="index.html" class="text-drone-slate dark:text-drone-slate-bright hover:text-drone-slate-dark font-medium text-sm inline-flex items-center">
                             <i class="fas fa-arrow-left mr-2 rtl:ml-2 rtl:mr-0"></i>
                             Return to homepage
                         </a>
@@ -364,16 +449,16 @@
     <footer class="flex-shrink-0 py-6 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-t border-neutral-light dark:border-gray-800">
         <div class="page-container">
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center space-x-4 text-xs text-neutral-dark/90 dark:text-gray-500">
+                <div class="flex items-center space-x-4 text-xs text-neutral-dark/90 dark:text-gray-400">
                     <span>© 2026 GROWW VUW</span>
                     <span>·</span>
-                    <a href="#" class="hover:text-drone-slate transition">Privacy</a>
+                    <a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition">Privacy</a>
                     <span>·</span>
-                    <a href="#" class="hover:text-drone-slate transition">Terms</a>
+                    <a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition">Terms</a>
                 </div>
                 <div class="flex items-center space-x-4 text-xs">
-                    <span class="text-neutral-dark/70 dark:text-gray-600">Need help?</span>
-                    <a href="contact.html" class="text-drone-slate hover:text-drone-slate-dark font-medium">Contact support</a>
+                    <span class="text-neutral-dark/70 dark:text-gray-500">Need help?</span>
+                    <a href="contact.html" class="text-drone-slate dark:text-drone-slate-bright hover:text-drone-slate-dark font-medium">Contact support</a>
                 </div>
             </div>
         </div>
