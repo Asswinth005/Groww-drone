@@ -275,7 +275,7 @@
         /* Auth Buttons - GROWW TOUR STRUCTURE with AEROVIEW COLORS */
         .auth-btn {
             padding: 0.5rem 1.5rem;
-            border-radius: 40px;
+            border-radius: 8px; /* Changed from 40px to 8px */
             font-weight: 500;
             transition: all 0.3s ease;
             border: 1px solid transparent;
@@ -328,7 +328,7 @@
         .toggle-btn {
             width: 36px;
             height: 36px;
-            border-radius: 10px;
+            border-radius: 8px; /* Changed from 10px to 8px */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -459,7 +459,7 @@
             display: inline-block;
             padding: 0.75rem 1.5rem;
             font-weight: 500;
-            border-radius: 40px;
+            border-radius: 8px; /* Changed from 40px to 8px */
             transition: all 0.3s ease;
             text-align: center;
             margin: 0.25rem;
@@ -763,11 +763,10 @@
                             </div>
                         </div>
                         
-                        <!-- Auth Buttons -->
+                        <!-- Auth Buttons - Updated with Login + Signup -->
                         <div class="flex items-center gap-3 ml-0">
-                            <a href="register.html" class="auth-btn signup">
-                                Register
-                            </a>
+                            <a href="login.html" class="auth-btn login">Login</a>
+                            <a href="signup.html" class="auth-btn signup">Sign Up</a>
                         </div>
                     </div>
                     
@@ -842,11 +841,10 @@
         </div>
     </div>
     
-    <!-- Mobile Auth Buttons -->
+    <!-- Mobile Auth Buttons - Updated with Login + Signup -->
     <div class="flex flex-col sm:flex-row gap-3 p-6">
-        <a href="register.html" class="mobile-auth-btn signup flex-1 text-center">
-            Register
-        </a>
+        <a href="login.html" class="mobile-auth-btn login flex-1 text-center">Login</a>
+        <a href="signup.html" class="mobile-auth-btn signup flex-1 text-center">Sign Up</a>
     </div>
     
     <!-- Mobile Toggle Buttons -->

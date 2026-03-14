@@ -183,7 +183,7 @@
         
         .auth-btn {
             padding: 0.5rem 1.5rem;
-            border-radius: 40px;
+            border-radius: 8px; /* Changed from 40px to 8px to match Groww Tour */
             font-weight: 500;
             transition: all 0.3s ease;
             border: 1px solid transparent;
@@ -200,7 +200,8 @@
         .dark .auth-btn.signup:hover { background:#6B87B0; }
         
         .toggle-btn {
-            width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+            width:36px; height:36px; border-radius:8px; /* Changed from 10px to 8px */
+            display:flex; align-items:center; justify-content:center;
             background:#E8EDF2; color:#4A5A70; transition:0.2s; border:none; cursor:pointer;
         }
         .dark .toggle-btn { background:#2A3647; color:#A0B3CC; }
@@ -225,7 +226,17 @@
         .dark .mobile-dropdown-item { color:#9CA3AF; border-bottom-color:#2A3647; }
         .mobile-dropdown-item:hover { color:#586C89; background:#E8EDF2; }
         .dark .mobile-dropdown-item:hover { background:#374151; color:#8AA4C9; }
-        .mobile-auth-btn { display:inline-block; padding:0.75rem 1.5rem; font-weight:500; border-radius:40px; transition:0.3s; text-align:center; margin:0.25rem; border:1px solid transparent; font-family:'Montserrat', sans-serif; }
+        .mobile-auth-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-radius: 8px; /* Changed from 40px to 8px */
+            transition: 0.3s;
+            text-align: center;
+            margin: 0.25rem;
+            border: 1px solid transparent;
+            font-family: 'Montserrat', sans-serif;
+        }
         .mobile-auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
         .dark .mobile-auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
         .mobile-auth-btn.login:hover { background:#586C89; color:white; border-color:#586C89; }
@@ -476,8 +487,10 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Auth Buttons - Updated with Login + Signup -->
                     <div class="flex items-center gap-3 ml-0">
-                        <a href="register.html" class="auth-btn signup">Register</a>
+                        <a href="login.html" class="auth-btn login">Login</a>
+                        <a href="signup.html" class="auth-btn signup">Sign Up</a>
                     </div>
                 </div>
                 <div class="flex gap-2 ml-4 desktop-toggle-group">
@@ -513,8 +526,10 @@
             <a href="client.html" class="mobile-dropdown-item"><i class="fas fa-user mr-2"></i>Client</a>
         </div>
     </div>
+    <!-- Mobile Auth Buttons - Updated with Login + Signup -->
     <div class="flex flex-col sm:flex-row gap-3 p-6">
-        <a href="register.html" class="mobile-auth-btn signup flex-1 text-center">Register</a>
+        <a href="login.html" class="mobile-auth-btn login flex-1 text-center">Login</a>
+        <a href="signup.html" class="mobile-auth-btn signup flex-1 text-center">Sign Up</a>
     </div>
     <div class="flex justify-center gap-3 p-6 border-t border-gray-200 dark:border-gray-800">
         <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>

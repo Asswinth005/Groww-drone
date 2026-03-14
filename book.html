@@ -18,6 +18,7 @@
                         'drone-slate': '#586C89',
                         'drone-slate-light': '#7C8FA8',
                         'drone-slate-dark': '#3A4A64',
+                        'drone-slate-bright': '#8AA4C9',
                         'bg-warm': '#FFFAF1',
                         'neutral-dark': '#2D3A4A',
                         'neutral-light': '#E8EDF2',
@@ -77,6 +78,102 @@
         body::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
         
+        /* Improved contrast for dark mode */
+        .dark .text-drone-slate {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .bg-drone-slate {
+            background-color: #8AA4C9 !important;
+        }
+        
+        .dark .border-drone-slate {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .from-drone-slate {
+            --tw-gradient-from: #8AA4C9 !important;
+        }
+        
+        .dark .hover\:text-drone-slate:hover {
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .btn-primary {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
+        .dark .btn-primary:hover {
+            background: #6B87B0 !important;
+        }
+        
+        .dark .btn-outline {
+            border-color: #8AA4C9 !important;
+            color: #8AA4C9 !important;
+        }
+        
+        .dark .btn-outline:hover {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
+        .dark .service-option {
+            border-color: #404040 !important;
+        }
+        
+        .dark .service-option:hover,
+        .dark .service-option.selected {
+            border-color: #8AA4C9 !important;
+            background: rgba(138,164,201,0.1) !important;
+        }
+        
+        .dark .time-slot {
+            border-color: #404040 !important;
+        }
+        
+        .dark .time-slot:hover,
+        .dark .time-slot.selected {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .date-input {
+            background: #2d2d2d !important;
+            border-color: #404040 !important;
+            color: white !important;
+        }
+        
+        .dark .date-input:focus {
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .step-number {
+            background: #2d2d2d !important;
+            color: #8AA4C9 !important;
+            border-color: #8AA4C9 !important;
+        }
+        
+        .dark .step.active .step-number {
+            background: #8AA4C9 !important;
+            color: #1a1a1a !important;
+        }
+        
+        .dark .step.completed .step-number {
+            background: #6B87B0 !important;
+            border-color: #6B87B0 !important;
+            color: #1a1a1a !important;
+        }
+        
+        .dark .step:not(:last-child)::after {
+            background: #404040 !important;
+        }
+        
+        .dark .faq-item .fa-chevron-down {
+            color: #8AA4C9 !important;
+        }
+        
         /* navigation – identical to reference */
         .nav-item {
             position: relative;
@@ -88,6 +185,7 @@
         }
         .dark .nav-item { color: #e5e5e5; }
         .nav-item:hover { color: #586C89; }
+        .dark .nav-item:hover { color: #8AA4C9; }
         .nav-item::after {
             content: '';
             position: absolute;
@@ -97,6 +195,9 @@
             height: 2px;
             background: #586C89;
             transition: width 0.3s ease;
+        }
+        .dark .nav-item::after {
+            background: #8AA4C9;
         }
         [dir="rtl"] .nav-item::after { left: auto; right: 0; }
         .nav-item:hover::after { width: 100%; }
@@ -137,12 +238,17 @@
             color: #586C89;
             padding-left: 1.75rem;
         }
+        .dark .dropdown-item:hover {
+            background: #404040;
+            color: #8AA4C9;
+        }
         [dir="rtl"] .dropdown-item:hover { padding-left:1.5rem; padding-right:1.75rem; }
         .dropdown-item i { margin-right:0.75rem; width:20px; color:#586C89; }
+        .dark .dropdown-item i { color: #8AA4C9; }
         
         .auth-btn {
             padding: 0.5rem 1.5rem;
-            border-radius: 40px;
+            border-radius: 8px; /* Changed from 40px to 8px */
             font-weight: 500;
             transition: all 0.3s ease;
             border: 1px solid transparent;
@@ -152,17 +258,22 @@
         .auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
         .dark .auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
         .auth-btn.login:hover { border-color:#586C89; color:#586C89; }
-        .dark .auth-btn.login:hover { border-color:#7C8FA8; color:white; }
+        .dark .auth-btn.login:hover { border-color:#8AA4C9; color:#8AA4C9; }
         .auth-btn.signup { background:#586C89; color:white; }
+        .dark .auth-btn.signup { background:#8AA4C9; color:#1a1a1a; }
         .auth-btn.signup:hover { background:#3A4A64; transform: translateY(-2px); box-shadow:0 8px 16px rgba(88,108,137,0.2); }
+        .dark .auth-btn.signup:hover { background:#6B87B0; }
         
         .toggle-btn {
-            width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+            width:36px; height:36px; border-radius:8px; /* Changed from 10px to 8px */
+            display:flex; align-items:center; justify-content:center;
             background:#E8EDF2; color:#4A5A70; transition:0.2s; border:none; cursor:pointer;
         }
         .dark .toggle-btn { background:#2A3647; color:#A0B3CC; }
         .toggle-btn:hover { background:#586C89; color:white; }
+        .dark .toggle-btn:hover { background:#8AA4C9; color:#1a1a1a; }
         .toggle-btn.active { background:#586C89; color:white; }
+        .dark .toggle-btn.active { background:#8AA4C9; color:#1a1a1a; }
         @media (max-width:1279px) { .desktop-toggle-group { display:none !important; } }
         
         /* mobile menu styles exactly as reference */
@@ -172,20 +283,33 @@
         .mobile-menu-item { display:block; padding:1rem 1.5rem; font-weight:500; color:#2D3A4A; border-bottom:1px solid #E8EDF2; transition:0.2s; font-family:'Montserrat', sans-serif; }
         .dark .mobile-menu-item { color:#D1D5DB; border-bottom-color:#2A3647; }
         .mobile-menu-item:hover { background:#F5F8FC; color:#586C89; }
-        .dark .mobile-menu-item:hover { background:#374151; }
+        .dark .mobile-menu-item:hover { background:#374151; color:#8AA4C9; }
         .mobile-dropdown-content { max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:#F9FCFE; }
         .dark .mobile-dropdown-content { background:#1F2835; }
         .mobile-dropdown-content.show { max-height:300px; }
         .mobile-dropdown-item { display:block; padding:0.75rem 2.5rem; font-size:0.95rem; color:#4A5A70; transition:0.2s; border-bottom:1px solid #E8EDF2; font-family:'Montserrat', sans-serif; }
         .dark .mobile-dropdown-item { color:#9CA3AF; border-bottom-color:#2A3647; }
         .mobile-dropdown-item:hover { color:#586C89; background:#E8EDF2; }
-        .dark .mobile-dropdown-item:hover { background:#374151; color:white; }
-        .mobile-auth-btn { display:inline-block; padding:0.75rem 1.5rem; font-weight:500; border-radius:40px; transition:0.3s; text-align:center; margin:0.25rem; border:1px solid transparent; font-family:'Montserrat', sans-serif; }
+        .dark .mobile-dropdown-item:hover { background:#374151; color:#8AA4C9; }
+        .mobile-auth-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-radius: 8px; /* Changed from 40px to 8px */
+            transition: 0.3s;
+            text-align: center;
+            margin: 0.25rem;
+            border: 1px solid transparent;
+            font-family: 'Montserrat', sans-serif;
+        }
         .mobile-auth-btn.login { background:transparent; border-color:#D0D9E2; color:#2D3A4A; }
         .dark .mobile-auth-btn.login { border-color:#4A5A70; color:#E8EDF2; }
         .mobile-auth-btn.login:hover { background:#586C89; color:white; border-color:#586C89; }
+        .dark .mobile-auth-btn.login:hover { background:#8AA4C9; color:#1a1a1a; border-color:#8AA4C9; }
         .mobile-auth-btn.signup { background:#586C89; color:white; }
+        .dark .mobile-auth-btn.signup { background:#8AA4C9; color:#1a1a1a; }
         .mobile-auth-btn.signup:hover { background:#3A4A64; }
+        .dark .mobile-auth-btn.signup:hover { background:#6B87B0; }
         
         /* book now page specific */
         .step-indicator {
@@ -217,18 +341,28 @@
         }
         .dark .step-number {
             background: #2d2d2d;
-            color: #A0B3CC;
-            border-color: #586C89;
+            color: #8AA4C9;
+            border-color: #8AA4C9;
         }
         .step.active .step-number {
             background: #586C89;
             color: white;
             border-color: #586C89;
         }
+        .dark .step.active .step-number {
+            background: #8AA4C9;
+            color: #1a1a1a;
+            border-color: #8AA4C9;
+        }
         .step.completed .step-number {
             background: #3A4A64;
             border-color: #3A4A64;
             color: white;
+        }
+        .dark .step.completed .step-number {
+            background: #6B87B0;
+            border-color: #6B87B0;
+            color: #1a1a1a;
         }
         .step-label {
             font-size: 0.8rem;
@@ -241,6 +375,9 @@
         .step.active .step-label {
             color: #586C89;
             font-weight: 600;
+        }
+        .dark .step.active .step-label {
+            color: #8AA4C9;
         }
         .step:not(:last-child)::after {
             content: '';
@@ -282,10 +419,18 @@
             border-color: #586C89;
             background: rgba(88,108,137,0.02);
         }
+        .dark .service-option:hover {
+            border-color: #8AA4C9;
+            background: rgba(138,164,201,0.1);
+        }
         .service-option.selected {
             border-color: #586C89;
             background: rgba(88,108,137,0.05);
             box-shadow: 0 10px 20px -5px rgba(88,108,137,0.2);
+        }
+        .dark .service-option.selected {
+            border-color: #8AA4C9;
+            background: rgba(138,164,201,0.15);
         }
         
         .date-input {
@@ -303,6 +448,9 @@
         .date-input:focus {
             outline: none;
             border-color: #586C89;
+        }
+        .dark .date-input:focus {
+            border-color: #8AA4C9;
         }
         
         .btn-primary {
@@ -324,6 +472,14 @@
             transform: translateY(-2px);
             box-shadow: 0 12px 24px -8px rgba(88,108,137,0.4);
         }
+        .dark .btn-primary {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
+        .dark .btn-primary:hover {
+            background: #6B87B0;
+        }
+        
         .btn-outline {
             background: transparent;
             border: 2px solid #586C89;
@@ -342,6 +498,14 @@
             background: #586C89;
             color: white;
         }
+        .dark .btn-outline {
+            border-color: #8AA4C9;
+            color: #8AA4C9;
+        }
+        .dark .btn-outline:hover {
+            background: #8AA4C9;
+            color: #1a1a1a;
+        }
         
         .time-slot {
             border: 1px solid #E8EDF2;
@@ -359,6 +523,11 @@
             color: white;
             border-color: #586C89;
         }
+        .dark .time-slot:hover, .dark .time-slot.selected {
+            background: #8AA4C9;
+            color: #1a1a1a;
+            border-color: #8AA4C9;
+        }
         
         .summary-item {
             display: flex;
@@ -368,6 +537,12 @@
         }
         .dark .summary-item {
             border-bottom-color: #404040;
+        }
+        .dark .summary-item span:first-child {
+            color: #9CA3AF;
+        }
+        .dark .summary-item span:last-child {
+            color: white;
         }
         
         /* service summary cards with images */
@@ -391,6 +566,10 @@
             box-shadow: 0 20px 40px -12px rgba(88,108,137,0.25);
             border-color: #586C89;
         }
+        .dark .service-img-card:hover {
+            border-color: #8AA4C9;
+            box-shadow: 0 20px 40px -12px rgba(138,164,201,0.25);
+        }
         .service-img-card img {
             height: 160px;
             width: 100%;
@@ -402,12 +581,19 @@
             display: flex;
             flex-direction: column;
         }
+        .dark .service-img-content h3 {
+            color: white;
+        }
+        .dark .service-img-content p {
+            color: #9CA3AF;
+        }
         
         .social-icon {
             width:40px; height:40px; border-radius:50%; background:#E8EDF2; color:#4A5A70; display:inline-flex; align-items:center; justify-content:center; transition:0.2s;
         }
         .dark .social-icon { background:#2A3647; color:#A0B3CC; }
         .social-icon:hover { background:#586C89; color:white; transform:translateY(-3px); }
+        .dark .social-icon:hover { background:#8AA4C9; color:#1a1a1a; }
         
         /* hero section */
         .book-hero {
@@ -415,13 +601,16 @@
             border-radius: 40px;
         }
         .dark .book-hero {
-            background: linear-gradient(135deg, rgba(88,108,137,0.2) 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, rgba(138,164,201,0.2) 0%, #1a1a1a 100%);
         }
         
         /* FAQ section */
         .faq-item {
             border-bottom: 1px solid rgba(88,108,137,0.15);
             padding: 1.5rem 0;
+        }
+        .dark .faq-item {
+            border-bottom-color: rgba(138,164,201,0.2);
         }
         .faq-item:last-child {
             border-bottom: none;
@@ -432,6 +621,9 @@
             align-items: center;
             cursor: pointer;
             font-weight: 600;
+        }
+        .dark .faq-question {
+            color: white;
         }
         .faq-answer {
             max-height: 0;
@@ -449,6 +641,30 @@
         .faq-item.open .fa-chevron-down {
             transform: rotate(180deg);
         }
+        
+        /* Footer dark mode */
+        .dark footer p, 
+        .dark footer li,
+        .dark footer span {
+            color: #9CA3AF;
+        }
+        .dark footer h3 {
+            color: white;
+        }
+        .dark footer a {
+            color: #9CA3AF;
+        }
+        .dark footer a:hover {
+            color: #8AA4C9 !important;
+        }
+        .dark footer .border-drone-slate\/10 {
+            border-color: rgba(138,164,201,0.2) !important;
+        }
+        
+        /* Checkbox styling */
+        .dark input[type="checkbox"] {
+            accent-color: #8AA4C9;
+        }
     </style>
 </head>
 <body class="bg-[#FFFAF1] dark:bg-dark-bg">
@@ -459,12 +675,12 @@
         <div class="flex items-center justify-between h-20">
             <!-- Logo -->
             <a href="index.html" class="flex items-center space-x-3 group">
-                <div class="w-10 h-10 bg-drone-slate rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                    <i class="fas fa-camera-retro text-white text-lg"></i>
+                <div class="w-10 h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fas fa-camera-retro text-white dark:text-dark-bg text-lg"></i>
                 </div>
                 <div>
                     <span class="text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">SKY</span>
-                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate">VUW</span>
+                    <span class="text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright">VUW</span>
                 </div>
             </a>
 
@@ -473,23 +689,23 @@
                 <div class="desktop-nav-container flex items-center gap-8">
                     <div class="flex items-center gap-8">
                         <div class="dropdown">
-                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition flex items-center">
                                 Home <i class="fas fa-chevron-down ml-2 text-xs"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <a href="index.html" class="dropdown-item" style="background: rgba(88,108,137,0.08); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">
+                                <a href="index.html" class="dropdown-item" style="background: rgba(138,164,201,0.08); color: #8AA4C9; border-left: 3px solid #8AA4C9; font-weight: 600;">
                                     <i class="fas fa-home"></i> Home 1 
                                 </a>
                                 <a href="home2.html" class="dropdown-item"><i class="fas fa-home"></i> Home 2</a>
                             </div>
                         </div>
-                        <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">About</a>
-                        <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Services</a>
-                        <a href="book.html" class="nav-item font-medium text-drone-slate dark:text-drone-slate-light transition" style="font-weight: 600;">Book Now</a>
-                        <a href="portfolio.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Portfolio</a>
-                        <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition">Contact</a>
+                        <a href="about.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">About</a>
+                        <a href="service.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">Services</a>
+                        <a href="book.html" class="nav-item font-medium text-drone-slate dark:text-drone-slate-bright transition" style="font-weight: 600;">Book Now</a>
+                        <a href="portfolio.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">Portfolio</a>
+                        <a href="contact.html" class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition">Contact</a>
                         <div class="dropdown">
-                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate transition flex items-center">
+                            <button class="nav-item font-medium text-neutral-dark dark:text-gray-300 hover:text-drone-slate dark:hover:text-drone-slate-bright transition flex items-center">
                                 Dashboard <i class="fas fa-chevron-down ml-2 text-xs"></i>
                             </button>
                             <div class="dropdown-menu">
@@ -498,8 +714,10 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Auth Buttons - Updated with Login + Signup -->
                     <div class="flex items-center gap-3 ml-0">
-                        <a href="register.html" class="auth-btn signup">Register</a>
+                        <a href="login.html" class="auth-btn login">Login</a>
+                        <a href="signup.html" class="auth-btn signup">Sign Up</a>
                     </div>
                 </div>
                 <div class="flex gap-2 ml-4 desktop-toggle-group">
@@ -525,7 +743,7 @@
     </div>
     <a href="about.html" class="mobile-menu-item">About</a>
     <a href="service.html" class="mobile-menu-item">Services</a>
-    <a href="book.html" class="mobile-menu-item" style="background: rgba(88,108,137,0.1); color: #586C89; border-left: 3px solid #586C89; font-weight: 600;">Book Now</a>
+    <a href="book.html" class="mobile-menu-item" style="background: rgba(138,164,201,0.1); color: #8AA4C9; border-left: 3px solid #8AA4C9; font-weight: 600;">Book Now</a>
     <a href="portfolio.html" class="mobile-menu-item">Portfolio</a>
     <a href="contact.html" class="mobile-menu-item">Contact</a>
     <div class="mobile-dropdown">
@@ -535,8 +753,10 @@
             <a href="client.html" class="mobile-dropdown-item"><i class="fas fa-user mr-2"></i>Client</a>
         </div>
     </div>
+    <!-- Mobile Auth Buttons - Updated with Login + Signup -->
     <div class="flex flex-col sm:flex-row gap-3 p-6">
-        <a href="register.html" class="mobile-auth-btn signup flex-1 text-center">Register</a>
+        <a href="login.html" class="mobile-auth-btn login flex-1 text-center">Login</a>
+        <a href="signup.html" class="mobile-auth-btn signup flex-1 text-center">Sign Up</a>
     </div>
     <div class="flex justify-center gap-3 p-6 border-t border-gray-200 dark:border-gray-800">
         <button id="theme-toggle-mobile" class="toggle-btn"><i class="fas fa-moon"></i><i class="fas fa-sun hidden"></i></button>
@@ -554,12 +774,12 @@
             <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #586C89 0px, #586C89 2px, transparent 2px, transparent 20px);"></div>
             
             <div class="relative z-10 max-w-4xl mx-auto text-center">
-                <span class="inline-flex items-center px-5 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm border border-drone-slate/10 mb-6">
-                    <i class="fas fa-calendar-check text-drone-slate mr-2"></i>
-                    <span class="text-sm font-medium">Secure your date in 4 easy steps</span>
+                <span class="inline-flex items-center px-5 py-2 bg-white dark:bg-dark-card rounded-full shadow-sm border border-drone-slate/10 dark:border-drone-slate-bright/20 mb-6">
+                    <i class="fas fa-calendar-check text-drone-slate dark:text-drone-slate-bright mr-2"></i>
+                    <span class="text-sm font-medium dark:text-gray-300">Secure your date in 4 easy steps</span>
                 </span>
                 <h1 class="text-5xl md:text-6xl lg:text-7xl font-display font-bold mb-6 text-neutral-dark dark:text-white">
-                    Book Your <span class="text-drone-slate">Aerial Shoot</span>
+                    Book Your <span class="text-drone-slate dark:text-drone-slate-bright">Aerial Shoot</span>
                 </h1>
                 <p class="text-xl md:text-2xl text-neutral-dark/70 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
                     FAA-certified pilots, premium gear, and a creative touch. Reserve your slot now – we'll confirm within 2 hours.
@@ -575,8 +795,8 @@
             </div>
             
             <!-- floating elements -->
-            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-drone-slate/5 rounded-full blur-3xl"></div>
-            <div class="absolute -top-10 -right-10 w-60 h-60 bg-drone-slate/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-drone-slate/5 dark:bg-drone-slate-bright/10 rounded-full blur-3xl"></div>
+            <div class="absolute -top-10 -right-10 w-60 h-60 bg-drone-slate/10 dark:bg-drone-slate-bright/15 rounded-full blur-3xl"></div>
         </div>
     </div>
 </section>
@@ -616,16 +836,16 @@
         <div class="service-option p-4 sm:p-6" onclick="selectService('realestate')" id="service-realestate">
             <div class="flex items-center justify-between w-full">
                 <div class="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-home text-xl sm:text-2xl text-drone-slate"></i>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-home text-xl sm:text-2xl text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                     <div class="flex-1 min-w-0">
                         <h3 class="font-bold text-base sm:text-lg dark:text-white">Real Estate Photography</h3>
-                        <p class="text-xs sm:text-sm opacity-90 truncate">4K HDR, 15-20 images, 2-3 min video</p>
+                        <p class="text-xs sm:text-sm opacity-90 dark:text-gray-400 truncate">4K HDR, 15-20 images, 2-3 min video</p>
                     </div>
                 </div>
                 <div class="flex items-center ml-4 flex-shrink-0">
-                    <span class="font-bold text-drone-slate text-base sm:text-lg whitespace-nowrap">$499+</span>
+                    <span class="font-bold text-drone-slate dark:text-drone-slate-bright text-base sm:text-lg whitespace-nowrap">$499+</span>
                 </div>
             </div>
         </div>
@@ -634,16 +854,16 @@
         <div class="service-option p-4 sm:p-6" onclick="selectService('events')" id="service-events">
             <div class="flex items-center justify-between w-full">
                 <div class="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-calendar-alt text-xl sm:text-2xl text-drone-slate"></i>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-calendar-alt text-xl sm:text-2xl text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                     <div class="flex-1 min-w-0">
                         <h3 class="font-bold text-base sm:text-lg dark:text-white">Event Coverage</h3>
-                        <p class="text-xs sm:text-sm opacity-90 truncate">Conferences, festivals – 2 drones option</p>
+                        <p class="text-xs sm:text-sm opacity-90 dark:text-gray-400 truncate">Conferences, festivals – 2 drones option</p>
                     </div>
                 </div>
                 <div class="flex items-center ml-4 flex-shrink-0">
-                    <span class="font-bold text-drone-slate text-base sm:text-lg whitespace-nowrap">$899+</span>
+                    <span class="font-bold text-drone-slate dark:text-drone-slate-bright text-base sm:text-lg whitespace-nowrap">$899+</span>
                 </div>
             </div>
         </div>
@@ -652,16 +872,16 @@
         <div class="service-option p-4 sm:p-6" onclick="selectService('construction')" id="service-construction">
             <div class="flex items-center justify-between w-full">
                 <div class="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-hard-hat text-xl sm:text-2xl text-drone-slate"></i>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-hard-hat text-xl sm:text-2xl text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                     <div class="flex-1 min-w-0">
                         <h3 class="font-bold text-base sm:text-lg dark:text-white">Construction Progress</h3>
-                        <p class="text-xs sm:text-sm opacity-90 truncate">Orthomosaic, 3D models, weekly reports</p>
+                        <p class="text-xs sm:text-sm opacity-90 dark:text-gray-400 truncate">Orthomosaic, 3D models, weekly reports</p>
                     </div>
                 </div>
                 <div class="flex items-center ml-4 flex-shrink-0">
-                    <span class="font-bold text-drone-slate text-base sm:text-lg whitespace-nowrap">$399+</span>
+                    <span class="font-bold text-drone-slate dark:text-drone-slate-bright text-base sm:text-lg whitespace-nowrap">$399+</span>
                 </div>
             </div>
         </div>
@@ -670,16 +890,16 @@
         <div class="service-option p-4 sm:p-6" onclick="selectService('wedding')" id="service-wedding">
             <div class="flex items-center justify-between w-full">
                 <div class="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
-                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-gem text-xl sm:text-2xl text-drone-slate"></i>
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 bg-drone-slate/10 dark:bg-drone-slate-bright/20 rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-gem text-xl sm:text-2xl text-drone-slate dark:text-drone-slate-bright"></i>
                     </div>
                     <div class="flex-1 min-w-0">
                         <h3 class="font-bold text-base sm:text-lg dark:text-white">Wedding Coverage</h3>
-                        <p class="text-xs sm:text-sm opacity-90 truncate">Sunset ceremony and highlight video</p>
+                        <p class="text-xs sm:text-sm opacity-90 dark:text-gray-400 truncate">Sunset ceremony and highlight video</p>
                     </div>
                 </div>
                 <div class="flex items-center ml-4 flex-shrink-0">
-                    <span class="font-bold text-drone-slate text-base sm:text-lg whitespace-nowrap">$899+</span>
+                    <span class="font-bold text-drone-slate dark:text-drone-slate-bright text-base sm:text-lg whitespace-nowrap">$899+</span>
                 </div>
             </div>
         </div>
@@ -712,17 +932,17 @@
                         <div class="time-slot" onclick="selectTime(this)">5:00 PM</div>
                         <div class="time-slot" onclick="selectTime(this)">6:00 PM</div>
                     </div>
-                    <p class="text-xs opacity-60 mt-2">*Golden hour (sunset) available upon request</p>
+                    <p class="text-xs opacity-60 dark:text-gray-400 mt-2">*Golden hour (sunset) available upon request</p>
                 </div>
                 
                 <div class="mb-6">
                     <label class="block font-medium mb-2 dark:text-gray-300">Shoot duration (approx)</label>
                     <select class="date-input" id="duration">
-                        <option>1 hour</option>
-                        <option>2 hours</option>
-                        <option>3 hours</option>
-                        <option>Half day (4 hours)</option>
-                        <option>Full day (8 hours)</option>
+                        <option class="dark:bg-dark-card">1 hour</option>
+                        <option class="dark:bg-dark-card">2 hours</option>
+                        <option class="dark:bg-dark-card">3 hours</option>
+                        <option class="dark:bg-dark-card">Half day (4 hours)</option>
+                        <option class="dark:bg-dark-card">Full day (8 hours)</option>
                     </select>
                 </div>
                 
@@ -777,47 +997,47 @@
             <div id="step4" class="step-content hidden">
                 <h2 class="text-2xl font-display font-bold mb-6 dark:text-white">Confirm your booking</h2>
                 
-                <div class="bg-drone-slate/5 dark:bg-drone-slate/10 rounded-2xl p-6 mb-8">
-                    <h3 class="font-bold text-lg mb-4">Summary</h3>
+                <div class="bg-drone-slate/5 dark:bg-drone-slate-bright/10 rounded-2xl p-6 mb-8">
+                    <h3 class="font-bold text-lg mb-4 dark:text-white">Summary</h3>
                     
                     <div class="summary-item">
-                        <span>Service:</span>
-                        <span class="font-medium" id="summary-service">Not selected</span>
+                        <span class="dark:text-gray-400">Service:</span>
+                        <span class="font-medium dark:text-white" id="summary-service">Not selected</span>
                     </div>
                     <div class="summary-item">
-                        <span>Date:</span>
-                        <span class="font-medium" id="summary-date">Not selected</span>
+                        <span class="dark:text-gray-400">Date:</span>
+                        <span class="font-medium dark:text-white" id="summary-date">Not selected</span>
                     </div>
                     <div class="summary-item">
-                        <span>Time:</span>
-                        <span class="font-medium" id="summary-time">Not selected</span>
+                        <span class="dark:text-gray-400">Time:</span>
+                        <span class="font-medium dark:text-white" id="summary-time">Not selected</span>
                     </div>
                     <div class="summary-item">
-                        <span>Duration:</span>
-                        <span class="font-medium" id="summary-duration">Not selected</span>
+                        <span class="dark:text-gray-400">Duration:</span>
+                        <span class="font-medium dark:text-white" id="summary-duration">Not selected</span>
                     </div>
                     <div class="summary-item">
-                        <span>Name:</span>
-                        <span class="font-medium" id="summary-name">Not provided</span>
+                        <span class="dark:text-gray-400">Name:</span>
+                        <span class="font-medium dark:text-white" id="summary-name">Not provided</span>
                     </div>
                     <div class="summary-item">
-                        <span>Email:</span>
-                        <span class="font-medium" id="summary-email">Not provided</span>
+                        <span class="dark:text-gray-400">Email:</span>
+                        <span class="font-medium dark:text-white" id="summary-email">Not provided</span>
                     </div>
                     <div class="summary-item">
-                        <span>Phone:</span>
-                        <span class="font-medium" id="summary-phone">Not provided</span>
+                        <span class="dark:text-gray-400">Phone:</span>
+                        <span class="font-medium dark:text-white" id="summary-phone">Not provided</span>
                     </div>
                     <div class="summary-item">
-                        <span>Location:</span>
-                        <span class="font-medium" id="summary-location">Not provided</span>
+                        <span class="dark:text-gray-400">Location:</span>
+                        <span class="font-medium dark:text-white" id="summary-location">Not provided</span>
                     </div>
                 </div>
                 
                 <div class="mb-6">
                     <label class="flex items-center gap-3">
-                        <input type="checkbox" class="w-5 h-5 accent-drone-slate" id="terms">
-                        <span class="dark:text-gray-300">I agree to the <a href="#" class="text-drone-slate underline">terms and conditions</a> and confirm that the information is correct.</span>
+                        <input type="checkbox" class="w-5 h-5 accent-drone-slate dark:accent-drone-slate-bright" id="terms">
+                        <span class="dark:text-gray-300">I agree to the <a href="#" class="text-drone-slate dark:text-drone-slate-bright underline">terms and conditions</a> and confirm that the information is correct.</span>
                     </label>
                 </div>
                 
@@ -825,7 +1045,7 @@
                     <button class="btn-outline px-6 py-3" onclick="prevStep()">Back</button>
                     <button class="btn-primary px-8 py-3" onclick="submitBooking()" id="submit-btn" disabled>Confirm & Pay Deposit</button>
                 </div>
-                <p class="text-xs opacity-60 text-center mt-4">A 20% deposit will be requested to secure your booking. You'll receive a confirmation email.</p>
+                <p class="text-xs opacity-60 dark:text-gray-400 text-center mt-4">A 20% deposit will be requested to secure your booking. You'll receive a confirmation email.</p>
             </div>
         </div>
     </div>
@@ -835,8 +1055,8 @@
 <section id="service-cards" class="py-16 bg-white dark:bg-dark-card">
     <div class="container mx-auto px-6">
         <div class="text-center max-w-3xl mx-auto mb-12">
-            <span class="text-drone-slate font-medium text-sm tracking-widest">/// QUICK OVERVIEW</span>
-            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Our <span class="text-drone-slate">services</span> at a glance</h2>
+            <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-sm tracking-widest">/// QUICK OVERVIEW</span>
+            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Our <span class="text-drone-slate dark:text-drone-slate-bright">services</span> at a glance</h2>
             <p class="text-neutral-dark/70 dark:text-gray-300">Tap any card to select it in the booking form</p>
         </div>
         
@@ -846,13 +1066,13 @@
                 <img src="assest/re.jpg" alt="Luxury villa aerial view" class="w-full h-40 object-cover">
                 <div class="service-img-content">
                     <div class="flex items-center gap-2 mb-2">
-                        <i class="fas fa-home text-drone-slate"></i>
+                        <i class="fas fa-home text-drone-slate dark:text-drone-slate-bright"></i>
                         <h3 class="font-display font-bold text-lg dark:text-white">Real Estate</h3>
                     </div>
-                    <p class="text-sm opacity-90 mb-3">4K HDR, twilight option, 15-20 images, 2-3 min cinematic video</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">4K HDR, twilight option, 15-20 images, 2-3 min cinematic video</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="font-bold text-drone-slate">from $499</span>
-                        <span class="text-drone-slate text-sm font-semibold">select →</span>
+                        <span class="font-bold text-drone-slate dark:text-drone-slate-bright">from $499</span>
+                        <span class="text-drone-slate dark:text-drone-slate-bright text-sm font-semibold">select →</span>
                     </div>
                 </div>
             </div>
@@ -862,13 +1082,13 @@
                 <img src="assest/ev.jpg" alt="Music festival crowd" class="w-full h-40 object-cover">
                 <div class="service-img-content">
                     <div class="flex items-center gap-2 mb-2">
-                        <i class="fas fa-calendar-alt text-drone-slate"></i>
+                        <i class="fas fa-calendar-alt text-drone-slate dark:text-drone-slate-bright"></i>
                         <h3 class="font-display font-bold text-lg dark:text-white">Events</h3>
                     </div>
-                    <p class="text-sm opacity-90 mb-3">Conferences, festivals, sports – 2 drones, highlight reel, group shots</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Conferences, festivals, sports – 2 drones, highlight reel, group shots</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="font-bold text-drone-slate">from $899</span>
-                        <span class="text-drone-slate text-sm font-semibold">select →</span>
+                        <span class="font-bold text-drone-slate dark:text-drone-slate-bright">from $899</span>
+                        <span class="text-drone-slate dark:text-drone-slate-bright text-sm font-semibold">select →</span>
                     </div>
                 </div>
             </div>
@@ -878,13 +1098,13 @@
                 <img src="assest/cons.jpg" alt="Construction site aerial" class="w-full h-40 object-cover">
                 <div class="service-img-content">
                     <div class="flex items-center gap-2 mb-2">
-                        <i class="fas fa-hard-hat text-drone-slate"></i>
+                        <i class="fas fa-hard-hat text-drone-slate dark:text-drone-slate-bright"></i>
                         <h3 class="font-display font-bold text-lg dark:text-white">Construction</h3>
                     </div>
-                    <p class="text-sm opacity-90 mb-3">Weekly orthomosaic, 3D models, volume reports, progress tracking</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Weekly orthomosaic, 3D models, volume reports, progress tracking</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="font-bold text-drone-slate">from $399</span>
-                        <span class="text-drone-slate text-sm font-semibold">select →</span>
+                        <span class="font-bold text-drone-slate dark:text-drone-slate-bright">from $399</span>
+                        <span class="text-drone-slate dark:text-drone-slate-bright text-sm font-semibold">select →</span>
                     </div>
                 </div>
             </div>
@@ -894,20 +1114,20 @@
                 <img src="assest/wed1.jpg" alt="Beach wedding ceremony" class="w-full h-40 object-cover">
                 <div class="service-img-content">
                     <div class="flex items-center gap-2 mb-2">
-                        <i class="fas fa-gem text-drone-slate"></i>
+                        <i class="fas fa-gem text-drone-slate dark:text-drone-slate-bright"></i>
                         <h3 class="font-display font-bold text-lg dark:text-white">Wedding</h3>
                     </div>
-                    <p class="text-sm opacity-90 mb-3">Sunset ceremony, 2‑min highlight, 50+ edited photos, quiet drone</p>
+                    <p class="text-sm opacity-90 dark:text-gray-400 mb-3">Sunset ceremony, 2‑min highlight, 50+ edited photos, quiet drone</p>
                     <div class="flex items-center justify-between mt-auto">
-                        <span class="font-bold text-drone-slate">from $899</span>
-                        <span class="text-drone-slate text-sm font-semibold">select →</span>
+                        <span class="font-bold text-drone-slate dark:text-drone-slate-bright">from $899</span>
+                        <span class="text-drone-slate dark:text-drone-slate-bright text-sm font-semibold">select →</span>
                     </div>
                 </div>
             </div>
         </div>
         
         <div class="text-center mt-10">
-            <p class="text-sm opacity-60">*All services include FAA certified pilot, full insurance, and 48h edit turnaround.</p>
+            <p class="text-sm opacity-60 dark:text-gray-400">*All services include FAA certified pilot, full insurance, and 48h edit turnaround.</p>
         </div>
     </div>
 </section>
@@ -916,16 +1136,16 @@
 <section class="py-16">
     <div class="container mx-auto px-6 max-w-4xl">
         <div class="text-center max-w-3xl mx-auto mb-12">
-            <span class="text-drone-slate font-medium text-sm tracking-widest">/// GOT QUESTIONS?</span>
-            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Frequently <span class="text-drone-slate">Asked Questions</span></h2>
+            <span class="text-drone-slate dark:text-drone-slate-bright font-medium text-sm tracking-widest">/// GOT QUESTIONS?</span>
+            <h2 class="text-3xl md:text-4xl font-display font-bold mt-4 mb-4 dark:text-white">Frequently <span class="text-drone-slate dark:text-drone-slate-bright">Asked Questions</span></h2>
             <p class="text-neutral-dark/70 dark:text-gray-300">Everything you need to know about booking an aerial shoot</p>
         </div>
         
-        <div class="bg-white dark:bg-dark-card rounded-3xl p-8 shadow-lg border border-drone-slate/10">
+        <div class="bg-white dark:bg-dark-card rounded-3xl p-8 shadow-lg border border-drone-slate/10 dark:border-drone-slate-bright/20">
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">
                     <span>How far in advance should I book?</span>
-                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                    <i class="fas fa-chevron-down text-drone-slate dark:text-drone-slate-bright transition-transform duration-300"></i>
                 </div>
                 <div class="faq-answer">
                     We recommend booking at least 2 weeks in advance for real estate and events, and 4-6 weeks for weddings to ensure availability. However, we do accommodate last-minute requests when possible – just give us a call.
@@ -934,7 +1154,7 @@
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">
                     <span>What happens if weather is bad on the day?</span>
-                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                    <i class="fas fa-chevron-down text-drone-slate dark:text-drone-slate-bright transition-transform duration-300"></i>
                 </div>
                 <div class="faq-answer">
                     Safety is our priority. If conditions are unsafe (high winds, rain, low clouds), we'll reschedule at no cost. For time-sensitive shoots, we monitor forecasts closely and communicate early.
@@ -943,7 +1163,7 @@
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">
                     <span>Do I need to obtain permits for drone flights?</span>
-                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                    <i class="fas fa-chevron-down text-drone-slate dark:text-drone-slate-bright transition-transform duration-300"></i>
                 </div>
                 <div class="faq-answer">
                     We handle all FAA authorizations and local permits. Just provide the location, and we'll ensure everything is legal and safe. Our team is experienced in navigating restricted airspace.
@@ -952,7 +1172,7 @@
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">
                     <span>What is your cancellation policy?</span>
-                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                    <i class="fas fa-chevron-down text-drone-slate dark:text-drone-slate-bright transition-transform duration-300"></i>
                 </div>
                 <div class="faq-answer">
                     Cancellations made 48+ hours before the shoot receive a full refund. Within 48 hours, the 20% deposit is non-refundable. We understand emergencies – just contact us as soon as possible.
@@ -961,7 +1181,7 @@
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-question">
                     <span>Do you travel outside Los Angeles?</span>
-                    <i class="fas fa-chevron-down text-drone-slate transition-transform duration-300"></i>
+                    <i class="fas fa-chevron-down text-drone-slate dark:text-drone-slate-bright transition-transform duration-300"></i>
                 </div>
                 <div class="faq-answer">
                     Absolutely! We serve clients worldwide. Travel fees may apply depending on distance and duration – we'll provide a custom quote during booking.
@@ -980,16 +1200,16 @@
                 <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
                     <!-- Logo container with proper spacing and no cut-off -->
                 <a href="index.html" class="flex items-center space-x-2 sm:space-x-3 group flex-nowrap">
-                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
-                        <i class="fas fa-camera-retro text-white text-sm sm:text-lg"></i>
+                    <div class="w-8 h-8 sm:w-10 sm:h-10 bg-drone-slate dark:bg-drone-slate-bright rounded-xl flex items-center justify-center flex-shrink-0 transform group-hover:rotate-12 transition-transform duration-300">
+                        <i class="fas fa-camera-retro text-white dark:text-dark-bg text-sm sm:text-lg"></i>
                     </div>
                     <div class="flex items-center whitespace-nowrap">
                         <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-neutral-dark dark:text-white">SKY</span>
-                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate ml-1">VUW</span>
+                        <span class="text-xl sm:text-2xl font-display font-bold tracking-tight text-drone-slate dark:text-drone-slate-bright ml-1">VUW</span>
                     </div>
                 </a>
                 </div>
-                <p class="text-base opacity-700 mb-6 leading-relaxed">
+                <p class="text-base opacity-700 mb-6 leading-relaxed dark:text-gray-300">
                     Professional aerial photography. Capturing stunning perspectives since 2019.
                 </p>
                 <div class="flex justify-center md:justify-start gap-4">
@@ -1004,11 +1224,11 @@
              <div class="text-center md:text-left">
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Quick Links</h3>
                 <ul class="space-y-4 text-base">
-                    <li><a href="index.html" class="hover:text-drone-slate transition text-base">Home</a></li>
-                    <li><a href="about.html" class="hover:text-drone-slate transition text-base">About</a></li>
-                    <li><a href="service.html" class="hover:text-drone-slate transition text-base">Services</a></li>
-                    <li><a href="portfolio.html" class="hover:text-drone-slate transition text-base">Portfolio</a></li>
-                    <li><a href="contact.html" class="hover:text-drone-slate transition text-base">Contact</a></li>
+                    <li><a href="index.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Home</a></li>
+                    <li><a href="about.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">About</a></li>
+                    <li><a href="service.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Services</a></li>
+                    <li><a href="portfolio.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Portfolio</a></li>
+                    <li><a href="contact.html" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Contact</a></li>
                 </ul>
             </div>
             
@@ -1016,11 +1236,11 @@
             <div class="text-center md:text-left">
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Photography</h3>
                 <ul class="space-y-4 text-base">
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Real Estate</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Event Coverage</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Construction</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Commercial</a></li>
-                    <li><a href="#" class="hover:text-drone-slate transition text-base">Wedding</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Real Estate</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Event Coverage</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Construction</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Commercial</a></li>
+                    <li><a href="#" class="hover:text-drone-slate dark:hover:text-drone-slate-bright transition text-base dark:text-gray-300">Wedding</a></li>
                 </ul>
             </div>
             
@@ -1029,20 +1249,20 @@
                 <h3 class="text-neutral-dark dark:text-white text-2xl font-display font-bold mb-6">Contact</h3>
                 <ul class="space-y-4 text-base mb-8">
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-map-marker-alt text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">123 Aerial Way, Los Angeles, CA 90210</span>
+                        <i class="fas fa-map-marker-alt text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">123 Aerial Way, Los Angeles, CA 90210</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-phone-alt text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">+1 (555) 123-4567</span>
+                        <i class="fas fa-phone-alt text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">+1 (555) 123-4567</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-envelope text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">helloskyvuw.com</span>
+                        <i class="fas fa-envelope text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">hello@skyvuw.com</span>
                     </li>
                     <li class="flex items-center justify-center md:justify-start gap-3">
-                        <i class="fas fa-clock text-drone-slate w-5 text-lg"></i>
-                        <span class="text-base">Mon-Fri: 9AM - 6PM</span>
+                        <i class="fas fa-clock text-drone-slate dark:text-drone-slate-bright w-5 text-lg"></i>
+                        <span class="text-base dark:text-gray-300">Mon-Fri: 9AM - 6PM</span>
                     </li>
                 </ul>
                 
@@ -1051,9 +1271,9 @@
         </div>
         
         <!-- Bottom Bar -->
-        <div class="border-t border-drone-slate/10 mt-12 pt-8 text-center">
-            <p class="text-base opacity-90">© 2026 SKY VUW. All rights reserved. FAA certified operations.</p>
-            <p class="text-sm opacity-80 mt-2">Capturing stunning perspectives from above since 2019</p>
+        <div class="border-t border-drone-slate/10 dark:border-drone-slate-bright/20 mt-12 pt-8 text-center">
+            <p class="text-base opacity-90 dark:text-gray-300">© 2026 SKY VUW. All rights reserved. FAA certified operations.</p>
+            <p class="text-sm opacity-80 mt-2 dark:text-gray-400">Capturing stunning perspectives from above since 2019</p>
         </div>
     </div>
 </footer>
